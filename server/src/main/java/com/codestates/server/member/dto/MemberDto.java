@@ -7,7 +7,7 @@ import lombok.Setter;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
-public class memberDto {
+public class MemberDto {
 
     @Getter
     public static class Post{
