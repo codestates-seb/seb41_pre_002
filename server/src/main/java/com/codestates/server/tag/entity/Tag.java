@@ -1,6 +1,7 @@
 package com.codestates.server.tag.entity;
 
 import com.codestates.server.question.entity.QuestionTag;
+import lombok.Builder;
 import lombok.Getter;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@Builder
 public class Tag {
 
     @Id
