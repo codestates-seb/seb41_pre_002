@@ -2,11 +2,15 @@ package com.codestates.server.question.entity;
 
 import com.codestates.server.tag.entity.Tag;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@Setter
+@NoArgsConstructor
 public class QuestionTag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,20 +23,4 @@ public class QuestionTag {
     @ManyToOne
     @JoinColumn(name = "TAG_ID")
     private Tag tag;
-
-    // 연관 관계 매핑 관련 메서드
-    public void addQuestion(Question question) {
-        this.question = question;
-        if (!this.question.getQuestionTags().contains(this)) {
-            this.question.getQuestionTags().add(this);
-        }
-    }
-
-    public void addTag(Tag tag) {
-        this.tag = tag;
-        if (!this.tag.getQuestionTags().contains(this)) {
-            this.tag.getQuestionTags().add(this);
-        }
-    }
-
 }
