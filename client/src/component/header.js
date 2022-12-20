@@ -1,30 +1,25 @@
-import React from 'react'
+import React from 'react';
 import styled from 'styled-components';
-import { createGlobalStyle } from "styled-components";
 
-const GlobalStyle = createGlobalStyle`
-  input {
-    width: 60vw;
-  }
-`
-
-const Headerdiv = styled.div`
+const StyledHeader = styled.header`
+  background-color: #f8f9f9;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+  display: flex;
   width: 100vw;
-  height: 50px;
 `;
 
 const Header = () => {
   return (
-    <>
-    <GlobalStyle />
-    <Headerdiv>
-      <header>
-        <img href="스택오버플로우로고" alt="로고"/>
-        <input type='text' placeholder='Search...' />
-      </header>
-    </Headerdiv>
-    </>
-  )
-}
+    <StyledHeader>
+      <img src="" className="logo" alt="로고" />
+      <form action="" className="search">
+        <input type="text" placeholder="Search..." />
+      </form>
+      <a href="" className="profile">
+        me!
+      </a>
+    </StyledHeader>
+  );
+};
 
 export default Header;
