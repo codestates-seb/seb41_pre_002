@@ -30,5 +30,5 @@ public class Member extends Auditable {
     @OneToMany(mappedBy = "member")
     private List<Answer> answerList = new ArrayList<>();
 
-    //todo: comment 매핑 추가
+    //Todo: comment 매핑 추가
 }
