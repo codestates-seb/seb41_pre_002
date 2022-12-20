@@ -1,12 +1,20 @@
 package com.codestates.server.member.entity;
 
-import java.util.Date;
+import com.codestates.server.audit.Auditable;
+import lombok.Getter;
 
-public class Member {
+import javax.persistence.*;
+
+@Entity
+@Getter
+public class Member extends Auditable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long memberId;
+    @Column(nullable = false)
     String email;
+    @Column(nullable = false)
     String memberName;
+    @Column(nullable = false)
     String memberPassword;
-    Date createdAt;
-    Date modifiedAt;
 }
