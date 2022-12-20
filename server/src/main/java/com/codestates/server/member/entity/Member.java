@@ -4,12 +4,14 @@ import com.codestates.server.answer.entity.Answer;
 import com.codestates.server.audit.Auditable;
 import com.codestates.server.question.entity.Question;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.*;
 import javax.persistence.*;
 
 @Entity
 @Getter
+@Setter
 public class Member extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,10 +26,10 @@ public class Member extends Auditable {
     @Column(nullable = false)
     private String memberPassword;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany
     private List<Question> questionList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany
     private List<Answer> answerList = new ArrayList<>();
 
     //Todo: comment 매핑 추가
