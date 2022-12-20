@@ -2,6 +2,7 @@ package com.codestates.server.tag.entity;
 
 import com.codestates.server.question.entity.QuestionTag;
 import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@Setter
 public class Tag {
 
     @Id
@@ -28,7 +30,7 @@ public class Tag {
     public void addQuestionTag(QuestionTag questionTag) {
         this.questionTags.add(questionTag);
         if (questionTag.getTag() != this) {
-            questionTag.addTag(this);
+            questionTag.setTag(this);
         }
     }
 }
