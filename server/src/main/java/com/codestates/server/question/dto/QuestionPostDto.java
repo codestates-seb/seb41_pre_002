@@ -1,5 +1,6 @@
 package com.codestates.server.question.dto;
 
+import com.codestates.server.member.entity.Member;
 import lombok.Getter;
 import org.hibernate.validator.constraints.Length;
 
@@ -21,4 +22,9 @@ public class QuestionPostDto {
 
     private List<String> categories;
 
+    public Member getMember() {
+        Member member = new Member();
+        member.setMemberId(this.memberId);
+        return member;
+    }
 }
