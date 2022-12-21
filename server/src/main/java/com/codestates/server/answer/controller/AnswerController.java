@@ -52,7 +52,7 @@ public class AnswerController {
         Answer response = answerService.updateAnswer(answerId,mapper.AnswerPatchDtoToAnswer(requestBody));
         return new ResponseEntity<>(new SingleResponseDto<>(mapper.AnswerToAnswerResponseDto(response)),HttpStatus.OK);
     }
-    @DeleteMapping("/{answer-id}}")
+    @DeleteMapping("/{answer-id}")
     public ResponseEntity deleteAnswer(@PathVariable("answer-id") Long answerId) {
         answerService.deleteAnswer(answerId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
