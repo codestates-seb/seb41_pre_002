@@ -6,7 +6,7 @@ const GlobalStyle = createGlobalStyle`
   input {
     width: 60vw;
   }
-`
+`;
 
 const Headerdiv = styled.div`
   width: 100vw;
