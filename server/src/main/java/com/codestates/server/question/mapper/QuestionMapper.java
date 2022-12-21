@@ -1,5 +1,6 @@
 package com.codestates.server.question.mapper;
 
+import com.codestates.server.question.dto.QuestionPatchDto;
 import com.codestates.server.question.dto.QuestionPostDto;
 import com.codestates.server.question.dto.QuestionResponseDto;
 import com.codestates.server.question.dto.QuestionSuccessResponseDto;
@@ -20,11 +21,11 @@ public interface QuestionMapper {
         }
 
         Question question = new Question();
-        question.setMember(questionPostDto.getMember());
 
         if (questionPostDto != null) {
             question.setTitle(questionPostDto.getTitle());
             question.setContent(questionPostDto.getContent());
+            question.setMember(questionPostDto.getMember());
 
             tags.stream()
                     .forEach(tag -> {
@@ -43,6 +44,36 @@ public interface QuestionMapper {
     }
 
     Question questionPostDtoToQuestion(QuestionPostDto questionPostDto);
+
+    default Question questionPatchDtoToQuestion(QuestionPatchDto questionPatchDto, List<Tag> tags) {
+        if (tags == null) {
+            return questionPatchDtoToQuestion(questionPatchDto);
+        }
+
+        Question question = new Question();
+
+        if (questionPatchDto != null) {
+            question.setQuestionId(questionPatchDto.getQuestionId());
+            question.setTitle(questionPatchDto.getTitle());
+            question.setContent(questionPatchDto.getContent());
+            question.setMember(questionPatchDto.getMember());
+
+            tags.stream()
+                    .forEach(tag -> {
+                        QuestionTag questionTag = new QuestionTag();
+                        questionTag.setQuestion(question);
+
+                        Tag tag1 = new Tag();
+                        tag1.setTagId(tag.getTagId());
+                        questionTag.setTag(tag1);
+
+                        question.addQuestionTag(questionTag);
+                    });
+        }
+
+        return question;
+    }
+    Question questionPatchDtoToQuestion(QuestionPatchDto questionPatchDto);
 
     QuestionSuccessResponseDto questionToQuestionSuccessResponseDto(Question question);
 
