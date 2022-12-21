@@ -1,6 +1,7 @@
 package com.codestates.server.question.mapper;
 
 import com.codestates.server.question.dto.QuestionPostDto;
+import com.codestates.server.question.dto.QuestionResponseDto;
 import com.codestates.server.question.dto.QuestionSuccessResponseDto;
 import com.codestates.server.question.entity.Question;
 import com.codestates.server.question.entity.QuestionTag;
@@ -43,4 +44,5 @@ public interface QuestionMapper {
 
     QuestionSuccessResponseDto questionToQuestionSuccessResponseDto(Question question);
 
+    List<QuestionResponseDto> questionsToQuestionResponseDtos(List<Question> questions);
 }

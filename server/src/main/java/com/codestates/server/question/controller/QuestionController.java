@@ -1,5 +1,6 @@
 package com.codestates.server.question.controller;
 
+import com.codestates.server.dto.MultiResponseDto;
 import com.codestates.server.dto.SingleResponseDto;
 import com.codestates.server.question.dto.QuestionPostDto;
 import com.codestates.server.question.entity.Question;
@@ -7,6 +8,7 @@ import com.codestates.server.question.mapper.QuestionMapper;
 import com.codestates.server.question.service.QuestionService;
 import com.codestates.server.tag.entity.Tag;
 import com.codestates.server.tag.service.TagService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -65,6 +67,17 @@ public class QuestionController {
          *       - 댓글을 작성한 사람의 정보*/
 
         return new ResponseEntity<>(
+                HttpStatus.OK
+        );
+    }
+
+    @GetMapping
+    public ResponseEntity getQuestions(@Positive @RequestParam int page,
+                                       @Positive @RequestParam int size) { //Todo: 다양한 정렬 조건들 받을 예정
+        Page<Question> pageQuestions = questionService.findQuestions(page - 1, size);
+
+        return new ResponseEntity(
+                new MultiResponseDto<>(questionMapper.questionsToQuestionResponseDtos(pageQuestions.getContent()), pageQuestions),
                 HttpStatus.OK
         );
     }

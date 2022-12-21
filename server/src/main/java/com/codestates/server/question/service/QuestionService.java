@@ -3,6 +3,9 @@ package com.codestates.server.question.service;
 import com.codestates.server.member.service.MemberService;
 import com.codestates.server.question.entity.Question;
 import com.codestates.server.question.repository.QuestionRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,4 +26,11 @@ public class QuestionService {
 
         return questionRepository.save(question);
     }
+
+    public Page<Question> findQuestions(int page, int size) {
+        return questionRepository.findAll(PageRequest.of(
+                page, size, Sort.by("questionId").descending()
+        ));
+    }
+
 }
