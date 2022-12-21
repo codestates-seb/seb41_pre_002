@@ -9,6 +9,7 @@ import com.codestates.server.tag.entity.Tag;
 import org.mapstruct.Mapper;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface QuestionMapper {
@@ -44,5 +45,20 @@ public interface QuestionMapper {
 
     QuestionSuccessResponseDto questionToQuestionSuccessResponseDto(Question question);
 
-    List<QuestionResponseDto> questionsToQuestionResponseDtos(List<Question> questions);
+    default List<QuestionResponseDto> questionsToQuestionResponseDtos(List<Question> questions) {
+        if (questions == null) return null;
+
+        return questions.stream()
+                .map(question -> {
+                    QuestionResponseDto.QuestionResponseDtoBuilder questionResponseDto = QuestionResponseDto.builder();
+                    questionResponseDto.questionId(question.getQuestionId());
+                    questionResponseDto.title(question.getTitle());
+                    questionResponseDto.content(question.getContent());
+                    questionResponseDto.memberId(question.getMember().getMemberId());
+                    questionResponseDto.memberName(question.getMember().getMemberName());
+                    return questionResponseDto.build();
+                })
+                .collect(Collectors.toList());
+    }
+
 }
