@@ -11,7 +11,7 @@ const NavDiv = styled.div`
   top: 0;
   display: flex;
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
-  
+
   ul {
     width: 164;
     list-style: none;

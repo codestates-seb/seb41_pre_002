@@ -1,0 +1,11 @@
+@charset "utf-8";
+
+@font-face {
+  font-family: "Gaegu";
+  src: url("https://fonts.googleapis.com/css2?family=Gaegu:wght@700&display=swap");
+}
+
+@font-face {
+  font-family: "Jua";
+  src: url("https://fonts.googleapis.com/css2?family=Jua&display=swap");
+}
