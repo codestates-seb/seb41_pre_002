@@ -1,11 +1,11 @@
-package com.codestates.server.answer.dto;
+package com.codestates.server.comment.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
 
-public class AnswerCommentDto {
+public class CommentDto {
 
     @Getter
     public static class Post {
