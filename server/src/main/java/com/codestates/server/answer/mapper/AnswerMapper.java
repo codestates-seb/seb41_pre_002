@@ -8,6 +8,7 @@ import org.mapstruct.ReportingPolicy;
 import java.time.LocalDateTime;
 import java.util.List;
 
+
 @Mapper(componentModel = "spring",unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface AnswerMapper {
     Answer AnswerPostDtoToAnswer(AnswerDto.Post requestBody);

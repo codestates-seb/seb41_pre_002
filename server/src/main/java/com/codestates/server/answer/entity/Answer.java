@@ -17,7 +17,6 @@ import java.util.List;
 @Entity
 public class Answer extends Auditable {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long answerId;
