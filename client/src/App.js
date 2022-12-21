@@ -1,11 +1,17 @@
-import './App.css';
-import Header from './component/header.js';
+import "./App.css";
+import Header from "./component/header.js";
+import Nav from "./component/nav.js";
+import Question from "./component/questions.js";
+import Footer from "./component/footer.js";
 
 function App() {
   return (
-    <div>
+    <>
       <Header />
-    </div>
+      <Nav />
+      <Question />
+      <Footer />
+    </>
   );
 }
 
