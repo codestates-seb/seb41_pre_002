@@ -2,6 +2,7 @@ package com.codestates.server.question.entity;
 
 import com.codestates.server.answer.entity.Answer;
 import com.codestates.server.audit.Auditable;
+import com.codestates.server.member.entity.Member;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,7 +27,9 @@ public class Question extends Auditable {
     @OneToMany(mappedBy = "question", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<QuestionTag> questionTags = new ArrayList<>();
 
-//Todo:    private Member member; // 다대일 연관관계 매핑 예
+    @ManyToOne
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member;
 
     @OneToMany(mappedBy = "question")
     private List<Answer> answers = new ArrayList<>(); // 일대다 연관관계 매핑 예정
