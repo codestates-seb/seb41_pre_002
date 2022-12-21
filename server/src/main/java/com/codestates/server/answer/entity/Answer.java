@@ -17,7 +17,6 @@ import java.util.List;
 @Entity
 public class Answer extends Auditable {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long answerId;
@@ -45,7 +44,7 @@ public class Answer extends Auditable {
     }
     public void setQuestion(Question question) {
         this.question = question;
-        question.getanswers.add(this); // 시영님께 부탁드리기 List<Answer>
+        question.getAnswers().add(this);
     }
     public void addComment(Comment comment) {
         this.comments.add(comment);
