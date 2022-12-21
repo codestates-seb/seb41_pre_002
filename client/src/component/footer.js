@@ -85,7 +85,7 @@ const Rounddiv = styled.div`
   margin-top: 30px;
   margin-left: 87px;
   width: 100px;
-  height: 30px;
+  height: 35px;
   border-radius: 15px;
   border: solid white;
   color: white;
