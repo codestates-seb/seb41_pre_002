@@ -24,7 +24,7 @@ public class QuestionService {
 
     public Question createQuestion(Question question) {
         /**Insert Into MEMBER
-         values (1,null,null,'test@test.com','테스트','1234')*/
+         values (1,NOW(),NOW(),'test@test.com','테스트','1234')*/
 
         //멤버 유효성검증
         memberService.findVerifiedMember(question.getMember().getMemberId());
@@ -68,7 +68,7 @@ public class QuestionService {
 
     private void canModifyOrDelete(long questionId) {
         /**Insert Into ANSWER
-         values (1,null,null,'답변입니다',1,2)*/
+         values (1,NOW(),NOW(),'답변입니다',1,2)*/
         Question findQuestion = questionRepository.findById(questionId).get();
 
         // 답변이나 댓글이 존재할 경우 수정 또는 삭제할 수 없음           //Todo: 댓글 기능 추가 되면 확인 후 주석 해제
