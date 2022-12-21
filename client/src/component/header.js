@@ -12,6 +12,7 @@ const Header = () => {
     <div>
       <GlobalStyle />
       <header class="s-topbar">
+        {/* 스택오버플로우 로고 */}
         <a href="…" class="s-topbar--logo">
           <svg width="146" height="30" viewBox="0 0 146 30" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M21 27V19H24V30H0V19H3V27H21Z" fill="#BCBBBB" />
@@ -25,14 +26,17 @@ const Header = () => {
             />
           </svg>
         </a>
+
+        {/* products */}
         <nav aria-label="…">
           <div role="tablist" class="s-navigation">
             <button type="button" class="s-navigation--item" role="tab" aria-selected="false">
-              Product
+              Products
             </button>
           </div>
         </nav>
 
+        {/* 검색창 */}
         <form id="search" class="s-topbar--searchbar" autocomplete="off">
           <div class="s-topbar--searchbar--input-group">
             <input type="text" placeholder="Search…" value="" autocomplete="off" class="s-input s-input__search" />
@@ -42,6 +46,7 @@ const Header = () => {
           </div>
         </form>
 
+        {/* 로그인&회원가입 */}
         <nav class="s-topbar--navigation" aria-label="Log in or sign up">
           <ol class="s-topbar--content">
             <li>
