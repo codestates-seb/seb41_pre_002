@@ -34,6 +34,8 @@ public class Question extends Auditable {
     @OneToMany(mappedBy = "question")
     private List<Answer> answers = new ArrayList<>(); // 일대다 연관관계 매핑 예정
 
+// Todo: 일대다 연관관계 매핑 예정
+//    private List<Comment> comments = new ArrayList<>();
 
     // 연관 관계 매핑 관련 메서드
     public void addQuestionTag(QuestionTag questionTag) {
