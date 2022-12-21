@@ -86,6 +86,8 @@ public interface QuestionMapper {
                     questionResponseDto.questionId(question.getQuestionId());
                     questionResponseDto.title(question.getTitle());
                     questionResponseDto.content(question.getContent());
+                    questionResponseDto.createdAt(question.getCreatedAt());
+                    questionResponseDto.modifiedAt(question.getModifiedAt());
                     questionResponseDto.memberId(question.getMember().getMemberId());
                     questionResponseDto.memberName(question.getMember().getMemberName());
                     questionResponseDto.tagResponseDtos(questionTagsToTagResponseDtos(question.getQuestionTags()));
