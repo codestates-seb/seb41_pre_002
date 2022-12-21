@@ -91,6 +91,8 @@ public interface QuestionMapper {
                     questionResponseDto.memberId(question.getMember().getMemberId());
                     questionResponseDto.memberName(question.getMember().getMemberName());
                     questionResponseDto.tagResponseDtos(questionTagsToTagResponseDtos(question.getQuestionTags()));
+                    questionResponseDto.answerCount(question.getAnswers().size());
+//Todo: 추천 수 넣을 예정                    questionResponseDto.voteCount(question.getVotes().size());
                     return questionResponseDto.build();
                 })
                 .collect(Collectors.toList());

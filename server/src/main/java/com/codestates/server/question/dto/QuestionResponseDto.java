@@ -18,4 +18,6 @@ public class QuestionResponseDto {
     private Long memberId;
     private String memberName;
     private List<TagResponseDto> tagResponseDtos;
+    private Integer answerCount;
+    private Integer voteCount;
 }
