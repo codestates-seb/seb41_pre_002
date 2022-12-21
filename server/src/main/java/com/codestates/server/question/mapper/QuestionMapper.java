@@ -39,6 +39,6 @@ public interface QuestionMapper {
 
     Question questionPostDtoToQuestion(QuestionPostDto questionPostDto);
 
-    QuestionSuccessResponseDto QuestionToQuestionSuccessResponseDto(Question question);
+    QuestionSuccessResponseDto questionToQuestionSuccessResponseDto(Question question);
 
 }
