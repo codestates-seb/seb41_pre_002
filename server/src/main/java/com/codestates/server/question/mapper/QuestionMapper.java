@@ -5,6 +5,7 @@ import com.codestates.server.question.dto.QuestionResponseDto;
 import com.codestates.server.question.dto.QuestionSuccessResponseDto;
 import com.codestates.server.question.entity.Question;
 import com.codestates.server.question.entity.QuestionTag;
+import com.codestates.server.tag.dto.TagResponseDto;
 import com.codestates.server.tag.entity.Tag;
 import org.mapstruct.Mapper;
 
@@ -56,7 +57,19 @@ public interface QuestionMapper {
                     questionResponseDto.content(question.getContent());
                     questionResponseDto.memberId(question.getMember().getMemberId());
                     questionResponseDto.memberName(question.getMember().getMemberName());
+                    questionResponseDto.tagResponseDtos(questionTagsToTagResponseDtos(question.getQuestionTags()));
                     return questionResponseDto.build();
+                })
+                .collect(Collectors.toList());
+    }
+
+    default List<TagResponseDto> questionTagsToTagResponseDtos(List<QuestionTag> questionTags) {
+        return questionTags.stream()
+                .map(questionTag -> {
+                    TagResponseDto tagResponseDto = new TagResponseDto();
+                    tagResponseDto.setTagId(questionTag.getTag().getTagId());
+                    tagResponseDto.setCategory(questionTag.getTag().getCategory());
+                    return tagResponseDto;
                 })
                 .collect(Collectors.toList());
     }
