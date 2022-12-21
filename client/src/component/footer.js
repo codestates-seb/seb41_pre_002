@@ -11,7 +11,7 @@ font-size: 20px;
 color: white;
 };
 a{
-color: white;
+color: black;
 }
 `;
 const Footersection = styled.section`
