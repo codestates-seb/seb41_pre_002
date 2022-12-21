@@ -14,27 +14,29 @@ public interface QuestionMapper {
     default Question questionPostDtoToQuestion(QuestionPostDto questionPostDto, List<Tag> tags) {
         if (tags == null) {
             return questionPostDtoToQuestion(questionPostDto);
-        } else {
-            Question question = new Question();
-            if (questionPostDto != null) {
-                question.setTitle(questionPostDto.getTitle());
-                question.setContent(questionPostDto.getContent());
-
-                tags.stream()
-                        .forEach(tag -> {
-                            QuestionTag questionTag = new QuestionTag();
-                            questionTag.setQuestion(question);
-
-                            Tag tag1 = new Tag();
-                            tag1.setTagId(tag.getTagId());
-                            questionTag.setTag(tag1);
-
-                            question.addQuestionTag(questionTag);
-                        });
-            }
-
-            return question;
         }
+
+        Question question = new Question();
+        question.setMember(questionPostDto.getMember());
+
+        if (questionPostDto != null) {
+            question.setTitle(questionPostDto.getTitle());
+            question.setContent(questionPostDto.getContent());
+
+            tags.stream()
+                    .forEach(tag -> {
+                        QuestionTag questionTag = new QuestionTag();
+                        questionTag.setQuestion(question);
+
+                        Tag tag1 = new Tag();
+                        tag1.setTagId(tag.getTagId());
+                        questionTag.setTag(tag1);
+
+                        question.addQuestionTag(questionTag);
+                    });
+        }
+
+        return question;
     }
 
     Question questionPostDtoToQuestion(QuestionPostDto questionPostDto);
