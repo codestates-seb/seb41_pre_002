@@ -6,7 +6,6 @@ import com.codestates.server.comment.entity.Comment;
 import com.codestates.server.comment.mapper.CommentMapper;
 import com.codestates.server.comment.service.CommentService;
 import com.codestates.server.dto.SingleResponseDto;
-import com.sun.net.httpserver.HttpServer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.text.ParseException;
 
 @RestController
 @RequestMapping
@@ -34,8 +32,8 @@ public class CommentController {
         return new ResponseEntity<>(new SingleResponseDto<>(mapper.commentToCommentResponseDto(response)), HttpStatus.CREATED);
     }
 
-    @PostMapping("/answers/{answers-id}/comments")
-    public ResponseEntity postAnswerComment( @PathVariable("answer-id") Long answerId,
+    @PostMapping("/answers/{answer-id}/comments")
+    public ResponseEntity postAnswerComment(@PathVariable("answer-id") Long answerId,
                                        @Valid @RequestBody CommentDto.Post requestBody) {
 
         Comment comment = mapper.commentPostDtoToComment(requestBody);
@@ -44,7 +42,7 @@ public class CommentController {
 
     }
     @PatchMapping("/comments/{comment-id}")
-    public ResponseEntity patchComment(@RequestParam("comment-id") Long commentId,
+    public ResponseEntity patchComment(@PathVariable("comment-id") Long commentId,
                                        @RequestBody CommentDto.Patch requestBody,
                                        HttpServletRequest request) {
 
@@ -53,7 +51,7 @@ public class CommentController {
         return new ResponseEntity<>(new SingleResponseDto<>(mapper.commentToCommentResponseDto(response)), HttpStatus.OK);
     }
     @DeleteMapping("/comments/{comment-id}")
-    public ResponseEntity deleteComment(@RequestParam("comment-id") Long commentId,
+    public ResponseEntity deleteComment(@PathVariable("comment-id") Long commentId,
                                         HttpServletRequest request) {
 
         commentService.deleteComment(commentId);
