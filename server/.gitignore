@@ -35,3 +35,6 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### application.yml 관련 설정 ###
+./src/main/resources/application-ksy.yml
