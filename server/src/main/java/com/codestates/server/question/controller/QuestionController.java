@@ -2,7 +2,6 @@ package com.codestates.server.question.controller;
 
 import com.codestates.server.dto.MultiResponseDto;
 import com.codestates.server.dto.SingleResponseDto;
-import com.codestates.server.question.dto.QuestionDetailResponseDto;
 import com.codestates.server.question.dto.QuestionPatchDto;
 import com.codestates.server.question.dto.QuestionPostDto;
 import com.codestates.server.question.entity.Question;
