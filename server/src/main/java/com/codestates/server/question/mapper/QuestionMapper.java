@@ -1,9 +1,7 @@
 package com.codestates.server.question.mapper;
 
-import com.codestates.server.question.dto.QuestionPatchDto;
-import com.codestates.server.question.dto.QuestionPostDto;
-import com.codestates.server.question.dto.QuestionResponseDto;
-import com.codestates.server.question.dto.QuestionSuccessResponseDto;
+import com.codestates.server.audit.AuditableResponseDto;
+import com.codestates.server.question.dto.*;
 import com.codestates.server.question.entity.Question;
 import com.codestates.server.question.entity.QuestionTag;
 import com.codestates.server.tag.dto.TagResponseDto;
@@ -73,6 +71,7 @@ public interface QuestionMapper {
 
         return question;
     }
+
     Question questionPatchDtoToQuestion(QuestionPatchDto questionPatchDto);
 
     QuestionSuccessResponseDto questionToQuestionSuccessResponseDto(Question question);
@@ -81,20 +80,7 @@ public interface QuestionMapper {
         if (questions == null) return null;
 
         return questions.stream()
-                .map(question -> {
-                    QuestionResponseDto.QuestionResponseDtoBuilder questionResponseDto = QuestionResponseDto.builder();
-                    questionResponseDto.questionId(question.getQuestionId());
-                    questionResponseDto.title(question.getTitle());
-                    questionResponseDto.content(question.getContent());
-                    questionResponseDto.createdAt(question.getCreatedAt());
-                    questionResponseDto.modifiedAt(question.getModifiedAt());
-                    questionResponseDto.memberId(question.getMember().getMemberId());
-                    questionResponseDto.memberName(question.getMember().getMemberName());
-                    questionResponseDto.tagResponseDtos(questionTagsToTagResponseDtos(question.getQuestionTags()));
-                    questionResponseDto.answerCount(question.getAnswers().size());
-//Todo: 추천 수 넣을 예정                    questionResponseDto.voteCount(question.getVotes().size());
-                    return questionResponseDto.build();
-                })
+                .map(question -> questionToQuestionResponseDto(question, false))
                 .collect(Collectors.toList());
     }
 
@@ -109,4 +95,47 @@ public interface QuestionMapper {
                 .collect(Collectors.toList());
     }
 
+    default QuestionDetailResponseDto questionToQuestionDetailResponseDto(Question question) {
+        if (question == null) {
+            return null;
+        }
+
+        // questionDetailResponseDto 변환 시작
+        QuestionDetailResponseDto.QuestionDetailResponseDtoBuilder questionDetailResponseDto = QuestionDetailResponseDto.builder();
+        questionDetailResponseDto.questionResponseDto(questionToQuestionResponseDto(question, true));
+        questionDetailResponseDto.answerResponseDtos(
+                question.getAnswers().stream()
+                        .map(answer -> AnswerResponseDto.builder()
+                                .answerId(answer.getAnswerId())
+                                .content(answer.getContent())
+                                .auditableResponseDto(new AuditableResponseDto(answer.getCreatedAt(), answer.getModifiedAt()))
+                                .voteCount(99) //Todo: 추천 수 관련 추가 예정
+                                .memberId(answer.getMember().getMemberId())
+                                .memberName(answer.getMember().getMemberName())
+                                //Todo: 추가 예정 .commentResponseDtos()
+                                .build()).collect(Collectors.toList()));
+        return questionDetailResponseDto.build();
+    }
+
+    default QuestionResponseDto questionToQuestionResponseDto(Question question, boolean detail) {
+        if (question == null) {
+            return null;
+        }
+
+        QuestionResponseDto.QuestionResponseDtoBuilder questionResponseDto = QuestionResponseDto.builder();
+        questionResponseDto.questionId(question.getQuestionId());
+        questionResponseDto.title(question.getTitle());
+        questionResponseDto.content(question.getContent());
+        questionResponseDto.auditableResponseDto(new AuditableResponseDto(question.getCreatedAt(), question.getModifiedAt()));
+        questionResponseDto.memberId(question.getMember().getMemberId());
+        questionResponseDto.memberName(question.getMember().getMemberName());
+        questionResponseDto.tagResponseDtos(questionTagsToTagResponseDtos(question.getQuestionTags()));
+        questionResponseDto.answerCount(question.getAnswers().size());
+        //Todo: 추천 수 넣을 예정 questionResponseDto.voteCount(question.getVotes().size());
+        if (detail) {
+            //Todo: detail 여부가 true 일 경우 댓글을 변환한다
+
+        }
+        return questionResponseDto.build();
+    }
 }

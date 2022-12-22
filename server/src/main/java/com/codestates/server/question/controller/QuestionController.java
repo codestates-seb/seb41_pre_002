@@ -2,6 +2,7 @@ package com.codestates.server.question.controller;
 
 import com.codestates.server.dto.MultiResponseDto;
 import com.codestates.server.dto.SingleResponseDto;
+import com.codestates.server.question.dto.QuestionDetailResponseDto;
 import com.codestates.server.question.dto.QuestionPatchDto;
 import com.codestates.server.question.dto.QuestionPostDto;
 import com.codestates.server.question.entity.Question;
@@ -35,6 +36,11 @@ public class QuestionController {
 
     @PostMapping
     public ResponseEntity postQuestion(@Valid @RequestBody QuestionPostDto questionPostDto) {
+        /**Insert Into MEMBER
+         values (1,NOW(),NOW(),'test@test.com','테스트','1234') 멤버 생성 쿼리*/
+
+        /**Insert Into ANSWER
+         values (1,NOW(),NOW(),'답변입니다',1,2) 답변 생성 쿼리*/
 
         List<Tag> tags = tagService.findTags(questionPostDto.getCategories());
         Question question = questionService.createQuestion(questionMapper.questionPostDtoToQuestion(questionPostDto, tags));
@@ -61,19 +67,20 @@ public class QuestionController {
 
     @GetMapping("/{question-id}")
     public ResponseEntity getQuestionDetail(@Positive @PathVariable("question-id") long questionId) {
-        Question question = questionService.findQuestion(questionId);
-
-        /*질문내용
+        /** 질문 상세페이지에 포함되어야 할 내용
+         *질문내용
          *   - 질문한 사람의 간략한 정보
          *   - 질문에 대한 댓글들
-         *       - 댓글을 작성한 사람의 정보*/
-
-        /*답변내용들
+         *       - 댓글을 작성한 사람의 정보
+         *답변내용들
          *   - 질문한 사람의 간략한 정보
          *   - 답변에 대한 댓글들
          *       - 댓글을 작성한 사람의 정보*/
 
+        Question question = questionService.findQuestion(questionId);
+
         return new ResponseEntity<>(
+                new SingleResponseDto<>(questionMapper.questionToQuestionDetailResponseDto(question)),
                 HttpStatus.OK
         );
     }
