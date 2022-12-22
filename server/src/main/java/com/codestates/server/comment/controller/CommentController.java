@@ -29,28 +29,28 @@ public class CommentController {
     public ResponseEntity postQuestionComment(@PathVariable("question-id") Long questionId,
                                        @Valid @RequestBody CommentDto.Post requestBody) {
 
-        Comment comment = mapper.CommentPostDtoToComment(requestBody);
+        Comment comment = mapper.commentPostDtoToComment(requestBody);
         Comment response = commentService.postQuestionComment(questionId, comment);
-        return new ResponseEntity<>(new SingleResponseDto<>(mapper.CommentToCommentResponseDto(response)), HttpStatus.CREATED);
+        return new ResponseEntity<>(new SingleResponseDto<>(mapper.commentToCommentResponseDto(response)), HttpStatus.CREATED);
     }
 
     @PostMapping("/answers/{answers-id}/comments")
     public ResponseEntity postAnswerComment( @PathVariable("answer-id") Long answerId,
                                        @Valid @RequestBody CommentDto.Post requestBody) {
 
-        Comment comment = mapper.CommentPostDtoToComment(requestBody);
+        Comment comment = mapper.commentPostDtoToComment(requestBody);
         Comment response = commentService.postAnswerComment(answerId, comment);
-        return new ResponseEntity<>(new SingleResponseDto<>(mapper.CommentToCommentResponseDto(response)), HttpStatus.CREATED);
+        return new ResponseEntity<>(new SingleResponseDto<>(mapper.commentToCommentResponseDto(response)), HttpStatus.CREATED);
 
     }
-    @PatchMapping("/comments/{comment-id}}")
+    @PatchMapping("/comments/{comment-id}")
     public ResponseEntity patchComment(@RequestParam("comment-id") Long commentId,
                                        @RequestBody CommentDto.Patch requestBody,
                                        HttpServletRequest request) {
 
-        Comment comment = mapper.CommentPatchDtoToComment(requestBody);
+        Comment comment = mapper.commentPatchDtoToComment(requestBody);
         Comment response = commentService.updateComment(commentId, comment);
-        return new ResponseEntity<>(new SingleResponseDto<>(mapper.CommentToCommentResponseDto(response)), HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponseDto<>(mapper.commentToCommentResponseDto(response)), HttpStatus.OK);
     }
     @DeleteMapping("/comments/{comment-id}")
     public ResponseEntity deleteComment(@RequestParam("comment-id") Long commentId,
