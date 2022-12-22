@@ -1,5 +1,6 @@
 package com.codestates.server.comment.mapper;
 
+import com.codestates.server.audit.AuditableResponseDto;
 import com.codestates.server.comment.dto.CommentDto;
 import com.codestates.server.comment.entity.Comment;
 import com.codestates.server.member.entity.Member;
@@ -9,6 +10,7 @@ import org.mapstruct.ReportingPolicy;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface CommentMapper {
@@ -67,8 +69,12 @@ public interface CommentMapper {
 
         Long questionId = comment.getQuestion().getQuestionId();
         Long memberId = comment.getMember().getMemberId();
+        Long answerId = null;
+        if (comment.getAnswer() ==null) {
+            answerId = null;
+        } else answerId = comment.getAnswer().getAnswerId();
 
-        CommentDto.Response response = new CommentDto.Response( questionId, memberId, content, createdAt, modifiedAt );
+        CommentDto.Response response = new CommentDto.Response( questionId,answerId ,memberId, content,new AuditableResponseDto(createdAt,modifiedAt));
 
         return response;
     }
