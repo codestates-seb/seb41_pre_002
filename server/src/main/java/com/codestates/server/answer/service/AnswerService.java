@@ -29,9 +29,10 @@ public class AnswerService {
 
     // 답글 생성.
     @Transactional
-    public Answer createAnswer(Answer answer) {
-        Member findMember = verifyMember(answer.getMember().getMemberId());
-        Question findQuestion = verifyQuestion(answer.getQuestion().getQuestionId());
+    public Answer createAnswer(Long questionId,Answer answer) {
+
+        Question findQuestion = verifyQuestion(questionId);
+        Member findMember = verifyMember(findQuestion.getMember().getMemberId());
 
         answer.setMember(findMember);
         answer.setQuestion(findQuestion);
