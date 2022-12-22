@@ -1,3 +1,4 @@
+import React from "react";
 import Header from "./component/header.js";
 import Nav from "./component/nav.js";
 import Question from "./component/Questions.js";
@@ -7,12 +8,11 @@ import styled from "styled-components";
 const Maindiv = styled.div`
   width: 100vw;
   height: auto;
-
   display: flex;
   flex-direction: row;
 `;
 
-function App() {
+function MainPage() {
   return (
     <>
       <Header />
@@ -25,4 +25,4 @@ function App() {
   );
 }
 
-export default App;
+export default MainPage;
