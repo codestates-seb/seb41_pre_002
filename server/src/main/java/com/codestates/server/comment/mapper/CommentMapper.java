@@ -69,12 +69,13 @@ public interface CommentMapper {
 
         Long questionId = comment.getQuestion().getQuestionId();
         Long memberId = comment.getMember().getMemberId();
+        String memberName = comment.getMember().getMemberName();
         Long answerId = null;
         if (comment.getAnswer() ==null) {
             answerId = null;
         } else answerId = comment.getAnswer().getAnswerId();
 
-        CommentDto.Response response = new CommentDto.Response( questionId,answerId ,memberId, content,new AuditableResponseDto(createdAt,modifiedAt));
+        CommentDto.Response response = new CommentDto.Response( questionId,answerId ,memberId,memberName,content,new AuditableResponseDto(createdAt,modifiedAt));
 
         return response;
     }
