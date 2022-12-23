@@ -31,7 +31,6 @@ public class AnswerDto {
         private Long questionId;
         private String memberName;
         private String content;
-        private Integer voteCount;
         private AuditableResponseDto auditableResponseDto;
     }
 }
