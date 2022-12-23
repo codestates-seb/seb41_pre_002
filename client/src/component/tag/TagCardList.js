@@ -10,11 +10,23 @@ const TagCardList = styled.div`
   margin-top: 15px;
 `
 
+// 태그 인풋 아래에 있는 tag card를 전체로 넣은 컴포넌트
 
 const TagCard = () => {
   return (
     <>
       <TagCardList>
+        <TagCardItem />
+        <TagCardItem />
+        <TagCardItem />
+        <TagCardItem />
+        <TagCardItem />
+        <TagCardItem />
+        <TagCardItem />
+        <TagCardItem />
+        <TagCardItem />
+        <TagCardItem />
+        <TagCardItem />
         <TagCardItem />
       </TagCardList>
     </>
