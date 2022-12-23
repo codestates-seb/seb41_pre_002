@@ -33,26 +33,43 @@ public class VoteService {
         this.questionService = questionService;
     }
 
-    public void createVote(char request, long memberId, long requestId) {
-        Member member = memberService.findVerifiedMember(memberId);
+    public void doVote(char request, int score, long memberId, long requestId) {
+        Member member = memberService.findVerifiedMember(memberId); // Member에 대한 유효성 검사
 
         switch (request) {
-            case 'A':
-                Answer answer = answerService.verifyAnswer(requestId);
-                answerVoteRepository.save(new AnswerVote(member, answer));
+            case 'A': // Answer에 대한 투표일 경우
+                Answer answer = answerService.verifyAnswer(requestId); // Answer에 대한 유효성 검사
+                Optional<AnswerVote> optionalAnswerVote = verifyExistsAnswerVote(member, answer); // 이미 투표를 했는지를 검사
+                if (optionalAnswerVote.isPresent()) { // 이미 투표한 경우 업데이트 해준다
+                    AnswerVote answerVote = optionalAnswerVote.get();
+                    answerVote.calculateScore(score);
+                    answerVoteRepository.save(answerVote);
+                } else {
+                    answerVoteRepository.save(new AnswerVote(score, member, answer)); // 처음하는 투표일 경우 새로운 객체를 생성하여 저장한다
+                }
                 break;
 
-            case 'Q':
+            case 'Q': // Question에 대한 투표일 경우
                 Question question = questionService.findVerifiedQuestion(requestId);
-                questionVoteRepository.save(new QuestionVote(member, question));
+                Optional<QuestionVote> optionalQuestionVote = verifyExistsQuestionVote(member, question);
+                if (optionalQuestionVote.isPresent()) {
+                    QuestionVote questionVote = optionalQuestionVote.get();
+                    questionVote.calculateScore(score);
+                    questionVoteRepository.save(questionVote);
+                } else {
+                    questionVoteRepository.save(new QuestionVote(score, member, question));
+                }
                 break;
         }
+
     }
 
-//    private void verifyExistsAnswerVote(long memberId, long answerId) {
-//        Optional<AnswerVote> optionalAnswerVote = answerVoteRepository.findByMemberId(memberId);
-//
-//    }
+    // 이미 추천이 존재하는지 확인하는 메서드
+    private Optional<AnswerVote> verifyExistsAnswerVote(Member member, Answer answer) {
+        return answerVoteRepository.findByMemberAndAnswer(member, answer);
+    }
 
-
+    private Optional<QuestionVote> verifyExistsQuestionVote(Member member, Question question) {
+        return questionVoteRepository.findByMemberAndQuestion(member, question);
+    }
 }
