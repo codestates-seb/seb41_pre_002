@@ -18,7 +18,7 @@ public interface CommentMapper {
     List<CommentDto.Response> commentsToCommentResponseDto(List<Comment> comments);
 
     default Comment commentPostDtoToComment(CommentDto.Post requestBody) {
-        if ( requestBody == null ) {
+        if (requestBody == null) {
             return null;
         }
 
@@ -36,8 +36,9 @@ public interface CommentMapper {
 
         return comment;
     }
+
     default Comment commentPatchDtoToComment(CommentDto.Patch requestBody) {
-        if ( requestBody == null ) {
+        if (requestBody == null) {
             return null;
         }
 
@@ -54,8 +55,9 @@ public interface CommentMapper {
 
         return comment;
     }
+
     default CommentDto.Response commentToCommentResponseDto(Comment comment) {
-        if ( comment == null ) {
+        if (comment == null) {
             return null;
         }
 
@@ -71,11 +73,11 @@ public interface CommentMapper {
         Long memberId = comment.getMember().getMemberId();
         String memberName = comment.getMember().getMemberName();
         Long answerId = null;
-        if (comment.getAnswer() ==null) {
+        if (comment.getAnswer() == null) {
             answerId = null;
         } else answerId = comment.getAnswer().getAnswerId();
 
-        CommentDto.Response response = new CommentDto.Response( questionId,answerId ,memberId,memberName,content,new AuditableResponseDto(createdAt,modifiedAt));
+        CommentDto.Response response = new CommentDto.Response(comment.getCommentId(), questionId, answerId, memberId, memberName, content, new AuditableResponseDto(createdAt, modifiedAt));
 
         return response;
     }

@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: local # 로컬 환경에서 개발할 경우
+    active: ksy # 로컬 환경에서 개발할 경우
 
 logging:
   level:
