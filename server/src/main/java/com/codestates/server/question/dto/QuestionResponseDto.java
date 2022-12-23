@@ -1,6 +1,7 @@
 package com.codestates.server.question.dto;
 
 import com.codestates.server.audit.AuditableResponseDto;
+import com.codestates.server.comment.dto.CommentDto;
 import com.codestates.server.tag.dto.TagResponseDto;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,6 +20,5 @@ public class QuestionResponseDto {
     private List<TagResponseDto> tagResponseDtos;
     private Integer answerCount;
     private Integer voteCount;
-    private List<CommentResponseDto> commentResponseDtos;
+    private List<CommentDto.Response> commentResponseDtos;
 }
-//Todo: 리펙터링할 때 중복사항 감싸기

@@ -4,12 +4,14 @@ import com.codestates.server.audit.Auditable;
 import com.codestates.server.comment.entity.Comment;
 import com.codestates.server.member.entity.Member;
 import com.codestates.server.question.entity.Question;
+import com.codestates.server.vote.entity.AnswerVote;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -34,6 +36,9 @@ public class Answer extends Auditable {
     @ManyToOne
     @JoinColumn(name = "question_id")
     private Question question;
+
+    @OneToMany(mappedBy = "answer")
+    private List<AnswerVote> answerVotes = new ArrayList<>();
 
     /**
      * 연관관계 편의 메서드

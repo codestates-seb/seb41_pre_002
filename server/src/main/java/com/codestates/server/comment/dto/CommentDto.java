@@ -25,13 +25,12 @@ public class CommentDto {
     @Getter
     @AllArgsConstructor
     public static class Response {
+        private Long commentId;
         private Long questionId;
         private Long answerId;
         private Long memberId;
         private String memberName;
         private String content;
         private AuditableResponseDto auditableResponseDto;
-        /*private LocalDateTime createdAt;
-        private LocalDateTime modifiedAt;*/
     }
 }

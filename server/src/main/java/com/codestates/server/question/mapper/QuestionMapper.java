@@ -1,6 +1,8 @@
 package com.codestates.server.question.mapper;
 
+import com.codestates.server.answer.dto.AnswerDto;
 import com.codestates.server.audit.AuditableResponseDto;
+import com.codestates.server.comment.dto.CommentDto;
 import com.codestates.server.question.dto.*;
 import com.codestates.server.question.entity.Question;
 import com.codestates.server.question.entity.QuestionTag;
@@ -8,6 +10,7 @@ import com.codestates.server.tag.dto.TagResponseDto;
 import com.codestates.server.tag.entity.Tag;
 import org.mapstruct.Mapper;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -104,16 +107,45 @@ public interface QuestionMapper {
         return QuestionDetailResponseDto
                 .builder()
                 .questionResponseDto(questionToQuestionResponseDto(question, true))
-                .answerResponseDtos(
+                .answerResponseDtos( //Todo: AnswerMapper와 중복코드임 제거해야됨
                         question.getAnswers().stream()
-                                .map(answer -> AnswerResponseDto.builder()
+                                .map(answer -> AnswerDto.Response.builder()
                                         .answerId(answer.getAnswerId())
+                                        .questionId(answer.getQuestion().getQuestionId())
                                         .content(answer.getContent())
                                         .auditableResponseDto(new AuditableResponseDto(answer.getCreatedAt(), answer.getModifiedAt()))
-                                        .voteCount(99) //Todo: 추천 수 관련 추가 예정
+                                        .voteCount(answer.getAnswerVotes().stream()
+                                                .map(answerVote -> answerVote.getScore())
+                                                .reduce(0, (x, y) -> x + y))
                                         .memberId(answer.getMember().getMemberId())
                                         .memberName(answer.getMember().getMemberName())
-//                                        .commentResponseDtos()
+                                        .commentResponseDtos(answer.getComments().stream()
+                                                .map(comment -> { //Todo: CommentMapper에 있음 합쳐야됨
+                                                    if (comment == null) {
+                                                        return null;
+                                                    }
+
+                                                    String content = null;
+                                                    LocalDateTime createdAt = null;
+                                                    LocalDateTime modifiedAt = null;
+
+                                                    content = comment.getContent();
+                                                    createdAt = comment.getCreatedAt();
+                                                    modifiedAt = comment.getModifiedAt();
+
+                                                    Long questionId = comment.getQuestion().getQuestionId();
+                                                    Long memberId = comment.getMember().getMemberId();
+                                                    String memberName = comment.getMember().getMemberName();
+                                                    Long answerId = null;
+                                                    if (comment.getAnswer() == null) {
+                                                        answerId = null;
+                                                    } else answerId = comment.getAnswer().getAnswerId();
+
+                                                    CommentDto.Response response = new CommentDto.Response(comment.getCommentId(), questionId, answerId, memberId, memberName, content, new AuditableResponseDto(createdAt, modifiedAt));
+
+                                                    return response;
+                                                })
+                                                .collect(Collectors.toList()))
                                         .build())
                                 .collect(Collectors.toList()))
                 .build();
@@ -122,6 +154,36 @@ public interface QuestionMapper {
     default QuestionResponseDto questionToQuestionResponseDto(Question question, boolean detail) {
         if (question == null) {
             return null;
+        }
+        List<CommentDto.Response> commentResponseDto = null;
+        if (detail) {
+            commentResponseDto = question.getComments().stream()
+                    .map(comment -> { //Todo: CommentMapper에 있음 합쳐야됨
+                        if (comment == null) {
+                            return null;
+                        }
+
+                        String content = null;
+                        LocalDateTime createdAt = null;
+                        LocalDateTime modifiedAt = null;
+
+                        content = comment.getContent();
+                        createdAt = comment.getCreatedAt();
+                        modifiedAt = comment.getModifiedAt();
+
+                        Long questionId = comment.getQuestion().getQuestionId();
+                        Long memberId = comment.getMember().getMemberId();
+                        String memberName = comment.getMember().getMemberName();
+                        Long answerId = null;
+                        if (comment.getAnswer() == null) {
+                            answerId = null;
+                        } else answerId = comment.getAnswer().getAnswerId();
+
+                        CommentDto.Response response = new CommentDto.Response(comment.getCommentId(), questionId, answerId, memberId, memberName, content, new AuditableResponseDto(createdAt, modifiedAt));
+
+                        return response;
+                    })
+                    .collect(Collectors.toList());
         }
 
         return QuestionResponseDto
@@ -137,10 +199,7 @@ public interface QuestionMapper {
                 .voteCount(question.getQuestionVotes().stream()
                         .map(questionVote -> questionVote.getScore())
                         .reduce(0, (x, y) -> x + y))
+                .commentResponseDtos(commentResponseDto)
                 .build();
-
-//        if (detail) {
-        //Todo: detail 여부가 true 일 경우 댓글을 변환한다
-//        }
     }
 }
