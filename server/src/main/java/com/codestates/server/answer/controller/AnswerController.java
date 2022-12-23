@@ -29,11 +29,12 @@ public class AnswerController {
 
     @PostMapping("/questions/{question-id}/answers")
     public ResponseEntity postAnswer(@PathVariable("question-id") Long questionId,
-                                     @Valid  @RequestBody AnswerDto.Post requestBody) {
+                                     @Valid @RequestBody AnswerDto.Post requestBody) {
         Answer answer = mapper.AnswerPostDtoToAnswer(requestBody);
-        Answer response = answerService.createAnswer(questionId,answer);
-        return new ResponseEntity<>(new SingleResponseDto<>(mapper.AnswerToAnswerResponseDto(response)), HttpStatus.CREATED);
+        Answer response = answerService.createAnswer(questionId, answer);
+        return new ResponseEntity<>(new SingleResponseDto<>(AnswerMapper.AnswerToAnswerResponseDto(response)), HttpStatus.CREATED);
     }
+
     /*@GetMapping("/{answer-id}")
     public ResponseEntity getAnswer(@PathVariable("answer-id") Long answerId) {
         Answer response = answerService.findAnswer(answerId);
@@ -50,9 +51,10 @@ public class AnswerController {
     @PatchMapping("/answers/{answer-id}")
     public ResponseEntity patchAnswer(@PathVariable("answer-id") Long answerId,
                                       @Valid @RequestBody AnswerDto.Patch requestBody) {
-        Answer response = answerService.updateAnswer(answerId,mapper.AnswerPatchDtoToAnswer(requestBody));
-        return new ResponseEntity<>(new SingleResponseDto<>(mapper.AnswerToAnswerResponseDto(response)),HttpStatus.OK);
+        Answer response = answerService.updateAnswer(answerId, mapper.AnswerPatchDtoToAnswer(requestBody));
+        return new ResponseEntity<>(new SingleResponseDto<>(AnswerMapper.AnswerToAnswerResponseDto(response)), HttpStatus.OK);
     }
+
     @DeleteMapping("/answers/{answer-id}")
     public ResponseEntity deleteAnswer(@PathVariable("answer-id") Long answerId) {
         answerService.deleteAnswer(answerId);

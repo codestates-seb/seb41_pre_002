@@ -1,28 +1,25 @@
 package com.codestates.server.comment.mapper;
 
 import com.codestates.server.audit.AuditableResponseDto;
-import com.codestates.server.comment.dto.CommentDto;
-import com.codestates.server.comment.entity.Comment;
+import com.codestates.server.comment.dto.QuestionCommentDto;
+import com.codestates.server.comment.entity.QuestionComment;
 import com.codestates.server.member.entity.Member;
 import com.codestates.server.question.entity.Question;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
-public interface CommentMapper {
+public interface QuestionCommentMapper {
 
-    List<CommentDto.Response> commentsToCommentResponseDto(List<Comment> comments);
-
-    default Comment commentPostDtoToComment(CommentDto.Post requestBody) {
+    default QuestionComment questionCommentPostDtoToQuestionComment(QuestionCommentDto.Post requestBody) {
         if (requestBody == null) {
             return null;
         }
 
-        Comment comment = new Comment();
+        QuestionComment comment = new QuestionComment();
         Member member = new Member();
         Question question = new Question();
 
@@ -37,12 +34,11 @@ public interface CommentMapper {
         return comment;
     }
 
-    default Comment commentPatchDtoToComment(CommentDto.Patch requestBody) {
+    default QuestionComment questionCommentPatchDtoToQuestionComment(QuestionCommentDto.Patch requestBody) {
         if (requestBody == null) {
             return null;
         }
-
-        Comment comment = new Comment();
+        QuestionComment comment = new QuestionComment();
         Member member = new Member();
         Question question = new Question();
 
@@ -56,7 +52,7 @@ public interface CommentMapper {
         return comment;
     }
 
-    default CommentDto.Response commentToCommentResponseDto(Comment comment) {
+    static QuestionCommentDto.Response commentToCommentResponseDto(QuestionComment comment) {
         if (comment == null) {
             return null;
         }
@@ -72,12 +68,8 @@ public interface CommentMapper {
         Long questionId = comment.getQuestion().getQuestionId();
         Long memberId = comment.getMember().getMemberId();
         String memberName = comment.getMember().getMemberName();
-        Long answerId = null;
-        if (comment.getAnswer() == null) {
-            answerId = null;
-        } else answerId = comment.getAnswer().getAnswerId();
 
-        CommentDto.Response response = new CommentDto.Response(comment.getCommentId(), questionId, answerId, memberId, memberName, content, new AuditableResponseDto(createdAt, modifiedAt));
+        QuestionCommentDto.Response response = new QuestionCommentDto.Response(comment.getCommentId(), questionId, memberId, memberName, content, new AuditableResponseDto(createdAt, modifiedAt));
 
         return response;
     }

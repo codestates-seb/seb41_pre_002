@@ -1,7 +1,7 @@
 package com.codestates.server.question.dto;
 
 import com.codestates.server.audit.AuditableResponseDto;
-import com.codestates.server.comment.dto.CommentDto;
+import com.codestates.server.comment.dto.QuestionCommentDto;
 import com.codestates.server.tag.dto.TagResponseDto;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,5 +20,5 @@ public class QuestionResponseDto {
     private List<TagResponseDto> tagResponseDtos;
     private Integer answerCount;
     private Integer voteCount;
-    private List<CommentDto.Response> commentResponseDtos;
+    private List<QuestionCommentDto.Response> commentResponseDtos;
 }

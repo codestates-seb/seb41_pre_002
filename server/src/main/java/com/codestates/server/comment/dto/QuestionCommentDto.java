@@ -4,22 +4,18 @@ import com.codestates.server.audit.AuditableResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.time.LocalDateTime;
-
-public class CommentDto {
+public class QuestionCommentDto {
 
     @Getter
     public static class Post {
         private Long memberId;
         private Long questionId;
-        private Long answerId;
         private String content;
     }
     @Getter
     public static class Patch {
         private Long memberId;
         private Long questionId;
-        private Long answerId;
         private String content;
     }
     @Getter
@@ -27,7 +23,6 @@ public class CommentDto {
     public static class Response {
         private Long commentId;
         private Long questionId;
-        private Long answerId;
         private Long memberId;
         private String memberName;
         private String content;
