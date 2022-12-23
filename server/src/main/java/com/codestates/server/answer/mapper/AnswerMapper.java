@@ -2,6 +2,7 @@ package com.codestates.server.answer.mapper;
 
 import com.codestates.server.answer.dto.AnswerDto;
 import com.codestates.server.answer.entity.Answer;
+import com.codestates.server.audit.AuditableResponseDto;
 import com.codestates.server.member.entity.Member;
 import com.codestates.server.question.entity.Question;
 import org.mapstruct.Mapper;
@@ -59,8 +60,7 @@ public interface AnswerMapper {
                 .questionId(answer.getAnswerId())
                 .memberName(answer.getMember().getMemberName())
                 .content(answer.getContent())
-                .createdAt(answer.getCreatedAt())
-                .modifiedAt(answer.getModifiedAt())
+                .auditableResponseDto(new AuditableResponseDto(answer.getCreatedAt(),answer.getModifiedAt()))
                 .build();
     }
 }
