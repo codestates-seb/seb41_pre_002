@@ -19,7 +19,7 @@ import javax.validation.constraints.Positive;
 import java.util.List;
 
 @RestController
-@RequestMapping("/answers")
+@RequestMapping
 @RequiredArgsConstructor
 @Validated
 public class AnswerController {
@@ -27,13 +27,14 @@ public class AnswerController {
     private final AnswerService answerService;
     private final AnswerMapper mapper;
 
-    @PostMapping
-    public ResponseEntity postAnswer(@Valid  @RequestBody AnswerDto.Post requestBody) {
+    @PostMapping("/questions/{question-id}/answers")
+    public ResponseEntity postAnswer(@PathVariable("question-id") Long questionId,
+                                     @Valid  @RequestBody AnswerDto.Post requestBody) {
         Answer answer = mapper.AnswerPostDtoToAnswer(requestBody);
-        Answer response = answerService.createAnswer(answer);
+        Answer response = answerService.createAnswer(questionId,answer);
         return new ResponseEntity<>(new SingleResponseDto<>(mapper.AnswerToAnswerResponseDto(response)), HttpStatus.CREATED);
     }
-    @GetMapping("/{answer-id}")
+    /*@GetMapping("/{answer-id}")
     public ResponseEntity getAnswer(@PathVariable("answer-id") Long answerId) {
         Answer response = answerService.findAnswer(answerId);
         return new ResponseEntity<>(new SingleResponseDto<>(mapper.AnswerToAnswerResponseDto(response)),HttpStatus.OK);
@@ -45,14 +46,14 @@ public class AnswerController {
         List<Answer> answers = pageAnswers.getContent();
 
         return new ResponseEntity<>(new MultiResponseDto<>(mapper.AnswersToAnswerResponseDtos(answers),pageAnswers),HttpStatus.OK);
-    }
-    @PatchMapping("/{answer-id}")
+    }*/
+    @PatchMapping("/answers/{answer-id}")
     public ResponseEntity patchAnswer(@PathVariable("answer-id") Long answerId,
                                       @Valid @RequestBody AnswerDto.Patch requestBody) {
         Answer response = answerService.updateAnswer(answerId,mapper.AnswerPatchDtoToAnswer(requestBody));
         return new ResponseEntity<>(new SingleResponseDto<>(mapper.AnswerToAnswerResponseDto(response)),HttpStatus.OK);
     }
-    @DeleteMapping("/{answer-id}")
+    @DeleteMapping("/answers/{answer-id}")
     public ResponseEntity deleteAnswer(@PathVariable("answer-id") Long answerId) {
         answerService.deleteAnswer(answerId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
