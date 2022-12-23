@@ -18,56 +18,66 @@ const TagDIV = styled.div`
   p {
     /* display: flex; */
     color: black;
+    font-size: 15px;
+    max-width: 625px;
   }
   .TagSearchDiv {
     display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 1050px;
+    height: 50px;
   }
-  /* .tag--input-group{
+  .ButtonBox {
     display: flex;
-  } */
+    border-color: var(--_bu-outlined-bc-selected);
+    border-radius: 4px;
+  }
+  .Btn {
+    /* display: flex; */
+    height: 40px;
+    width: 60px;
+    background-color: var(--_bu-outlined-bg);
+    border-color: var(--_bu-outlined-bc-selected);
+    color: black;
+    font-size: 13px;
+    font-weight: 400;
+    border: 1px solid rgb(214, 217, 220);
+    &:active {
+      border-color: rgb(227, 230, 232);
+      background-color: rgb(227, 230, 232);
+      color: rgb(59, 64, 60);
+    }
+    &:hover {
+      background-color: rgb(242, 244, 245);
+    }
+  }
 `;
-// const TagInput = styled.input`
-//   display: flex;
-// `;
+
 
 const Tag = () => {
   return (
     <>
       <TagDIV>
+        {/* tag 페이지 상단 */}
         <h1>Tags</h1>
-        <p>
-          A tag is a keyword or label that categorizes your question with other,
-          similar questions. Using the right tags makes it easier for others to
-          find and answer your question.
-        </p>
+        {
+          <p className="TagPar">
+            A tag is a keyword or label that categorizes your question with
+            other, similar questions.<br></br> Using the right tags makes it
+            easier for others to find and answer your question.
+          </p>
+        }
+        {/*tag input && buttion div 묶음 */}
         <div className="TagSearchDiv">
-          <Taginput/>
-          {/*tag 검색창 */}
-          {/* <form id="search" class="tag--searchbar" autocomplete="off"> */}
-            {/* <div class="tag--input-group">
-              <input
-                type="text"
-                placeholder="Filter by tag name"
-                value=""
-                autocomplete="off"
-                class="tag-input__search"
-              />
-              <svg
-                aria-hidden="true"
-                class="s-input-icon s-input-icon__search svg-icon iconSearch"
-                width="18"
-                height="18"
-                viewBox="0 0 18 18"
-              >
-                <path d="m18 16.5-5.14-5.18h-.35a7 7 0 1 0-1.19 1.19v.35L16.5 18l1.5-1.5ZM12 7A5 5 0 1 1 2 7a5 5 0 0 1 10 0Z"></path>
-              </svg>
-            </div> */}
-          {/* </form> */}
-          <button>Popular</button>
-          <button>Name</button>
-          <button>New</button>
+          <Taginput />
+          <div className="ButtonBox">
+            <button className="Btn">Popular</button>
+            <button className="Btn">Name</button>
+            <button className="Btn">New</button>
+          </div>
         </div>
-        <TagCard/>
+        <TagCard />
       </TagDIV>
     </>
   );
