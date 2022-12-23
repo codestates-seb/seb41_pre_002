@@ -12,7 +12,6 @@ public class AnswerDto {
     public static class Post {
         private Long memberId;
         private Long questionId;
-        private String memberName;
         @NotBlank
         private String content;
     }
@@ -20,7 +19,6 @@ public class AnswerDto {
     public static class Patch {
         private Long memberId;
         private Long questionId;
-        private String memberName;
         @NotBlank
         private String content;
     }
