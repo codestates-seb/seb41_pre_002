@@ -1,9 +1,9 @@
 import React from "react";
-import Header from "./component/header.js";
-import Nav from "./component/nav.js";
-import Question from "./component/Questions.js";
-import Footer from "./component/footer.js";
 import styled from "styled-components";
+import Header from "../component/header";
+import Footer from "../component/footer";
+import Nav from "../component/nav";
+import Questions from "../component/Questions";
 
 const Maindiv = styled.div`
   width: 100vw;
@@ -18,7 +18,7 @@ function MainPage() {
       <Header />
       <Maindiv>
         <Nav />
-        <Question />
+        <Questions />
       </Maindiv>
       <Footer />
     </>
