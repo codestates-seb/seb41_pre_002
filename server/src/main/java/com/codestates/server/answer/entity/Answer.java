@@ -1,13 +1,11 @@
 package com.codestates.server.answer.entity;
 
 import com.codestates.server.audit.Auditable;
-import com.codestates.server.comment.entity.Comment;
+import com.codestates.server.comment.entity.AnswerComment;
 import com.codestates.server.member.entity.Member;
 import com.codestates.server.question.entity.Question;
 import com.codestates.server.vote.entity.AnswerVote;
-import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -27,7 +25,7 @@ public class Answer extends Auditable {
     private String content;
 
     @OneToMany(mappedBy = "answer")
-    private List<Comment> comments;
+    private List<AnswerComment> answerComments;
 
     @ManyToOne
     @JoinColumn(name = "member_id")
@@ -51,8 +49,8 @@ public class Answer extends Auditable {
         this.question = question;
         question.getAnswers().add(this);
     }
-    public void addComment(Comment comment) {
-        this.comments.add(comment);
+    public void addComment(AnswerComment answerComment) {
+        this.answerComments.add(answerComment);
     }
 }
 
