@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import "../assets/fonts.css";
 import { createGlobalStyle } from "styled-components";
@@ -11,6 +11,7 @@ const PageDiv = styled.div`
   width: 100vw;
   display: flex;
   flex-direction: column;
+  padding-top: 40px;
 `;
 
 const PageHeader = styled.header`
@@ -25,28 +26,34 @@ const Headernamediv = styled.div`
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   text-align: left;
-  font-size: 30px;
+  font-size: 40px;
   height: 937px;
-  line-height: 40px;
+  line-height: 50px;
   min-width: 0px;
 `;
 const Askbuttondiv = styled.div`
   width: 180px;
   height: 120px;
-  background-color: aqua;
-  color: black;
+  padding-top: 20px;
 `;
 
 const Importmationdiv = styled.div`
-  background-color: antiquewhite;
+  color: #6a737c;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  text-align: left;
+  font-size: 12px;
+`;
+
+const Importmationspan = styled.span`
+  color: #232629;
+  margin: 5px 50px 3px 10px;
 `;
 
 const ImportmationMain = styled.main`
   display: flex;
-  padding: 5px 100px 3px 100px;
+  padding: 30px 100px 3px 100px;
   flex-direction: row;
-  background-color: black;
-  color: aqua;
 `;
 
 const Contentsdiv = styled.div`
@@ -55,11 +62,15 @@ const Contentsdiv = styled.div`
   flex-direction: row;
 `;
 const Recomneddiv = styled.div`
-  background-color: yellow;
+  background-color: white;
   display: flex;
   flex-direction: column;
   width: 100px;
-  color: brown;
+  color: #6a737c;
+  i {
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
 `;
 const Qustioncontentdiv = styled.div`
   width: 900px;
@@ -69,7 +80,7 @@ const Qustioncontentdiv = styled.div`
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   text-align: left;
   font-size: 20px;
-  height: 937px;
+  height: auto;
   line-height: 40px;
   color: black;
 `;
@@ -104,11 +115,68 @@ const Tagsdiv = styled.div`
 `;
 
 const BolgAndReateddiv = styled.div`
-  background-color: blue;
+  background-color: white;
   width: 550px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  text-align: left;
+  font-size: 23px;
+  display: flex;
+  color: black;
+  padding: 30px 40px 0px 60px;
+  flex-direction: column;
+`;
+const Relateddiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-top: 30px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 20px;
+  text-align: left;
+  color: #00f4cc;
+`;
+
+const Relatedboxdiv = styled.div`
+  width: 60px;
+  height: 30px;
+  margin: 0px 20px 0px 0px;
+  background-color: ${(props) => (props.color ? props.color : "white")};
+  text-align: center;
+  border-radius: 5px;
+`;
+
+const Questioninput = styled.input`
+  box-sizing: border-box;
+  width: 840px;
+  height: 300px;
+  margin: 60px 20px 0px 0px;
+  text-align: left;
+  border: solid 1px;
+  border-radius: 5px;
+`;
+
+const Postbuttondiv = styled.div`
+  width: 180px;
+  height: 120px;
+  margin: 10px 0px 0px 690px;
 `;
 
 function DetailsQustion() {
+  const [Number, SetNumber] = useState(0);
+  const [Bookmark, SetBookmark] = useState(true);
+
+  const up = () => {
+    SetNumber(Number + 1);
+  };
+  const Down = () => {
+    SetNumber(Number - 1);
+  };
+
+  const BookmarkHandler = () => {
+    SetBookmark(!Bookmark);
+  };
+
   return (
     <PageDiv>
       <PageHeader>
@@ -116,19 +184,36 @@ function DetailsQustion() {
           How to run "AND" operator with "filter()" without "SyntaxError:
           keyword argument repeated:" error in Django?
           <Importmationdiv>
-            Asked today Modified today Viewed 2 times
+            Asked <Importmationspan>today</Importmationspan> Modified{" "}
+            <Importmationspan>today</Importmationspan>
+            Viewed <Importmationspan>2 times</Importmationspan>
           </Importmationdiv>
         </Headernamediv>
-        <Askbuttondiv />
+        <Askbuttondiv>
+          <a
+            href="…"
+            class="s-topbar--item s-topbar--item__unset ml4 s-btn s-btn__primary"
+          >
+            Ask Question
+          </a>
+        </Askbuttondiv>
       </PageHeader>
-
       <ImportmationMain>
         <Contentsdiv>
           <Recomneddiv>
-            <i class="fa-solid fa-caret-up fa-4x"></i>0
-            <i class="fa-solid fa-caret-up fa-rotate-180 fa-4x"></i>
-            <i class="fa-light fa-bookmark"></i>
-            <i class="fa-solid fa-timer"></i>
+            <i class="fa-solid fa-caret-up fa-4x" onClick={up}></i>
+            {Number}
+            <i
+              class="fa-solid fa-caret-up fa-rotate-180 fa-4x"
+              onClick={Down}
+            ></i>
+            {Bookmark ? (
+              <i class="fa-regular fa-bookmark" onClick={BookmarkHandler}></i>
+            ) : (
+              <i class="fa-solid fa-bookmark" onClick={BookmarkHandler}></i>
+            )}
+
+            <i class="fa-solid fa-clock-rotate-left"></i>
           </Recomneddiv>
           <Qustioncontentdiv>
             I want to print the details of the packets that is capture using
@@ -154,9 +239,50 @@ function DetailsQustion() {
               <Tagsdiv>arp</Tagsdiv>
               <Tagsdiv>icmp</Tagsdiv>
             </Tagboxdiv>
+            <Questioninput />
+            <Postbuttondiv>
+              <a
+                href="…"
+                class="s-topbar--item s-topbar--item__unset ml4 s-btn s-btn__primary"
+              >
+                Post your Answer
+              </a>
+            </Postbuttondiv>
           </Qustioncontentdiv>
         </Contentsdiv>
-        <BolgAndReateddiv>sdfsdf</BolgAndReateddiv>
+        <BolgAndReateddiv>
+          Related
+          <Relateddiv>
+            <Relatedboxdiv color="#f1f2f3">0</Relatedboxdiv>
+            <a
+              href="https://stackoverflow.com/questions/5805269/why-does-this-connection-keep-closing-syn-syn-ack-ack-rst-ack?rq=1"
+              class="question-hyperlink"
+            >
+              Why does this connection keep closing -
+              SYN-&gt;SYN,ACK-&gt;ACK-&gt;RST,ACK
+            </a>
+          </Relateddiv>
+          <Relateddiv>
+            <Relatedboxdiv color="#52ba7D">0</Relatedboxdiv>
+            <a
+              href="https://stackoverflow.com/questions/5805269/why-does-this-connection-keep-closing-syn-syn-ack-ack-rst-ack?rq=1"
+              class="question-hyperlink"
+            >
+              Why does this connection keep closing -
+              SYN-&gt;SYN,ACK-&gt;ACK-&gt;RST,ACK
+            </a>
+          </Relateddiv>
+          <Relateddiv>
+            <Relatedboxdiv color="#f1f2f3">5</Relatedboxdiv>
+            <a
+              href="https://stackoverflow.com/questions/5805269/why-does-this-connection-keep-closing-syn-syn-ack-ack-rst-ack?rq=1"
+              class="question-hyperlink"
+            >
+              Why does this connection keep closing -
+              SYN-&gt;SYN,ACK-&gt;ACK-&gt;RST,ACK
+            </a>
+          </Relateddiv>
+        </BolgAndReateddiv>
       </ImportmationMain>
     </PageDiv>
   );
