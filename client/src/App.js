@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-// import MainPage from "./pages/MainPage";
+import MainPage from "./pages/MainPage";
 import QuesetionRead from "./pages/QuesetionRead";
 import QuestionWrite from "./pages/QuestionWrite";
 import MyPage from "./pages/MyPage";
@@ -15,8 +15,8 @@ function App() {
       <BrowserRouter>
         <div>
           <Routes>
-            {/* <Route path="/" element={<MainPage />} /> */}
-            <Route path="/" element={<QuesetionRead />} />
+            <Route path="/" element={<MainPage />} />
+            <Route path="/QuesetionRead" element={<QuesetionRead />} />
             <Route path="/QuestionWrite" element={<QuestionWrite />} />
             <Route path="/MyPage" element={<MyPage />} />
             <Route path="/LoginPage" element={<LoginPage />} />

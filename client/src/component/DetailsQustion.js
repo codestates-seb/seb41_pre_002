@@ -28,6 +28,7 @@ const Headernamediv = styled.div`
   text-align: left;
   font-size: 40px;
   height: 937px;
+  width: 1265px;
   line-height: 50px;
   min-width: 0px;
 `;

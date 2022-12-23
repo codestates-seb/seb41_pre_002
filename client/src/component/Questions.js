@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Route, Link } from "react-router-dom";
 
 //
 const ContentDiv = styled.div``;
@@ -76,7 +77,9 @@ const Questions = () => {
         {/*question 상단 */}
         <ContentHeader>
           <h1 className="QuestionHeader">Top Questions</h1>
-          <AskButton>Ask Question</AskButton>
+          <AskButton>
+            <Link to="/QuestionWrite">Ask Question</Link>
+          </AskButton>
         </ContentHeader>
         {/* question 관련 버튼 */}
         <ButtonBox>
