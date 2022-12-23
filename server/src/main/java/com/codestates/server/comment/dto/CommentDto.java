@@ -28,6 +28,7 @@ public class CommentDto {
         private Long questionId;
         private Long answerId;
         private Long memberId;
+        private String memberName;
         private String content;
         private AuditableResponseDto auditableResponseDto;
         /*private LocalDateTime createdAt;
