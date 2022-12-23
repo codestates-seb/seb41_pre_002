@@ -2,7 +2,9 @@ package com.codestates.server.question.entity;
 
 import com.codestates.server.answer.entity.Answer;
 import com.codestates.server.audit.Auditable;
+import com.codestates.server.comment.entity.Comment;
 import com.codestates.server.member.entity.Member;
+import com.codestates.server.vote.entity.QuestionVote;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -34,8 +36,12 @@ public class Question extends Auditable {
     @OneToMany(mappedBy = "question")
     private List<Answer> answers = new ArrayList<>(); // 일대다 연관관계 매핑 예정
 
-// Todo: 일대다 연관관계 매핑 예정
-//    private List<Comment> comments = new ArrayList<>();
+    // Todo: 일대다 연관관계 매핑 예정
+    @OneToMany(mappedBy = "question")
+    private List<Comment> comments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "question")
+    private List<QuestionVote> questionVotes = new ArrayList<>();
 
     // 연관 관계 매핑 관련 메서드
     public void addQuestionTag(QuestionTag questionTag) {

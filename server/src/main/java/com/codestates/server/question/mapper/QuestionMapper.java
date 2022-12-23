@@ -113,7 +113,7 @@ public interface QuestionMapper {
                                         .voteCount(99) //Todo: 추천 수 관련 추가 예정
                                         .memberId(answer.getMember().getMemberId())
                                         .memberName(answer.getMember().getMemberName())
-                                        //Todo: 추가 예정 .commentResponseDtos()
+//                                        .commentResponseDtos()
                                         .build())
                                 .collect(Collectors.toList()))
                 .build();
@@ -134,8 +134,11 @@ public interface QuestionMapper {
                 .memberName(question.getMember().getMemberName())
                 .tagResponseDtos(questionTagsToTagResponseDtos(question.getQuestionTags()))
                 .answerCount(question.getAnswers().size())
+                .voteCount(question.getQuestionVotes().stream()
+                        .map(questionVote -> questionVote.getScore())
+                        .reduce(0, (x, y) -> x + y))
                 .build();
-        //Todo: 추천 수 넣을 예정 questionResponseDto.voteCount(question.getVotes().size());
+
 //        if (detail) {
         //Todo: detail 여부가 true 일 경우 댓글을 변환한다
 //        }
