@@ -7,8 +7,7 @@ const TagDIV = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 24px 16px;
-
+  padding: 24px 16px 0px 30px;
   h1 {
     font-size: 27px;
     margin: 0px 0px 27px;
@@ -16,7 +15,6 @@ const TagDIV = styled.div`
     font-weight: 400;
   }
   p {
-    /* display: flex; */
     color: black;
     font-size: 15px;
     max-width: 625px;
