@@ -48,7 +48,6 @@ public class Answer extends Auditable {
     }
     public void addComment(Comment comment) {
         this.comments.add(comment);
-        comment.getAnswer().addComment(comment);
     }
 }
 
