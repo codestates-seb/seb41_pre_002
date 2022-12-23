@@ -1,10 +1,11 @@
 package com.codestates.server.answer.dto;
 
+import com.codestates.server.audit.AuditableResponseDto;
 import lombok.Builder;
 import lombok.Getter;
 
 import javax.validation.constraints.NotBlank;
-import java.time.LocalDateTime;
+
 
 public class AnswerDto {
     @Getter
@@ -30,7 +31,7 @@ public class AnswerDto {
         private Long questionId;
         private String memberName;
         private String content;
-        private LocalDateTime createdAt;
-        private LocalDateTime modifiedAt;
+        private Integer voteCount;
+        private AuditableResponseDto auditableResponseDto;
     }
 }
