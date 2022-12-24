@@ -80,11 +80,11 @@ public interface QuestionMapper {
 
     QuestionSuccessResponseDto questionToQuestionSuccessResponseDto(Question question);
 
-    default List<QuestionResponseDto> questionsToQuestionResponseDtos(List<Question> questions) {
+    default List<QuestionResponseDto> questionsToQuestionResponseDtos(List<Question> questions, QuestionCommentMapper questionCommentMapper) {
         if (questions == null) return null;
 
         return questions.stream()
-                .map(question -> questionToQuestionResponseDto(question, false))
+                .map(question -> questionToQuestionResponseDto(question, false, questionCommentMapper ))
                 .collect(Collectors.toList());
     }
 
@@ -99,7 +99,7 @@ public interface QuestionMapper {
                 .collect(Collectors.toList());
     }
 
-    default QuestionDetailResponseDto questionToQuestionDetailResponseDto(Question question, AnswerMapper answerMapper, AnswerCommentMapper answerCommentMapper) {
+    default QuestionDetailResponseDto questionToQuestionDetailResponseDto(Question question, AnswerMapper answerMapper, AnswerCommentMapper answerCommentMapper, QuestionCommentMapper questionCommentMapper) {
 
         if (question == null) {
             return null;
@@ -108,21 +108,21 @@ public interface QuestionMapper {
         // questionDetailResponseDto 변환 시작
         return QuestionDetailResponseDto
                 .builder()
-                .questionResponseDto(questionToQuestionResponseDto(question, true))
+                .questionResponseDto(questionToQuestionResponseDto(question, true, questionCommentMapper))
                 .answerResponseDtos(question.getAnswers().stream()
                         .map(answer -> answerMapper.AnswerToAnswerResponseDto(answer, answerCommentMapper))
                         .collect(Collectors.toList()))
                 .build();
     }
 
-    default QuestionResponseDto questionToQuestionResponseDto(Question question, boolean detail) {
+    default QuestionResponseDto questionToQuestionResponseDto(Question question, boolean detail, QuestionCommentMapper questionCommentMapper) {
         if (question == null) {
             return null;
         }
         List<QuestionCommentDto.Response> commentResponseDto = null;
         if (detail) {
             commentResponseDto = question.getComments().stream()
-                    .map(comment -> QuestionCommentMapper.commentToCommentResponseDto(comment))
+                    .map(comment -> questionCommentMapper.commentToCommentResponseDto(comment))
                     .collect(Collectors.toList());
 
         }
