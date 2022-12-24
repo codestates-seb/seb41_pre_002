@@ -45,7 +45,7 @@ public interface AnswerCommentMapper {
         return comment;
     }
 
-    static AnswerCommentDto.Response answerCommentToAnswerCommentResponseDto(AnswerComment comment) {
+    default AnswerCommentDto.Response answerCommentToAnswerCommentResponseDto(AnswerComment comment) {
         if (comment == null) {
             return null;
         }

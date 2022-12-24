@@ -1,5 +1,7 @@
 package com.codestates.server.question.controller;
 
+import com.codestates.server.answer.mapper.AnswerMapper;
+import com.codestates.server.comment.mapper.AnswerCommentMapper;
 import com.codestates.server.dto.MultiResponseDto;
 import com.codestates.server.dto.SingleResponseDto;
 import com.codestates.server.question.dto.QuestionPatchDto;
@@ -9,6 +11,7 @@ import com.codestates.server.question.mapper.QuestionMapper;
 import com.codestates.server.question.service.QuestionService;
 import com.codestates.server.tag.entity.Tag;
 import com.codestates.server.tag.service.TagService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,16 +25,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/questions")
 @Validated
+@RequiredArgsConstructor
 public class QuestionController {
-    private QuestionMapper questionMapper;
-    private QuestionService questionService;
-    private TagService tagService;
-
-    public QuestionController(QuestionMapper questionMapper, QuestionService questionService, TagService tagService) {
-        this.questionMapper = questionMapper;
-        this.questionService = questionService;
-        this.tagService = tagService;
-    }
+    private final QuestionMapper questionMapper;
+    private final AnswerMapper answerMapper;
+    private final AnswerCommentMapper answerCommentMapper;
+    private final QuestionService questionService;
+    private final TagService tagService;
 
     @PostMapping
     public ResponseEntity postQuestion(@Valid @RequestBody QuestionPostDto questionPostDto) {
@@ -53,9 +53,9 @@ public class QuestionController {
     @PatchMapping("/{question-id}")
     public ResponseEntity patchQuestion(@Positive @PathVariable("question-id") long questionId,
                                         @Valid @RequestBody QuestionPatchDto questionPatchDto) {
+        // 답변 혹은 댓글이 있으면 수정/삭제 할 수 없음
+        //Todo: questionTag의 객체들이 사라져야하는데 안사라진다 ...
         questionPatchDto.setQuestionId(questionId);
-
-        //Todo: 질문 수정 - 답변 혹은 댓글이 있으면 수정/삭제 할 수 없음 - questionTag의 객체들이 사라져야하는데 안사라진다 ...
         List<Tag> tags = tagService.findTags(questionPatchDto.getCategories());
         Question question = questionService.updateQuestion(questionMapper.questionPatchDtoToQuestion(questionPatchDto, tags));
 
@@ -79,7 +79,7 @@ public class QuestionController {
         Question question = questionService.findQuestion(questionId);
 
         return new ResponseEntity<>(
-                new SingleResponseDto<>(questionMapper.questionToQuestionDetailResponseDto(question)),
+                new SingleResponseDto<>(questionMapper.questionToQuestionDetailResponseDto(question, answerMapper, answerCommentMapper)),
                 HttpStatus.OK
         );
     }
@@ -97,7 +97,7 @@ public class QuestionController {
 
     @DeleteMapping("/{question-id}")
     public ResponseEntity deleteQuestion(@Positive @PathVariable("question-id") long questionId) {
-        // 질문 삭제 - 답변 혹은 댓글이 있으면 수정/삭제 할 수 없음
+        // 답변 혹은 댓글이 있으면 수정/삭제 할 수 없음
         questionService.deleteQuestion(questionId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

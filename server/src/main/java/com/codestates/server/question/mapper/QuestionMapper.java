@@ -3,6 +3,7 @@ package com.codestates.server.question.mapper;
 import com.codestates.server.answer.mapper.AnswerMapper;
 import com.codestates.server.audit.AuditableResponseDto;
 import com.codestates.server.comment.dto.QuestionCommentDto;
+import com.codestates.server.comment.mapper.AnswerCommentMapper;
 import com.codestates.server.comment.mapper.QuestionCommentMapper;
 import com.codestates.server.question.dto.*;
 import com.codestates.server.question.entity.Question;
@@ -98,7 +99,7 @@ public interface QuestionMapper {
                 .collect(Collectors.toList());
     }
 
-    default QuestionDetailResponseDto questionToQuestionDetailResponseDto(Question question) {
+    default QuestionDetailResponseDto questionToQuestionDetailResponseDto(Question question, AnswerMapper answerMapper, AnswerCommentMapper answerCommentMapper) {
 
         if (question == null) {
             return null;
@@ -109,7 +110,7 @@ public interface QuestionMapper {
                 .builder()
                 .questionResponseDto(questionToQuestionResponseDto(question, true))
                 .answerResponseDtos(question.getAnswers().stream()
-                        .map(answer -> AnswerMapper.AnswerToAnswerResponseDto(answer))
+                        .map(answer -> answerMapper.AnswerToAnswerResponseDto(answer, answerCommentMapper))
                         .collect(Collectors.toList()))
                 .build();
     }
