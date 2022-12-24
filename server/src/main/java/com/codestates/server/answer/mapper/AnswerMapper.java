@@ -52,7 +52,7 @@ public interface AnswerMapper {
         }
     }
 
-    static AnswerDto.Response AnswerToAnswerResponseDto(Answer answer) {
+    default AnswerDto.Response AnswerToAnswerResponseDto(Answer answer, AnswerCommentMapper answerCommentMapper) {
         if (answer == null) {
             return null;
         }
@@ -67,7 +67,7 @@ public interface AnswerMapper {
                 .memberId(answer.getMember().getMemberId())
                 .memberName(answer.getMember().getMemberName())
                 .commentResponseDtos(answer.getAnswerComments().stream()
-                        .map(comment -> AnswerCommentMapper.answerCommentToAnswerCommentResponseDto(comment))
+                        .map(comment -> answerCommentMapper.answerCommentToAnswerCommentResponseDto(comment))
                         .collect(Collectors.toList()))
                 .build();
     }

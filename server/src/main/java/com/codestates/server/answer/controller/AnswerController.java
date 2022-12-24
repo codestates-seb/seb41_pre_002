@@ -4,6 +4,7 @@ import com.codestates.server.answer.dto.AnswerDto;
 import com.codestates.server.answer.entity.Answer;
 import com.codestates.server.answer.mapper.AnswerMapper;
 import com.codestates.server.answer.service.AnswerService;
+import com.codestates.server.comment.mapper.AnswerCommentMapper;
 import com.codestates.server.dto.MultiResponseDto;
 import com.codestates.server.dto.SingleResponseDto;
 import lombok.NoArgsConstructor;
@@ -26,13 +27,14 @@ public class AnswerController {
 
     private final AnswerService answerService;
     private final AnswerMapper mapper;
+    private final AnswerCommentMapper answerCommentMapper;
 
     @PostMapping("/questions/{question-id}/answers")
     public ResponseEntity postAnswer(@PathVariable("question-id") Long questionId,
                                      @Valid @RequestBody AnswerDto.Post requestBody) {
         Answer answer = mapper.AnswerPostDtoToAnswer(requestBody);
         Answer response = answerService.createAnswer(questionId, answer);
-        return new ResponseEntity<>(new SingleResponseDto<>(AnswerMapper.AnswerToAnswerResponseDto(response)), HttpStatus.CREATED);
+        return new ResponseEntity<>(new SingleResponseDto<>(mapper.AnswerToAnswerResponseDto(response, answerCommentMapper)), HttpStatus.CREATED);
     }
 
     /*@GetMapping("/{answer-id}")
@@ -52,7 +54,7 @@ public class AnswerController {
     public ResponseEntity patchAnswer(@PathVariable("answer-id") Long answerId,
                                       @Valid @RequestBody AnswerDto.Patch requestBody) {
         Answer response = answerService.updateAnswer(answerId, mapper.AnswerPatchDtoToAnswer(requestBody));
-        return new ResponseEntity<>(new SingleResponseDto<>(AnswerMapper.AnswerToAnswerResponseDto(response)), HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponseDto<>(mapper.AnswerToAnswerResponseDto(response, answerCommentMapper)), HttpStatus.OK);
     }
 
     @DeleteMapping("/answers/{answer-id}")
