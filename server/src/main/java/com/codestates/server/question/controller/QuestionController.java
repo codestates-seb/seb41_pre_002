@@ -2,6 +2,7 @@ package com.codestates.server.question.controller;
 
 import com.codestates.server.answer.mapper.AnswerMapper;
 import com.codestates.server.comment.mapper.AnswerCommentMapper;
+import com.codestates.server.comment.mapper.QuestionCommentMapper;
 import com.codestates.server.dto.MultiResponseDto;
 import com.codestates.server.dto.SingleResponseDto;
 import com.codestates.server.question.dto.QuestionPatchDto;
@@ -32,6 +33,8 @@ public class QuestionController {
     private final AnswerCommentMapper answerCommentMapper;
     private final QuestionService questionService;
     private final TagService tagService;
+
+    private final QuestionCommentMapper questionCommentMapper;
 
     @PostMapping
     public ResponseEntity postQuestion(@Valid @RequestBody QuestionPostDto questionPostDto) {
@@ -79,7 +82,7 @@ public class QuestionController {
         Question question = questionService.findQuestion(questionId);
 
         return new ResponseEntity<>(
-                new SingleResponseDto<>(questionMapper.questionToQuestionDetailResponseDto(question, answerMapper, answerCommentMapper)),
+                new SingleResponseDto<>(questionMapper.questionToQuestionDetailResponseDto(question, answerMapper, answerCommentMapper, questionCommentMapper)),
                 HttpStatus.OK
         );
     }
@@ -90,7 +93,7 @@ public class QuestionController {
         Page<Question> pageQuestions = questionService.findQuestions(page - 1, size);
 
         return new ResponseEntity(
-                new MultiResponseDto<>(questionMapper.questionsToQuestionResponseDtos(pageQuestions.getContent()), pageQuestions),
+                new MultiResponseDto<>(questionMapper.questionsToQuestionResponseDtos(pageQuestions.getContent(),questionCommentMapper), pageQuestions),
                 HttpStatus.OK
         );
     }

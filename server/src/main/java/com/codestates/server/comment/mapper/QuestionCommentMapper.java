@@ -52,7 +52,7 @@ public interface QuestionCommentMapper {
         return comment;
     }
 
-    static QuestionCommentDto.Response commentToCommentResponseDto(QuestionComment comment) {
+    default QuestionCommentDto.Response commentToCommentResponseDto(QuestionComment comment) {
         if (comment == null) {
             return null;
         }
