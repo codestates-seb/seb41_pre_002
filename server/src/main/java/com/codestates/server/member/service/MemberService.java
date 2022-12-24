@@ -34,12 +34,6 @@ public class MemberService {
     public Member updateMember(Member member){
         Member findMember = findVerifiedMember(member.getMemberId());
 
-        Optional.ofNullable(member.getEmail())
-                .ifPresent(email -> findMember.setEmail(email));
-
-        Optional.ofNullable(member.getMemberName())
-                .ifPresent(name -> findMember.setMemberName(name));
-
         Optional.ofNullable(member.getMemberPassword())
                 .ifPresent(password -> findMember.setMemberPassword(password));
 
