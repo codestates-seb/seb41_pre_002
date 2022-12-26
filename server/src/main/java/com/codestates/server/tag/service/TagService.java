@@ -6,6 +6,9 @@ import com.codestates.server.question.repository.QuestionTagRepository;
 import com.codestates.server.tag.entity.Tag;
 import com.codestates.server.tag.repository.TagRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,6 +34,12 @@ public class TagService {
         return categories.stream()
                 .map(category -> findVerifiedTag(category))
                 .collect(Collectors.toList());
+    }
+
+    public Page<Tag> findTags(int page, int size) {
+        return tagRepository.findAll(PageRequest.of(
+                page, size, Sort.by("tagId").descending()
+        ));
     }
 
     public void updateQuestionTags(Question question, List<String> categories) {

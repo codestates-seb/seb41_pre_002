@@ -8,4 +8,5 @@ import lombok.Setter;
 public class TagResponseDto {
     private Long tagId;
     private String category;
+    private Integer questionsCount;
 }
