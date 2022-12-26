@@ -1,14 +1,17 @@
 import React from "react";
 import styled from "styled-components";
-import { Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
+import QuestionList from "./QuestionList";
 
-//
-const ContentDiv = styled.div``;
+
+const ContentDiv = styled.div`
+  width: 1000px;
+`;
 
 const ContentHeader = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 24px 16px;
+  padding: 24px 16px 0px 30px;
 
   h1 {
     font-size: 27px;
@@ -59,30 +62,7 @@ const ButtonBox = styled.div`
   }
 `;
 
-const QuestionSummary = styled.div`
-  position: relative;
-  display: flex;
-  border-bottom: 1px solid #e3e6e8;
-  padding: 16px;
-  width: 750px;
-  height: 120px;
-  /* color: #6A737C; */
-  /* &.question-mini-list:last-child {
-    border-bottom-width: 0;
-  }
-  @media (max-width: 980px) {
-    flex-direction: column;
-  } */
-`;
 
-const SummaryStatus = styled.div`
-  margin: 0px 16px 4px 0px;
-  color: #6a737c;
-`;
-
-const SummaryContent = styled.div`
-  color: #6a737c;
-`;
 
 const Questions = () => {
   return (
@@ -104,18 +84,7 @@ const Questions = () => {
           <button className="Btn">Month</button>
         </ButtonBox>
         {/* question을 요약해서 보여주는 하나의 박스 */}
-        <QuestionSummary>
-          <SummaryStatus>0 vote 0 answer</SummaryStatus>
-          <SummaryContent>
-            {/* <a
-              href="/questions/74918664/how-to-handle-double-quotes-in-vba"
-              classN="s-link"
-            > */}
-              <Link to="/QuesetionRead">질문상세보기로 연결해주세요</Link>
-              
-            {/* </a> */}
-          </SummaryContent>
-        </QuestionSummary>
+        <QuestionList/>
       </ContentDiv>
     </>
   );
