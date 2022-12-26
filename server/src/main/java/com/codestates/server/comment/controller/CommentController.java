@@ -47,10 +47,9 @@ public class CommentController {
 
     @DeleteMapping("/answers/{comment-id}")
     public ResponseEntity deleteAnswerComment(@PathVariable("comment-id") Long commentId) {
+        Long questionId = answerCommentService.deleteComment(commentId);
 
-        answerCommentService.deleteComment(commentId);
-
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(questionId,HttpStatus.NO_CONTENT);
     }
 
     // QuestionComment
@@ -75,9 +74,9 @@ public class CommentController {
     @DeleteMapping("/questions/{comment-id}")
     public ResponseEntity deleteQuestionComment(@PathVariable("comment-id") Long commentId) {
 
-        questionCommentService.deleteComment(commentId);
+        Long questionId = questionCommentService.deleteComment(commentId);
 
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(questionId,HttpStatus.NO_CONTENT);
     }
 }
 
