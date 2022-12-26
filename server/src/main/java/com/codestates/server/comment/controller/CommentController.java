@@ -8,6 +8,7 @@ import com.codestates.server.comment.mapper.AnswerCommentMapper;
 import com.codestates.server.comment.mapper.QuestionCommentMapper;
 import com.codestates.server.comment.service.AnswerCommentService;
 import com.codestates.server.comment.service.QuestionCommentService;
+import com.codestates.server.dto.SingleResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +33,7 @@ public class CommentController {
 
         AnswerComment answerComment = answerCommentMapper.answerCommentPostDtoToComment(requestBody);
         AnswerComment response = answerCommentService.postAnswerComment(answerId, answerComment);
-        return new ResponseEntity<>(new AnswerCommentDto.AnswerIdResponse(answerId),HttpStatus.CREATED);
+        return new ResponseEntity<>(new SingleResponseDto<>(new AnswerCommentDto.AnswerIdResponse(answerId)),HttpStatus.CREATED);
 
     }
 
@@ -42,13 +43,13 @@ public class CommentController {
 
         AnswerComment comment = answerCommentMapper.commentPatchDtoToComment(requestBody);
         AnswerComment response = answerCommentService.updateAnswerComment(commentId, comment);
-        return new ResponseEntity<>(new AnswerCommentDto.AnswerIdResponse(response.getAnswer().getAnswerId()),HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponseDto<>(new AnswerCommentDto.AnswerIdResponse(response.getAnswer().getAnswerId())),HttpStatus.OK);
     }
 
     @DeleteMapping("/answers/{comment-id}")
     public ResponseEntity deleteAnswerComment(@PathVariable("comment-id") Long commentId) {
-
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        Long questionId = answerCommentService.deleteComment(commentId);
+        return new ResponseEntity<>(new SingleResponseDto<>(new AnswerCommentDto.AnswerIdResponse(questionId)),HttpStatus.OK);
     }
 
     // QuestionComment
@@ -58,7 +59,7 @@ public class CommentController {
 
         QuestionComment comment = questionCommentMapper.questionCommentPostDtoToQuestionComment(requestBody);
         QuestionComment response = questionCommentService.postQuestionComment(questionId, comment);
-        return new ResponseEntity<>(new QuestionCommentDto.QuestionIdResponse(questionId),HttpStatus.CREATED);
+        return new ResponseEntity<>(new SingleResponseDto<>(new QuestionCommentDto.QuestionIdResponse(questionId)),HttpStatus.CREATED);
     }
 
     @PatchMapping("/questions/{comment-id}")
@@ -67,7 +68,7 @@ public class CommentController {
 
         QuestionComment comment = questionCommentMapper.questionCommentPatchDtoToQuestionComment(requestBody);
         QuestionComment response = questionCommentService.updateQuestionComment(commentId, comment);
-        return new ResponseEntity<>(new QuestionCommentDto.QuestionIdResponse(response.getQuestion().getQuestionId()),HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponseDto<>(new QuestionCommentDto.QuestionIdResponse(response.getQuestion().getQuestionId())),HttpStatus.OK);
     }
 
     @DeleteMapping("/questions/{comment-id}")
@@ -75,7 +76,7 @@ public class CommentController {
 
         Long questionId = questionCommentService.deleteComment(commentId);
 
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(new SingleResponseDto<>(new QuestionCommentDto.QuestionIdResponse(questionId)),HttpStatus.OK);
     }
 }
 
