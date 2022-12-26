@@ -1,8 +1,8 @@
 import React from 'react';
 import Header from '../component/header';
 import styled from 'styled-components';
-import SocialLogin from '../component/socialLogin';
-import LoginForm from '../component/loginForm';
+import SocialLogin from '../component/login/socialLogin';
+import LoginForm from '../component/login/loginForm';
 
 const Maindiv = styled.div`
   width: 100vw;
