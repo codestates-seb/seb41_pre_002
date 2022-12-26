@@ -56,6 +56,7 @@ public class AnswerService {
     @Transactional
     public Answer updateAnswer(Long answerId, Answer answer) {
         Answer findAnswer = verifyAnswer(answerId);
+        canModifyOrDelete(findAnswer);
         Optional.ofNullable(answer.getContent())
                 .ifPresent(content -> findAnswer.setContent(content));
 
@@ -64,6 +65,8 @@ public class AnswerService {
     // 답글 삭제
     @Transactional
     public void deleteAnswer(Long answerId) {
+        Answer findAnswer = verifyAnswer(answerId);
+        canModifyOrDelete(findAnswer);
         answerRepository.deleteById(answerId);
     }
 
@@ -90,6 +93,13 @@ public class AnswerService {
                 () -> new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND)
         );
         return answer;
+    }
+    // 댓글 삭제,수정 검증
+    private void canModifyOrDelete(Answer findAnswer) {
+        // 댓글이 존재할 경우 수정 또는 삭제할 수 없음
+        if (findAnswer.getAnswerComments().size() > 0) {
+            throw new BusinessLogicException(ExceptionCode.REQUEST_FORBIDDEN);
+        }
     }
 }
 
