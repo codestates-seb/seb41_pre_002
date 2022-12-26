@@ -44,7 +44,7 @@ public class QuestionController {
         /**Insert Into ANSWER
          values (1,NOW(),NOW(),'답변입니다',1,2) 답변 생성 쿼리*/
 
-        List<Tag> tags = tagService.findTags(questionPostDto.getCategories());
+        List<Tag> tags = tagService.findTagsElseCreateTags(questionPostDto.getCategories());
         Question question = questionService.createQuestion(questionMapper.questionPostDtoToQuestion(questionPostDto, tags));
 
         return new ResponseEntity(

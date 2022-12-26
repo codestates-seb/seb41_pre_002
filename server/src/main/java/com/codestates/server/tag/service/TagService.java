@@ -27,7 +27,7 @@ public class TagService {
         return tagRepository.save(tag);
     }
 
-    public List<Tag> findTags(List<String> categories) {
+    public List<Tag> findTagsElseCreateTags(List<String> categories) {
         return categories.stream()
                 .map(category -> findVerifiedTag(category))
                 .collect(Collectors.toList());
@@ -41,7 +41,7 @@ public class TagService {
                 .forEach(questionTag -> questionTagRepository.delete(questionTag));
 
         // 새로운 태그 유효성 검사 및 등록
-        List<Tag> findTags = findTags(categories);
+        List<Tag> findTags = findTagsElseCreateTags(categories);
 
         // Question에 새로운 QuestionTag 저장
         findTags.stream()
