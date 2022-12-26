@@ -58,8 +58,9 @@ public class QuestionController {
                                         @Valid @RequestBody QuestionPatchDto questionPatchDto) {
         // 답변 혹은 댓글이 있으면 수정/삭제 할 수 없음
         questionPatchDto.setQuestionId(questionId);
-        List<Tag> tags = tagService.findTags(questionPatchDto.getCategories());
-        Question question = questionService.updateQuestion(questionMapper.questionPatchDtoToQuestion(questionPatchDto, tags));
+
+        Question question = questionService.updateQuestion(questionMapper.questionPatchDtoToQuestion(questionPatchDto));
+        tagService.updateQuestionTags(question, questionPatchDto.getCategories());
 
         return new ResponseEntity<>(
                 new SingleResponseDto<>(questionMapper.questionToQuestionSuccessResponseDto(question)),

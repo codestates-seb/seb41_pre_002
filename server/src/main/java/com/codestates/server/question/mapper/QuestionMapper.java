@@ -12,6 +12,7 @@ import com.codestates.server.tag.dto.TagResponseDto;
 import com.codestates.server.tag.entity.Tag;
 import org.mapstruct.Mapper;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,6 +49,7 @@ public interface QuestionMapper {
     Question questionPostDtoToQuestion(QuestionPostDto questionPostDto);
 
     default Question questionPatchDtoToQuestion(QuestionPatchDto questionPatchDto, List<Tag> tags) {
+        //Todo: 현재 미사용 메서드
         if (tags == null) {
             return questionPatchDtoToQuestion(questionPatchDto);
         }
@@ -60,6 +62,7 @@ public interface QuestionMapper {
             question.setContent(questionPatchDto.getContent());
             question.setMember(questionPatchDto.getMember());
 
+            List<QuestionTag> questionTags = new ArrayList<>();
             tags.stream()
                     .forEach(tag -> {
                         QuestionTag questionTag = new QuestionTag();
@@ -69,8 +72,10 @@ public interface QuestionMapper {
                         tag1.setTagId(tag.getTagId());
                         questionTag.setTag(tag1);
 
-                        question.addQuestionTag(questionTag);
+                        questionTags.add(questionTag);
                     });
+            question.setQuestionTags(questionTags);
+
         }
 
         return question;
