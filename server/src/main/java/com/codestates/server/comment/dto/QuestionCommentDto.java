@@ -4,18 +4,22 @@ import com.codestates.server.audit.AuditableResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import javax.validation.constraints.NotBlank;
+
 public class QuestionCommentDto {
 
     @Getter
     public static class Post {
         private Long memberId;
         private Long questionId;
+        @NotBlank
         private String content;
     }
     @Getter
     public static class Patch {
         private Long memberId;
         private Long questionId;
+        @NotBlank
         private String content;
     }
     @Getter
