@@ -38,4 +38,9 @@ public class AnswerDto {
         private AuditableResponseDto auditableResponseDto;
         private List<AnswerCommentDto.Response> commentResponseDtos;
     }
+    @Getter
+    @AllArgsConstructor
+    public static class QuestionIdResponse {
+        private Long questionId;
+    }
 }
