@@ -1,9 +1,15 @@
-import React from 'react'
+import React from "react";
+
+import Header from "../component/header";
+import Logout from "../component/logout/Logout";
 
 const LogoutPage = () => {
   return (
-    <div>LogoutPage</div>
-  )
-}
+    <>
+      <Header />
+      <Logout />
+    </>
+  );
+};
 
-export default LogoutPage
+export default LogoutPage;
