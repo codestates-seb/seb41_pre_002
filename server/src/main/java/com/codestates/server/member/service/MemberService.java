@@ -7,6 +7,7 @@ import com.codestates.server.member.repository.MemberRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -18,13 +19,18 @@ import java.util.Optional;
 @Service
 public class MemberService {
     private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public MemberService(MemberRepository memberRepository) {
+    public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder) {
         this.memberRepository = memberRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public Member createMember(Member member){
         verifyExistsEmail(member.getEmail());
+        String encryptedPassword = passwordEncoder.encode(member.getMemberPassword());
+        member.setMemberPassword(encryptedPassword);
+
         Member savedMember = memberRepository.save(member);
 
         return savedMember;
