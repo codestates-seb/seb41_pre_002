@@ -51,14 +51,14 @@ const Header = () => {
         <nav className="s-topbar--navigation" aria-label="Log in or sign up">
           <ol className="s-topbar--content">
             <li>
-              <a href="/" className="s-topbar--item s-topbar--item__unset s-btn s-btn__filled">
-                <Link to="/LoginPage">Log in</Link>
-              </a>
+              <Link to="/LoginPage" className="s-topbar--item s-topbar--item__unset s-btn s-btn__filled">
+                Log in
+              </Link>
             </li>
             <li>
-              <a href="/" className="s-topbar--item s-topbar--item__unset ml4 s-btn s-btn__primary">
-                <Link to="/SignInPage">Sign up</Link>
-              </a>
+              <Link to="/SignInPage" className="s-topbar--item s-topbar--item__unset ml4 s-btn s-btn__primary">
+                Sign up
+              </Link>
             </li>
           </ol>
         </nav>
