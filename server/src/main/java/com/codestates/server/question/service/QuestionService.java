@@ -38,11 +38,8 @@ public class QuestionService {
         //멤버 유효성검증 //Todo: 넘어온 멤버아이디와 질문의 멤버아이디가 동일한지 여부 확인
         memberService.findVerifiedMember(question.getMember().getMemberId());
 
-        // 질문이 존재하는지 확인
-        findVerifiedQuestion(question.getQuestionId());
-
-        // 수정 가능 여부를 확인
-        canModifyOrDelete(question.getQuestionId());
+        // 질문이 존재하는지 확인, 수정및삭제 가능 여부를 확인
+        canModifyOrDelete(findVerifiedQuestion(question.getQuestionId()));
 
         question.getQuestionTags().stream().forEach(questionTag -> System.out.println(questionTag.getTag().getCategory()));
 
@@ -56,19 +53,16 @@ public class QuestionService {
     public void deleteQuestion(long questionId) {
         //Todo: 넘어온 멤버아이디와 질문의 멤버아이디가 동일한지 여부 확인
 
-        // 질문이 존재하는지 확인
-        findVerifiedQuestion(questionId);
-        // 수정및삭제 가능 여부를 확인
-        canModifyOrDelete(questionId);
+        // 질문이 존재하는지 확인, 수정및삭제 가능 여부를 확인
+        canModifyOrDelete(findVerifiedQuestion(questionId));
+
         // 삭제
         questionRepository.deleteById(questionId);
     }
 
-    private void canModifyOrDelete(long questionId) {
-        Question findQuestion = questionRepository.findById(questionId).get();
-
-        // 답변이나 댓글이 존재할 경우 수정 또는 삭제할 수 없음           //Todo: 댓글 기능 추가 되면 확인 후 주석 해제
-        if (findQuestion.getAnswers().size() > 0 /*|| findQuestion.getComment().size() > 0*/) {
+    private void canModifyOrDelete(Question findQuestion) {
+        // 답변이나 댓글이 존재할 경우 수정 또는 삭제할 수 없음
+        if (findQuestion.getAnswers().size() > 0 || findQuestion.getComments().size() > 0) {
             throw new BusinessLogicException(ExceptionCode.REQUEST_FORBIDDEN);
         }
     }

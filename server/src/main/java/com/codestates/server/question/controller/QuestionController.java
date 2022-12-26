@@ -57,10 +57,10 @@ public class QuestionController {
     public ResponseEntity patchQuestion(@Positive @PathVariable("question-id") long questionId,
                                         @Valid @RequestBody QuestionPatchDto questionPatchDto) {
         // 답변 혹은 댓글이 있으면 수정/삭제 할 수 없음
-        //Todo: questionTag의 객체들이 사라져야하는데 안사라진다 ...
         questionPatchDto.setQuestionId(questionId);
-        List<Tag> tags = tagService.findTags(questionPatchDto.getCategories());
-        Question question = questionService.updateQuestion(questionMapper.questionPatchDtoToQuestion(questionPatchDto, tags));
+
+        Question question = questionService.updateQuestion(questionMapper.questionPatchDtoToQuestion(questionPatchDto));
+        tagService.updateQuestionTags(question, questionPatchDto.getCategories());
 
         return new ResponseEntity<>(
                 new SingleResponseDto<>(questionMapper.questionToQuestionSuccessResponseDto(question)),
