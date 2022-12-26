@@ -88,12 +88,22 @@ public class QuestionController {
     }
 
     @GetMapping
-    public ResponseEntity getQuestions(@Positive @RequestParam int page,
-                                       @Positive @RequestParam int size) { //Todo: 다양한 정렬 조건들 받을 예정
-        Page<Question> pageQuestions = questionService.findQuestions(page - 1, size);
+    public ResponseEntity getQuestions(@Positive @RequestParam(required = false, defaultValue = "1") int page,
+                                       @Positive @RequestParam(required = false, defaultValue = "10") int size,
+                                       @RequestParam(required = false, defaultValue = "") String keyword,
+                                       @RequestParam(required = false, defaultValue = "all") String filter,
+                                       @RequestParam(required = false, defaultValue = "descending") String sortedBy) {
+
+        /**
+         * Todo: 다양한 정렬 조건들 받을 예정
+         * filter - 모두(기본값), 답변없음, 답변있음
+         * sortedBy - 최신순(기본값), 추천순, 답변많은순
+         * */
+
+        Page<Question> pageQuestions = questionService.findQuestions(page - 1, size, keyword, filter, sortedBy);
 
         return new ResponseEntity(
-                new MultiResponseDto<>(questionMapper.questionsToQuestionResponseDtos(pageQuestions.getContent(),questionCommentMapper), pageQuestions),
+                new MultiResponseDto<>(questionMapper.questionsToQuestionResponseDtos(pageQuestions.getContent(), questionCommentMapper), pageQuestions),
                 HttpStatus.OK
         );
     }
