@@ -1,11 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import "../assets/fonts.css";
-import { createGlobalStyle } from "styled-components";
-
-const GlobalStyle = createGlobalStyle`
-
-`;
 
 const PageDiv = styled.div`
   width: 100vw;

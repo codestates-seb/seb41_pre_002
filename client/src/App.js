@@ -15,10 +15,10 @@ function App() {
       <BrowserRouter>
         <div>
           <Routes>
-            <Route path="/" element={<MainPage />} />
+            {/* <Route path="/" element={<MainPage />} /> */}
             <Route path="/QuesetionRead" element={<QuesetionRead />} />
             <Route path="/QuestionWrite" element={<QuestionWrite />} />
-            <Route path="/MyPage" element={<MyPage />} />
+            <Route path="/" element={<MyPage />} />
             <Route path="/LoginPage" element={<LoginPage />} />
             <Route path="/LogoutPage" element={<LogoutPage />} />
             <Route path="/SignInPage" element={<SignInPage />} />
