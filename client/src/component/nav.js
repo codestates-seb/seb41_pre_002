@@ -127,7 +127,7 @@ const Nav = () => {
               <Link to="/UserPage">User</Link>
             </QuestionList>
             <QuestionList>
-              <Link to="/">Companies</Link>
+              Companies
             </QuestionList>
             {/* <li>COLLECTIVEIS</li>
           <svg
