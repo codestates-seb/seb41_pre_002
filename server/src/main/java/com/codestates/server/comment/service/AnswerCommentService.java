@@ -37,9 +37,11 @@ public class AnswerCommentService {
     }
 
     // 댓글 삭제
-    public void deleteComment(Long commentId) {
+    public Long deleteComment(Long commentId) {
         AnswerComment verifyComment = findVerifyAnswerComment(commentId);
+        Long questionId = verifyComment.getAnswer().getQuestion().getQuestionId();
         answerCommentRepository.delete(verifyComment);
+        return questionId;
     }
     //댓글 존재 확인
     private AnswerComment findVerifyAnswerComment(Long commentId) {

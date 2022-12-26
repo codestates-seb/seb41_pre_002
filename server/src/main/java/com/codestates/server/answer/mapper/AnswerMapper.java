@@ -56,6 +56,20 @@ public interface AnswerMapper {
         if (answer == null) {
             return null;
         }
+        if (answer.getAnswerComments() == null) {
+            return AnswerDto.Response.builder()
+                    .answerId(answer.getAnswerId())
+                    .questionId(answer.getQuestion().getQuestionId())
+                    .content(answer.getContent())
+                    .auditableResponseDto(new AuditableResponseDto(answer.getCreatedAt(), answer.getModifiedAt()))
+                    .voteCount(answer.getAnswerVotes().stream()
+                            .map(answerVote -> answerVote.getScore())
+                            .reduce(0, (x, y) -> x + y))
+                    .memberId(answer.getMember().getMemberId())
+                    .memberName(answer.getMember().getMemberName())
+                    .commentResponseDtos(null)
+                    .build();
+        }
         return AnswerDto.Response.builder()
                 .answerId(answer.getAnswerId())
                 .questionId(answer.getQuestion().getQuestionId())
