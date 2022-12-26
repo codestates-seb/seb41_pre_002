@@ -32,7 +32,7 @@ public class CommentController {
 
         AnswerComment answerComment = answerCommentMapper.answerCommentPostDtoToComment(requestBody);
         AnswerComment response = answerCommentService.postAnswerComment(answerId, answerComment);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(answerId,HttpStatus.CREATED);
 
     }
 
@@ -42,7 +42,7 @@ public class CommentController {
 
         AnswerComment comment = answerCommentMapper.commentPatchDtoToComment(requestBody);
         AnswerComment response = answerCommentService.updateAnswerComment(commentId, comment);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(response.getAnswer().getAnswerId(),HttpStatus.OK);
     }
 
     @DeleteMapping("/answers/{comment-id}")
@@ -60,7 +60,7 @@ public class CommentController {
 
         QuestionComment comment = questionCommentMapper.questionCommentPostDtoToQuestionComment(requestBody);
         QuestionComment response = questionCommentService.postQuestionComment(questionId, comment);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(questionId,HttpStatus.CREATED);
     }
 
     @PatchMapping("/questions/{comment-id}")
@@ -69,7 +69,7 @@ public class CommentController {
 
         QuestionComment comment = questionCommentMapper.questionCommentPatchDtoToQuestionComment(requestBody);
         QuestionComment response = questionCommentService.updateQuestionComment(commentId, comment);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(response.getQuestion().getQuestionId(),HttpStatus.OK);
     }
 
     @DeleteMapping("/questions/{comment-id}")
