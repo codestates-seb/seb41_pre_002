@@ -5,7 +5,7 @@ const Social = styled.div`
   margin-bottom: 10px;
 `;
 
-function SocialLogin() {
+function SocialSignup() {
   return (
     <Social>
       <div id="openid-buttons" className="mx-auto d-flex flex__fl-grow1 fd-column gs8 gsy mb16 wmx3">
@@ -16,7 +16,7 @@ function SocialLogin() {
             <path d="M4.5 10.52a4.8 4.8 0 0 1 0-3.04V5.41H1.83a8 8 0 0 0 0 7.18l2.67-2.07Z" fill="#FBBC05"></path>
             <path d="M8.98 4.18c1.17 0 2.23.4 3.06 1.2l2.3-2.3A8 8 0 0 0 1.83 5.4L4.5 7.49a4.77 4.77 0 0 1 4.48-3.3Z" fill="#EA4335"></path>
           </svg>
-          Log in with Google
+          Sign up with Google
         </button>
         <button className="flex--item s-btn s-btn__icon s-btn__github bar-md ba bc-black-100">
           <svg aria-hidden="true" className="svg-icon iconGitHub" width="18" height="18" viewBox="0 0 18 18">
@@ -25,7 +25,7 @@ function SocialLogin() {
               fill="#010101"
             ></path>
           </svg>
-          Log in with GitHub
+          Sign up with GitHub
         </button>
         <button className="flex--item s-btn s-btn__icon s-btn__facebook bar-md">
           <svg aria-hidden="true" className="svg-icon iconFacebook" width="18" height="18" viewBox="0 0 18 18">
@@ -34,11 +34,11 @@ function SocialLogin() {
               fill="#4167B2"
             ></path>
           </svg>
-          Log in with Facebook
+          Sign up with Facebook
         </button>
       </div>
     </Social>
   );
 }
 
-export default SocialLogin;
+export default SocialSignup;
