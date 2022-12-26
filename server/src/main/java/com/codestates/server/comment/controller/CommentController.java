@@ -32,7 +32,7 @@ public class CommentController {
 
         AnswerComment answerComment = answerCommentMapper.answerCommentPostDtoToComment(requestBody);
         AnswerComment response = answerCommentService.postAnswerComment(answerId, answerComment);
-        return new ResponseEntity<>(answerId,HttpStatus.CREATED);
+        return new ResponseEntity<>(new AnswerCommentDto.AnswerIdResponse(answerId),HttpStatus.CREATED);
 
     }
 
@@ -42,14 +42,13 @@ public class CommentController {
 
         AnswerComment comment = answerCommentMapper.commentPatchDtoToComment(requestBody);
         AnswerComment response = answerCommentService.updateAnswerComment(commentId, comment);
-        return new ResponseEntity<>(response.getAnswer().getAnswerId(),HttpStatus.OK);
+        return new ResponseEntity<>(new AnswerCommentDto.AnswerIdResponse(response.getAnswer().getAnswerId()),HttpStatus.OK);
     }
 
     @DeleteMapping("/answers/{comment-id}")
     public ResponseEntity deleteAnswerComment(@PathVariable("comment-id") Long commentId) {
-        Long questionId = answerCommentService.deleteComment(commentId);
 
-        return new ResponseEntity<>(questionId,HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     // QuestionComment
@@ -59,7 +58,7 @@ public class CommentController {
 
         QuestionComment comment = questionCommentMapper.questionCommentPostDtoToQuestionComment(requestBody);
         QuestionComment response = questionCommentService.postQuestionComment(questionId, comment);
-        return new ResponseEntity<>(questionId,HttpStatus.CREATED);
+        return new ResponseEntity<>(new QuestionCommentDto.QuestionIdResponse(questionId),HttpStatus.CREATED);
     }
 
     @PatchMapping("/questions/{comment-id}")
@@ -68,7 +67,7 @@ public class CommentController {
 
         QuestionComment comment = questionCommentMapper.questionCommentPatchDtoToQuestionComment(requestBody);
         QuestionComment response = questionCommentService.updateQuestionComment(commentId, comment);
-        return new ResponseEntity<>(response.getQuestion().getQuestionId(),HttpStatus.OK);
+        return new ResponseEntity<>(new QuestionCommentDto.QuestionIdResponse(response.getQuestion().getQuestionId()),HttpStatus.OK);
     }
 
     @DeleteMapping("/questions/{comment-id}")
@@ -76,7 +75,7 @@ public class CommentController {
 
         Long questionId = questionCommentService.deleteComment(commentId);
 
-        return new ResponseEntity<>(questionId,HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
 

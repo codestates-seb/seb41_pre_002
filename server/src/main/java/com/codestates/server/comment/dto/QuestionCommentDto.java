@@ -32,4 +32,9 @@ public class QuestionCommentDto {
         private String content;
         private AuditableResponseDto auditableResponseDto;
     }
+    @Getter
+    @AllArgsConstructor
+    public static class QuestionIdResponse {
+        private Long questionId;
+    }
 }
