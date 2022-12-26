@@ -1,18 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import { createGlobalStyle } from "styled-components";
-import { Route, Link } from "react-router-dom";
-
-const GlobalStyle = createGlobalStyle`
-  nav {
-    padding-left: 100px;
-    }
-`;
+import { Link } from "react-router-dom";
 
 const NavWrapper = styled.nav`
   width: 270px;
   margin: 0;
   padding-top: 24px;
+  padding-left: 100px;
   max-height: 100%;
   height: 100vh;
   position: inherit;
@@ -104,7 +98,6 @@ const QuestionList = styled.div`
 const Nav = () => {
   return (
     <>
-      <GlobalStyle />
       <NavWrapper>
         <NavDiv>
           <div className="Home">
