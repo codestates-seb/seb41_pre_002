@@ -9,7 +9,7 @@ import MathoverFlow from "./mathoverflowsvg";
 
 const Container = styled.div`
   background-color: #f1f2f3;
-  width: auto;
+  width: 100vw;
   height: auto;
   min-height: 750px;
 `;
