@@ -6,16 +6,15 @@ const TagCardItems = styled.div`
   flex-direction: column;
   color: black;
   font-size: 13px;
-  /* font-family: ; */
   text-align: left;
   padding: 12px;
   border: 1px solid rgb(214, 217, 220);
   border-radius: 2px;
-`;
 
-const TagDiV = styled.div`
-  display: flex;
-  flex-direction: column;
+  .TagDiV {
+    display: flex;
+    flex-direction: column;
+  }
 
   .tag-button {
     display: flex;
@@ -32,10 +31,10 @@ const TagDiV = styled.div`
   }
 
   .tag-content {
-    display : flex !important;
+    display: flex !important;
     color: black;
     font-size: 13px;
-    margin:  10px 0px 10px 0px;
+    margin: 10px 0px 10px 0px;
   }
 `;
 
@@ -44,13 +43,13 @@ const TagDiV = styled.div`
 const TagCardItem = () => {
   return (
     <TagCardItems>
-      <TagDiV>
+      <div className="TagDiv">
         <button className="tag-button">javascript</button>
         <div className="tag-content">
           For questions about programming in ECMAScript (JavaScript/JS) and its
           different dialects/implementations (except for ActionScript). Keep in
         </div>
-      </TagDiV>
+      </div>
     </TagCardItems>
   );
 };

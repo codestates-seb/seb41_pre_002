@@ -5,9 +5,17 @@ import Footer from "../component/footer";
 import Tag from "../component/tag/Tag";
 import styled from "styled-components";
 
+
 const ContentDiv = styled.div`
   display: flex;
+  background-color: beige;
+  /* height: 100vh; */
+  /* width: 100vw; */
+  /* height: auto; */
+  /* flex-direction: row; */
 `;
+
+
 
 const TagPage = () => {
   return (
