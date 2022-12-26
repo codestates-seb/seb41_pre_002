@@ -2,6 +2,8 @@ package com.codestates.server.member.entity;
 
 import com.codestates.server.answer.entity.Answer;
 import com.codestates.server.audit.Auditable;
+import com.codestates.server.comment.entity.AnswerComment;
+import com.codestates.server.comment.entity.QuestionComment;
 import com.codestates.server.question.entity.Question;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,11 +28,17 @@ public class Member extends Auditable {
     @Column(nullable = false)
     private String memberPassword;
 
-    @OneToMany
+    // 연관관계 매핑
+
+    @OneToMany(mappedBy = "member")
     private List<Question> questionList = new ArrayList<>();
 
-    @OneToMany
+    @OneToMany(mappedBy = "member")
+    private List<QuestionComment> questionComments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
     private List<Answer> answerList = new ArrayList<>();
 
-    //Todo: comment 매핑 추가
+    @OneToMany(mappedBy = "member")
+    private List<AnswerComment> answerComments = new ArrayList<>();
 }
