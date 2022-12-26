@@ -31,12 +31,6 @@ const ContentDiv = styled.div`
   }
 `;
 
-
-
-/*<div class="ta-center fs-title mx-auto wmx5 mb24">
-        Clicking “Log out” will log you out of the following domains on this device:
-    </div> */
-
 const Logout = () => {
   return (
     <>
