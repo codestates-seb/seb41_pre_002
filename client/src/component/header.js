@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
@@ -50,13 +51,13 @@ const Header = () => {
         <nav className="s-topbar--navigation" aria-label="Log in or sign up">
           <ol className="s-topbar--content">
             <li>
-              <a href="…" className="s-topbar--item s-topbar--item__unset s-btn s-btn__filled">
-                Log in
+              <a href="/" className="s-topbar--item s-topbar--item__unset s-btn s-btn__filled">
+                <Link to="/LoginPage">Log in</Link>
               </a>
             </li>
             <li>
-              <a href="…" className="s-topbar--item s-topbar--item__unset ml4 s-btn s-btn__primary">
-                Sign up
+              <a href="/" className="s-topbar--item s-topbar--item__unset ml4 s-btn s-btn__primary">
+                <Link to="/SignInPage">Sign up</Link>
               </a>
             </li>
           </ol>
