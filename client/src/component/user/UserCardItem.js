@@ -41,7 +41,7 @@ const UserCardItem = () => {
           alt="akrun's user avatar"
           width="48"
           height="48"
-          class="bar-sm"
+          className="bar-sm"
         ></img>
       </div>
         <div className="UserInfo">
