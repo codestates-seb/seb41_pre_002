@@ -4,7 +4,7 @@ import com.codestates.server.exception.BusinessLogicException;
 import com.codestates.server.exception.ExceptionCode;
 import com.codestates.server.member.entity.Member;
 import com.codestates.server.member.repository.MemberRepository;
-import com.codestates.server.security.UserAuthorityUtils;
+import com.codestates.server.security.CustomAuthorityUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,7 +24,7 @@ import java.util.Optional;
 public class MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
-    private final UserAuthorityUtils authorityUtils;
+    private final CustomAuthorityUtils authorityUtils;
 
     public Member createMember(Member member){
         String email = member.getEmail();
