@@ -3,7 +3,7 @@ package com.codestates.server.security;
 import lombok.Getter;
 
 @Getter
-public class AuthDto {
+public class SecurityDto {
 
     public static class LoginDto{
         private String email;
