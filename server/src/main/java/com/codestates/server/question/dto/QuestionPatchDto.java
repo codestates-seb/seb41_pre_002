@@ -10,8 +10,8 @@ import javax.validation.constraints.Positive;
 import java.util.List;
 
 @Getter
+@Setter // 테스트를 위해 추가
 public class QuestionPatchDto {
-    @Setter
     @Positive
     private long questionId;
 

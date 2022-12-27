@@ -72,7 +72,7 @@ public class QuestionService {
         // Todo: 필터 구현해야됨
 
         /**
-         * filter - 모두(기본값), 답변없음, 답변있음
+         * filter - 모두(기본값), 답변없음(noAnswer), 답변있음(Answer)
          * sortedBy - 최신순(기본값), 추천순, 답변많은순
          * */
         System.out.println("파인드퀘스쳔 메서드 시작===================");
