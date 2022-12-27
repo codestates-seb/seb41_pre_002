@@ -38,7 +38,10 @@ public class AnswerService {
         answer.setQuestion(findQuestion);
 
         answerRepository.save(answer);
-        findQuestion.calAnswerCount(); // 답변 갯수 반영
+
+        // 답변 갯수 반영
+        findQuestion.calAnswerCount();
+        questionRepository.save(findQuestion);
         return answer;
     }
     // 답글 조회
@@ -68,7 +71,11 @@ public class AnswerService {
         Answer findAnswer = verifyAnswer(answerId);
         canModifyOrDelete(findAnswer);
         answerRepository.deleteById(answerId);
-        findAnswer.getQuestion().calAnswerCount(); // 답변 갯수 반영
+
+        // 답변 갯수 반영
+        Question findQuestion = findAnswer.getQuestion();
+        findQuestion.calAnswerCount();
+        questionRepository.save(findQuestion);
     }
 
     // 멤버 존재 확인
