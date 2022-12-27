@@ -15,3 +15,7 @@ spring:
   sql:
     init:
       data-locations: classpath*:db/h2/data.sql
+
+mail: #관리자 권한 메일
+  address:
+    admin: admin@mail.com
