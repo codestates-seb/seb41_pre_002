@@ -1,5 +1,6 @@
 package com.codestates.server.comment.mapper;
 
+import com.codestates.server.answer.entity.Answer;
 import com.codestates.server.audit.AuditableResponseDto;
 import com.codestates.server.comment.dto.AnswerCommentDto;
 import com.codestates.server.comment.entity.AnswerComment;
@@ -65,5 +66,10 @@ public interface AnswerCommentMapper {
         AnswerCommentDto.Response response = new AnswerCommentDto.Response(comment.getAnswerCommentId(), answerId, memberId, memberName, content, new AuditableResponseDto(createdAt, modifiedAt));
 
         return response;
+    }
+    default AnswerCommentDto.AnswerIdResponse answerCommentToAnswerIdResponseDto(AnswerComment answerComment) {
+        AnswerCommentDto.AnswerIdResponse answerIdResponse = new AnswerCommentDto.AnswerIdResponse(answerComment.getAnswer().getAnswerId());
+
+        return answerIdResponse;
     }
 }
