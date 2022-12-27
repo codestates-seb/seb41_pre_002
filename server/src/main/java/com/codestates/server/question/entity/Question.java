@@ -26,6 +26,9 @@ public class Question extends Auditable {
     @Column(nullable = false)
     private String content;
 
+    private Integer answerCount;
+    private Integer voteCount;
+
     @OneToMany(mappedBy = "question", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<QuestionTag> questionTags = new ArrayList<>();
 
@@ -49,5 +52,15 @@ public class Question extends Auditable {
         if (questionTag.getQuestion() != this) {
             questionTag.setQuestion(this);
         }
+    }
+
+    public void calAnswerCount() {
+        this.answerCount = this.answers.size();
+    }
+
+    public void calVoteCount() {
+        this.voteCount = this.questionVotes.stream()
+                .map(questionVote -> questionVote.getScore())
+                .reduce(0, (x, y) -> x + y);
     }
 }
