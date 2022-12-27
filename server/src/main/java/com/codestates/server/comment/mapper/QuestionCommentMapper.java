@@ -73,4 +73,8 @@ public interface QuestionCommentMapper {
 
         return response;
     }
+    default QuestionCommentDto.QuestionIdResponse questionCommentToQuestionIdResponseDto(QuestionComment questionComment) {
+        QuestionCommentDto.QuestionIdResponse questionIdResponse = new QuestionCommentDto.QuestionIdResponse(questionComment.getQuestion().getQuestionId());
+        return questionIdResponse;
+    }
 }
