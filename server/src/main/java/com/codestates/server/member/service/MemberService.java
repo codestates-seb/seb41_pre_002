@@ -4,31 +4,37 @@ import com.codestates.server.exception.BusinessLogicException;
 import com.codestates.server.exception.ExceptionCode;
 import com.codestates.server.member.entity.Member;
 import com.codestates.server.member.repository.MemberRepository;
+import com.codestates.server.security.UserAuthorityUtils;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Transactional
 @Service
+@RequiredArgsConstructor
 public class MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
-
-    public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder) {
-        this.memberRepository = memberRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
+    private final UserAuthorityUtils authorityUtils;
 
     public Member createMember(Member member){
-        verifyExistsEmail(member.getEmail());
-        String encryptedPassword = passwordEncoder.encode(member.getMemberPassword());
+        String email = member.getEmail();
+        String password = member.getMemberPassword();
+
+        verifyExistsEmail(email);
+        String encryptedPassword = passwordEncoder.encode(password);
+        List<String> roles = authorityUtils.createdRoles(email);
         member.setMemberPassword(encryptedPassword);
 
         Member savedMember = memberRepository.save(member);
@@ -41,7 +47,7 @@ public class MemberService {
         Member findMember = findVerifiedMember(member.getMemberId());
 
         Optional.ofNullable(member.getMemberPassword())
-                .ifPresent(password -> findMember.setMemberPassword(password));
+                .ifPresent(password -> findMember.setMemberPassword(passwordEncoder.encode(password)));
 
         return memberRepository.save(findMember);
     }
