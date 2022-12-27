@@ -28,7 +28,14 @@ public class Member extends Auditable {
     @Column(nullable = false)
     private String memberPassword;
 
-    // 연관관계 매핑
+    //멤버 권한 정보 테이블과 매핑
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
+
+    public enum MemberRole{
+        ROLE_USER,
+        ROLE_ADMIN
+    }
 
     @OneToMany(mappedBy = "member")
     private List<Question> questionList = new ArrayList<>();
