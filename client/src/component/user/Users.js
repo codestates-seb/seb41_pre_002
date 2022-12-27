@@ -1,12 +1,15 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 import UserCardList from "./UserCardList";
+import UserPagenation from "./UserPagenation";
 
 const UserDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 24px 16px 0px 30px;
+  padding: 30px;
+  min-width: 200px;
+  background-color: aqua;
 
   h1 {
     font-size: 27px;
@@ -18,13 +21,14 @@ const UserDiv = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    width: 1040px;
+    width: 100%;
     height: 50px;
   }
   .ButtonBox {
     display: flex;
     border-color: var(--_bu-outlined-bc-selected);
     border-radius: 10px;
+    min-width: 100px;
   }
   .Btn {
     /* display: flex; */
@@ -45,13 +49,12 @@ const UserDiv = styled.div`
       background-color: rgb(242, 244, 245);
     }
   }
-`;
-
-const SubTabDiv = styled.div`
   .SubTab {
     display: flex;
     flex-direction: row;
-    margin: 20px 0px 0px 800px ;
+    justify-content: flex-end;
+    width: 100%;
+    min-width: 100px;
   }
   .Tab {
     color: #6a737c;
@@ -65,25 +68,46 @@ const SubTabDiv = styled.div`
   }
 `;
 
+
+
 const Users = () => {
+
+  // 빈값으로 초기세팅
+  const[inputValue, setInputValue] = useState({
+    // title: '',
+    users: '',
+  })
+
+  //inputvalue 값 추출 -> input 의 value 속성에 추출한 값 할당
+  const { users } = inputValue;
+
+  const onChangeValue = (e) => {
+    setInputValue({
+      ...inputValue,[e.target.name]: e.target.value,
+    });
+    console.log(inputValue)
+  }
+
   return (
     <UserDiv>
       <h1>Users</h1>
       <div className="UserInputDiv">
-        <div class="flex--item ps-relative mb12">
+        <div className="flex--item ps-relative mb12">
           <input
-            id="tagfilter"
-            class="s-input s-input__search h100 js-tag-filter"
-            autocomplete="off"
-            name="tagfilter"
+            id="userfilter"
+            defaultValue={users}
+            className="s-input s-input__search h100 js-tag-filter"
+            autoComplete="off"
+            name="users"
             type="text"
-            maxlength="35"
+            maxLength="35"
             placeholder="Filter by user name"
-            autofocus=""
+            autoFocus=""
+            onChange={onChangeValue}
           ></input>
           <svg
             aria-hidden="true"
-            class="s-input-icon s-input-icon__search svg-icon iconSearch"
+            className="s-input-icon s-input-icon__search svg-icon iconSearch"
             width="18"
             height="18"
             viewBox="0 0 18 18"
@@ -99,17 +123,15 @@ const Users = () => {
           <button className="Btn">Moderators</button>
         </div>
       </div>
-      <SubTabDiv>
-        <div className="SubTab">
-
+      <div className="SubTab">
         <div className="Tab">week</div>
         <div className="Tab">month</div>
         <div className="Tab">quarter</div>
         <div className="Tab">year</div>
         <div className="Tab">all</div>
-        </div>
-      </SubTabDiv>
+      </div>
       <UserCardList />
+      <UserPagenation/>
     </UserDiv>
   );
 };

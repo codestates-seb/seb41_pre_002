@@ -5,12 +5,14 @@ import QuestionList from './questionlist';
 
 const ContentDiv = styled.div`
   width: 1000px;
+  min-width: 100px;
+  padding: 24px 16px 0px 30px;
 `;
 
 const ContentHeader = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 24px 16px 0px 30px;
+
 
   h1 {
     font-size: 27px;
@@ -63,7 +65,6 @@ const ButtonBox = styled.div`
 
 const Questions = () => {
   return (
-    <>
       <ContentDiv>
         {/*question 상단 */}
         <ContentHeader>
@@ -83,7 +84,7 @@ const Questions = () => {
         {/* question을 요약해서 보여주는 하나의 박스 */}
         <QuestionList />
       </ContentDiv>
-    </>
+    
   );
 };
 

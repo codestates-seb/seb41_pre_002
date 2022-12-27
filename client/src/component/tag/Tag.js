@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import Taginput from "./TagInput";
 import TagCard from "./TagCardList";
+import TagPagenation from "./TagPagenation";
 
 const TagDIV = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 24px 16px 0px 30px;
+  padding: 30px;
+  width: 100%;
+  min-width: 200px;
+  background-color: aqua;
+  /* height: auto; */
+  /* box-sizing: border-box; */
   h1 {
     font-size: 27px;
     margin: 0px 0px 27px;
@@ -18,18 +23,20 @@ const TagDIV = styled.div`
     color: black;
     font-size: 15px;
     max-width: 625px;
+    margin: 0px 0px 27px;
   }
   .TagSearchDiv {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    width: 1050px;
+    width: 100%;
     height: 50px;
   }
   .ButtonBox {
     display: flex;
     border-color: var(--_bu-outlined-bc-selected);
-    border-radius: 4px;
+    border-radius: 10px;
+    min-width: 100px;
   }
   .Btn {
     /* display: flex; */
@@ -52,32 +59,76 @@ const TagDIV = styled.div`
   }
 `;
 
-
 const Tag = () => {
+
+  // 빈값으로 초기세팅
+  const[inputValue, setInputValue] = useState({
+    // title: '',
+    tags: '',
+  })
+
+  //inputvalue 값 추출 -> input 의 value 속성에 추출한 값 할당
+  const { tags } = inputValue;
+  // const {title, tags} = inputValue;
+
+  const onChangeValue = (e) => {
+    setInputValue({
+      ...inputValue,[e.target.name]: e.target.value,
+    });
+    console.log(inputValue)
+  }
+  // const [text, setText] = useState("");
+
+  // const onChange = (e) => {
+  //   setText(e.target.value);
+  // };
+
   return (
-    <>
-      <TagDIV>
-        {/* tag 페이지 상단 */}
-        <h1>Tags</h1>
-        {
-          <p className="TagPar">
-            A tag is a keyword or label that categorizes your question with
-            other, similar questions.<br></br> Using the right tags makes it
-            easier for others to find and answer your question.
-          </p>
-        }
-        {/*tag input && buttion div 묶음 */}
-        <div className="TagSearchDiv">
-          <Taginput />
-          <div className="ButtonBox">
-            <button className="Btn">Popular</button>
-            <button className="Btn">Name</button>
-            <button className="Btn">New</button>
-          </div>
+    <TagDIV>
+      {/* tag 페이지 상단 */}
+      <h1>Tags</h1>
+      {
+        <p className="TagPar">
+          A tag is a keyword or label that categorizes your question with other,
+          similar questions.<br></br> Using the right tags makes it easier for
+          others to find and answer your question.
+        </p>
+      }
+      {/*tag input && buttion div 묶음 */}
+      <div className="TagSearchDiv">
+        <div className="flex--item ps-relative mb12">
+          <input
+            id="tagfilter"
+            onChange={onChangeValue}
+            defaultValue={tags}
+            // value={text}
+            className="s-input s-input__search h100 js-tag-filter"
+            autoComplete="off"
+            name="tags"
+            type="text"
+            maxLength="35"
+            placeholder="Filter by tag name"
+            autoFocus=""
+          ></input>
+          <svg
+            aria-hidden="true"
+            className="s-input-icon s-input-icon__search svg-icon iconSearch"
+            width="18"
+            height="18"
+            viewBox="0 0 18 18"
+          >
+            <path d="m18 16.5-5.14-5.18h-.35a7 7 0 1 0-1.19 1.19v.35L16.5 18l1.5-1.5ZM12 7A5 5 0 1 1 2 7a5 5 0 0 1 10 0Z"></path>
+          </svg>
         </div>
-        <TagCard />
-      </TagDIV>
-    </>
+        <div className="ButtonBox">
+          <button className="Btn">Popular</button>
+          <button className="Btn">Name</button>
+          <button className="Btn">New</button>
+        </div>
+      </div>
+      <TagCard />
+      <TagPagenation />
+    </TagDIV>
   );
 };
 

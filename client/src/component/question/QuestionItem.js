@@ -61,6 +61,7 @@ const QuestionItem = () => {
     <QuestionItemdiv>
       <QuestionItems>
         <SummaryStatus>0 vote 0 answer</SummaryStatus>
+
         <SummaryContent>
           <Link to="/QuesetionRead">질문상세보기로 연결해주세요</Link>
           <SummaryMeta>
@@ -70,6 +71,7 @@ const QuestionItem = () => {
             유저이미지 유저정보 div
           </SummaryMeta>
         </SummaryContent>
+        
       </QuestionItems>
     </QuestionItemdiv>
   );

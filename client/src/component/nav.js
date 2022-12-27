@@ -1,4 +1,6 @@
-import React from "react";
+// eslint-disable-next-line     
+
+import React, { useState, useCallback } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
@@ -9,7 +11,7 @@ const NavWrapper = styled.nav`
   padding-left: 100px;
   max-height: 100%;
   height: 100vh;
-  position: inherit;
+  position: sticky;
   color: #525960;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
@@ -74,9 +76,14 @@ const QuestionList = styled.div`
   width: 165px;
   height: 35px;
   /* font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;; */
-
+  &.clicked {
+    background-image: linear-gradient(to right, rgb(241, 242, 243) 98.1%, rgb(229, 136, 61) 1.9%);
+    /* background-color: rgb(241, 242, 243); */
+    background-color: red;
+    font-weight: bold;
+  }
   &:hover {
-    /* font-weight: bold; */
+    font-weight: bold;
     /* background: var(--black-050); */
     color: var(--black-900);
     /* border-right: 3px solid var(--theme-primary-color); */
@@ -93,14 +100,25 @@ const QuestionList = styled.div`
     color: var(--black-900);
     border-right: 3px solid var(--theme-primary-color);
   }
+  /* &.no-icon {
+    padding-left: 30px;
+  } */
+  
 `;
 
-const Nav = () => {
+const Nav = ({path}) => {
+
+  const [clicked, setClicked] = useState(path);
+
+  const onClick = useCallback(() => {
+    setClicked(path);
+  }, [clicked]);
+
   return (
-    <>
+    
       <NavWrapper>
         <NavDiv>
-          <div className="Home">
+          <div className='Home'>
             <Link to="/">Home</Link> {/*link to || link로 구현 */}
           </div>
           <SubNav>
@@ -120,15 +138,15 @@ const Nav = () => {
               </svg>
               <span>Question</span>
             </QuestionDiv>
-            <QuestionList>
+            <QuestionList >
+            <div className={clicked === 'Tags' ? 'clicked' : ''} onClick={onClick}></div>
               <Link to="/TagPage">Tag</Link>
             </QuestionList>
             <QuestionList>
+            <div className={clicked === 'Users' ? 'clicked' : ''} onClick={onClick}></div>
               <Link to="/UserPage">User</Link>
             </QuestionList>
-            <QuestionList>
-              Companies
-            </QuestionList>
+            <QuestionList>Companies</QuestionList>
             {/* <li>COLLECTIVEIS</li>
           <svg
           width="18"
@@ -162,7 +180,6 @@ const Nav = () => {
           </ul> */}
         </NavDiv>
       </NavWrapper>
-    </>
   );
 };
 

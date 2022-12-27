@@ -4,8 +4,7 @@ import UserCardItem from "./UserCardItem";
 
 const UserCardList = styled.div`
   display: grid;
-  grid-template-rows: repeat(4, 100px);
-  grid-template-columns: repeat(4, 250px);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 15px;
   margin-top: 15px;
 `;

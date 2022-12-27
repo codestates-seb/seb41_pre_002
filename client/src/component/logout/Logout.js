@@ -9,7 +9,7 @@ import MathoverFlow from "./mathoverflowsvg";
 
 const Container = styled.div`
   background-color: #f1f2f3;
-  width: auto;
+  width: 100vw;
   height: auto;
   min-height: 750px;
 `;
@@ -50,13 +50,13 @@ const Logout = () => {
               <input
                 type="hidden"
                 name="fkey"
-                value="bb48db05171f89d25b3e4ae25decd4dbe498006c626990e85e44055e9f87006f"
+                defaultValue="bb48db05171f89d25b3e4ae25decd4dbe498006c626990e85e44055e9f87006f"
               ></input>
               <input
                 id="returnUrl"
                 name="returnUrl"
                 type="hidden"
-                value="https://stackoverflow.com/users?tab=Reputation&amp;filter=week"
+                defaultValue="https://stackoverflow.com/users?tab=Reputation&amp;filter=week"
               ></input>
               <ul class="list-reset fs-body2 d-flex fd-column gs8 gsy mb16 bb bc-black-100 pb12">
                 <li class="flex--item">
