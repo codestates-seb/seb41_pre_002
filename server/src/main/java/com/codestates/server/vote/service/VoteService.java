@@ -54,7 +54,10 @@ public class VoteService {
                 Optional<QuestionVote> optionalQuestionVote = verifyExistsQuestionVote(member, question);
                 if (optionalQuestionVote.isPresent()) {
                     QuestionVote questionVote = optionalQuestionVote.get();
-                    questionVote.calculateScore(score);
+
+                    questionVote.calculateScore(score); // questionVote 투표갯수 계산
+                    question.calVoteCount(); // 총 투표수 계산
+
                     questionVoteRepository.save(questionVote);
                 } else {
                     questionVoteRepository.save(new QuestionVote(score, member, question));
