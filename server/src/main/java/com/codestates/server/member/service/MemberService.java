@@ -9,8 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -33,9 +31,11 @@ public class MemberService {
         String password = member.getMemberPassword();
 
         verifyExistsEmail(email);
-        String encryptedPassword = passwordEncoder.encode(password);
-        List<String> roles = authorityUtils.createdRoles(email);
+        String encryptedPassword = passwordEncoder.encode(password);    //비밀번호 해싱
         member.setMemberPassword(encryptedPassword);
+
+        List<String> roles = authorityUtils.createdRoles(email);    //유저 권한 부여
+        member.setRoles(roles);
 
         Member savedMember = memberRepository.save(member);
 
@@ -55,6 +55,16 @@ public class MemberService {
     @Transactional(readOnly = true)
     public Member findMember(long memberId) {
         return findVerifiedMember(memberId);
+    }
+
+    @Transactional(readOnly = true)
+    public Member findMemberByEmail(String email){
+        Optional<Member> optionalMember =
+                memberRepository.findByEmail(email);
+        Member findMember =
+                optionalMember.orElseThrow(() ->
+                        new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        return findMember;
     }
 
     public Page<Member> findMembers(int page, int size) {
