@@ -1,4 +1,4 @@
-package com.codestates.server.config;
+package com.codestates.server.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,10 +22,13 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.cors().disable()
+        http
+                .headers().frameOptions().disable() //spring security에서 h2-console 접근 허용 용도
+                .and()
+                .cors().disable()
                 .csrf().disable()
                 .formLogin().disable()
-                .authorizeRequests()
+                .authorizeHttpRequests()
                 .antMatchers("/").permitAll()
                 .anyRequest().permitAll();
 
