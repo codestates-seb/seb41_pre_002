@@ -24,11 +24,11 @@ const QuestionList = () => {
     <QusetionListDiv>
     <QuestionLists>
       <QuestionItem/>
+      {/* <QuestionItem/>
       <QuestionItem/>
       <QuestionItem/>
       <QuestionItem/>
-      <QuestionItem/>
-      <QuestionItem/>
+      <QuestionItem/> */}
     </QuestionLists>
     </QusetionListDiv>
   )
