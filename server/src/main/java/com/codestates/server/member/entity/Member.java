@@ -5,12 +5,16 @@ import com.codestates.server.audit.Auditable;
 import com.codestates.server.comment.entity.AnswerComment;
 import com.codestates.server.comment.entity.QuestionComment;
 import com.codestates.server.question.entity.Question;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.*;
 import javax.persistence.*;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Getter
 @Setter
