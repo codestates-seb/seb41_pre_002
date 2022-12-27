@@ -8,10 +8,7 @@ import com.codestates.server.comment.dto.QuestionCommentDto;
 import com.codestates.server.comment.mapper.AnswerCommentMapper;
 import com.codestates.server.comment.mapper.QuestionCommentMapper;
 import com.codestates.server.question.controller.QuestionController;
-import com.codestates.server.question.dto.QuestionDetailResponseDto;
-import com.codestates.server.question.dto.QuestionPostDto;
-import com.codestates.server.question.dto.QuestionResponseDto;
-import com.codestates.server.question.dto.QuestionSuccessResponseDto;
+import com.codestates.server.question.dto.*;
 import com.codestates.server.question.entity.Question;
 import com.codestates.server.question.mapper.QuestionMapper;
 import com.codestates.server.question.service.QuestionService;
@@ -132,7 +129,60 @@ public class QuestionControllerTest {
 
     @Test
     void patchQuestionTest() throws Exception {
+        //given
+        QuestionPatchDto patch = new QuestionPatchDto();
+        patch.setQuestionId(1L);
+        patch.setMemberId(1L);
+        patch.setTitle("수정된 질문 제목");
+        patch.setContent("수정된 질문 내용");
+        patch.setCategories(List.of("수정된태그1", "수정된태그2"));
 
+        QuestionSuccessResponseDto response = new QuestionSuccessResponseDto();
+        response.setQuestionId(1L);
+
+        given(questionMapper.questionPatchDtoToQuestion(Mockito.any(QuestionPatchDto.class))).willReturn(new Question());
+        given(questionService.updateQuestion(Mockito.any(Question.class))).willReturn(new Question());
+        doNothing().when(tagService).updateQuestionTags(Mockito.any(Question.class), Mockito.anyList());
+        given(questionMapper.questionToQuestionSuccessResponseDto(Mockito.any(Question.class))).willReturn(response);
+
+        String content = gson.toJson(patch);
+
+        //when
+        ResultActions actions = mockMvc.perform(
+                patch("/questions/{question-id}", response.getQuestionId())
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(content)
+        );
+
+        //then
+        MvcResult result = actions
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.data.questionId").value(patch.getQuestionId()))
+                .andDo(document(
+                        "patch-question",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        pathParameters(parameterWithName("question-id").description("질문 식별자")),
+                        requestFields(
+                                List.of(
+                                        fieldWithPath("questionId").type(JsonFieldType.NUMBER).description("질문 식별자"),
+                                        fieldWithPath("memberId").type(JsonFieldType.NUMBER).description("회원 식별자"),
+                                        fieldWithPath("title").type(JsonFieldType.STRING).description("질문 제목"),
+                                        fieldWithPath("content").type(JsonFieldType.STRING).description("질문 내용"),
+                                        fieldWithPath("categories").type(JsonFieldType.ARRAY).description("태그 목록")
+                                )
+                        ),
+                        responseFields(
+                                List.of(
+                                        fieldWithPath("data.questionId").type(JsonFieldType.NUMBER).description("질문 식별자"),
+                                        fieldWithPath("data.message").type(JsonFieldType.STRING).description("요청 성공 알림 메세지")
+                                )
+                        )
+                ))
+                .andReturn();
+
+        System.out.println("\nresult = " + result.getResponse().getContentAsString() + "\n");
     }
 
     @Test
@@ -400,6 +450,29 @@ public class QuestionControllerTest {
                                 )
                         )
 
+                ))
+                .andReturn();
+
+        System.out.println("\nresult = " + result.getResponse().getContentAsString() + "\n");
+    }
+
+    @Test
+    void deleteQuestionTest() throws Exception {
+        //given
+        long questionId = 1L;
+        doNothing().when(questionService).deleteQuestion(Mockito.anyLong());
+
+        //when
+        ResultActions actions = mockMvc.perform(
+                delete("/questions/{question-id}", questionId)
+        );
+
+        //then
+        MvcResult result = actions
+                .andExpect(status().isNoContent())
+                .andDo(document(
+                        "delete-question",
+                        pathParameters(parameterWithName("question-id").description("질문 식별자"))
                 ))
                 .andReturn();
 
