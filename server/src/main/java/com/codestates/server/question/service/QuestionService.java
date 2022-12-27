@@ -68,19 +68,30 @@ public class QuestionService {
         }
     }
 
-    public Page<Question> findQuestions(int page, int size, String keyword, String filter, String sortedBy) {
+    public Page<Question> findQuestions(int page, int size, String keyword, String filter, String sortedBy, String order) {
+        // Todo: 필터 구현해야됨
+
         /**
-         * Todo: 다양한 정렬 조건들 받을 예정
          * filter - 모두(기본값), 답변없음, 답변있음
          * sortedBy - 최신순(기본값), 추천순, 답변많은순
          * */
+        System.out.println("파인드퀘스쳔 메서드 시작===================");
 
+        // 필요한 변수들 선언
         Page<Question> questions;
+        Pageable pageable;
 
-        // 필터
+        // 정렬기준 설정 (sortedBy)
+        if (!sortedBy.equals("questionId") && !sortedBy.equals("voteCount") && !sortedBy.equals("answerCount")) {
+            sortedBy = "questionId"; // 기준 외 입력 시
+        }
 
-        // 정렬
-        Pageable pageable = PageRequest.of(page, size, Sort.by("questionId").descending());
+        // 차순 설정 (order)
+        if (order.equals("descending")) {
+            pageable = PageRequest.of(page, size, Sort.by(sortedBy).descending());
+        } else {
+            pageable = PageRequest.of(page, size, Sort.by(sortedBy).ascending()); // 기준 외 입력 시
+        }
 
         // 질문 내용 검색
         if (keyword.length() == 0) { // 검색 내용이 없을 경우
@@ -88,7 +99,7 @@ public class QuestionService {
         } else { // 검색 내용이 있을 경우
             questions = questionRepository.findAllByTitleContainsOrContentContains(keyword, keyword, pageable);
         }
-
+        System.out.println("파인드퀘스쳔 메서드 시작===================");
         return questions;
     }
 

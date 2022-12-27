@@ -92,7 +92,8 @@ public class QuestionController {
                                        @Positive @RequestParam(required = false, defaultValue = "10") int size,
                                        @RequestParam(required = false, defaultValue = "") String keyword,
                                        @RequestParam(required = false, defaultValue = "all") String filter,
-                                       @RequestParam(required = false, defaultValue = "descending") String sortedBy) {
+                                       @RequestParam(required = false, defaultValue = "questionId") String sortedBy, // questionId, voteCount, answerCount 만 허용, 규격외의 값은 questionId로 정렬됨
+                                       @RequestParam(required = false, defaultValue = "descending") String order) { // 기본값 내림차순, 규격외의 값 입력 시 오름차순 정렬됨
 
         /**
          * Todo: 다양한 정렬 조건들 받을 예정
@@ -100,7 +101,7 @@ public class QuestionController {
          * sortedBy - 최신순(기본값), 추천순, 답변많은순
          * */
 
-        Page<Question> pageQuestions = questionService.findQuestions(page - 1, size, keyword, filter, sortedBy);
+        Page<Question> pageQuestions = questionService.findQuestions(page - 1, size, keyword, filter, sortedBy, order);
 
         return new ResponseEntity(
                 new MultiResponseDto<>(questionMapper.questionsToQuestionResponseDtos(pageQuestions.getContent(), questionCommentMapper), pageQuestions),

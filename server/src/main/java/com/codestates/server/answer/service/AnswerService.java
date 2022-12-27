@@ -75,6 +75,7 @@ public class AnswerService {
         // 답변 갯수 반영
         Question findQuestion = findAnswer.getQuestion();
         findQuestion.calAnswerCount();
+        System.out.println("ㅁ낭만ㅇ"+findQuestion.getAnswers().size());
         questionRepository.save(findQuestion);
     }
 

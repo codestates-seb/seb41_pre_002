@@ -56,7 +56,7 @@ public class Question extends Auditable {
     }
 
     public void calAnswerCount() {
-        this.answerCount = this.answers.size();
+        this.answerCount = this.answers.size() - 1;
     }
 
     public void calVoteCount() {
