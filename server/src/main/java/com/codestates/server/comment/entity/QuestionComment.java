@@ -33,10 +33,10 @@ public class QuestionComment extends Auditable {
      */
     public void setMember(Member member) {
         this.member = member;
-       // member.addComment(this);
+        member.getQuestionComments().add(this);
     }
     public void setQuestion(Question question) {
         this.question = question;
-       //  question.addComment(this);
+         question.getComments().add(this);
     }
 }
