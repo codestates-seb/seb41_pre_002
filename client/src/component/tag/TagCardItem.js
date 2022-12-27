@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import dummydata from "../../dummy/dummydata";
+// import Tag from "./Tag";
 
 const TagCardItems = styled.div`
   display: flex;
@@ -41,16 +43,63 @@ const TagCardItems = styled.div`
 // tag card가 하나씩 들어가는 컴포넌트
 
 const TagCardItem = () => {
+  const [tags, setTags] = useState([]);
+  useEffect(() => {
+    setTags(dummydata);
+  }, []);
+
+  console.log(tags);
+  // const FilterTag = (tag) => {
+  //   Tags.filter((tag) => tag.text.to)
+  // }
+
   return (
-    <TagCardItems>
-      <div className="TagDiv">
-        <button className="tag-button">javascript</button>
-        <div className="tag-content">
-          For questions about programming in ECMAScript (JavaScript/JS) and its
-          different dialects/implementations (except for ActionScript). Keep in
+    <>
+      <TagCardItems>
+        <div className="TagDiv">
+          {/* {tags.map((dummydata) => 
+          key={item.tagId}
+          )}; */}
+          {/* <button className="tag-button">javascript</button>
+          <div className="tag-content">
+            For questions about programming in ECMAScript (JavaScript/JS) and
+            its different dialects/implementations (except for ActionScript).
+            Keep in
+          </div> */}
         </div>
-      </div>
-    </TagCardItems>
+      </TagCardItems>
+
+      {/* <TagCardItems>
+        <div className="TagDiv">
+          <button className="tag-button">python</button>
+          <div className="tag-content">
+            Python is a multi-paradigm, dynamically typed, multi-purpose
+            programming language. It is designed to be quick to learn,
+            understand, and use, and enforces
+          </div>
+        </div>
+      </TagCardItems>
+      <TagCardItems>
+        <div className="TagDiv">
+          <button className="tag-button">java</button>
+          <div className="tag-content">
+            Python is a multi-paradigm, dynamically typed, multi-purpose
+            programming language. It is designed to be quick to learn,
+            understand, and use, and enforces
+          </div>
+        </div>
+      </TagCardItems>
+      <TagCardItems>
+        <div className="TagDiv">
+          <button className="tag-button">c#</button>
+          <div className="tag-content">
+            Python is a multi-paradigm, dynamically typed, multi-purpose
+            programming language. It is designed to be quick to learn,
+            understand, and use, and enforces
+          </div>
+        </div>
+      </TagCardItems> */}
+    </>
   );
 };
 

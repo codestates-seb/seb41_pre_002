@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import TagCard from "./TagCardList";
 import TagPagenation from "./TagPagenation";
@@ -7,7 +7,8 @@ const TagDIV = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 30px ;
+  padding: 30px;
+  width: 100%;
   min-width: 200px;
   background-color: aqua;
   /* height: auto; */
@@ -17,7 +18,6 @@ const TagDIV = styled.div`
     margin: 0px 0px 27px;
     color: black;
     font-weight: 400;
-    
   }
   p {
     color: black;
@@ -60,6 +60,29 @@ const TagDIV = styled.div`
 `;
 
 const Tag = () => {
+
+  // 빈값으로 초기세팅
+  const[inputValue, setInputValue] = useState({
+    // title: '',
+    tags: '',
+  })
+
+  //inputvalue 값 추출 -> input 의 value 속성에 추출한 값 할당
+  const { tags } = inputValue;
+  // const {title, tags} = inputValue;
+
+  const onChangeValue = (e) => {
+    setInputValue({
+      ...inputValue,[e.target.name]: e.target.value,
+    });
+    console.log(inputValue)
+  }
+  // const [text, setText] = useState("");
+
+  // const onChange = (e) => {
+  //   setText(e.target.value);
+  // };
+
   return (
     <TagDIV>
       {/* tag 페이지 상단 */}
@@ -73,27 +96,30 @@ const Tag = () => {
       }
       {/*tag input && buttion div 묶음 */}
       <div className="TagSearchDiv">
-      <div class="flex--item ps-relative mb12">
-        <input
-          id="tagfilter"
-          class="s-input s-input__search h100 js-tag-filter"
-          autocomplete="off"
-          name="tagfilter"
-          type="text"
-          maxlength="35"
-          placeholder="Filter by tag name"
-          autofocus=""
-        ></input>
-        <svg
-          aria-hidden="true"
-          class="s-input-icon s-input-icon__search svg-icon iconSearch"
-          width="18"
-          height="18"
-          viewBox="0 0 18 18"
-        >
-          <path d="m18 16.5-5.14-5.18h-.35a7 7 0 1 0-1.19 1.19v.35L16.5 18l1.5-1.5ZM12 7A5 5 0 1 1 2 7a5 5 0 0 1 10 0Z"></path>
-        </svg>
-      </div>
+        <div className="flex--item ps-relative mb12">
+          <input
+            id="tagfilter"
+            onChange={onChangeValue}
+            defaultValue={tags}
+            // value={text}
+            className="s-input s-input__search h100 js-tag-filter"
+            autoComplete="off"
+            name="tags"
+            type="text"
+            maxLength="35"
+            placeholder="Filter by tag name"
+            autoFocus=""
+          ></input>
+          <svg
+            aria-hidden="true"
+            className="s-input-icon s-input-icon__search svg-icon iconSearch"
+            width="18"
+            height="18"
+            viewBox="0 0 18 18"
+          >
+            <path d="m18 16.5-5.14-5.18h-.35a7 7 0 1 0-1.19 1.19v.35L16.5 18l1.5-1.5ZM12 7A5 5 0 1 1 2 7a5 5 0 0 1 10 0Z"></path>
+          </svg>
+        </div>
         <div className="ButtonBox">
           <button className="Btn">Popular</button>
           <button className="Btn">Name</button>
@@ -101,7 +127,7 @@ const Tag = () => {
         </div>
       </div>
       <TagCard />
-      <TagPagenation/>
+      <TagPagenation />
     </TagDIV>
   );
 };

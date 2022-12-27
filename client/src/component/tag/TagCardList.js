@@ -22,6 +22,7 @@ const TagCardList = () => {
         <TagCardItem />
         <TagCardItem />
         <TagCardItem />
+        {/* <TagCardItem />
         <TagCardItem />
         <TagCardItem />
         <TagCardItem />
@@ -32,8 +33,7 @@ const TagCardList = () => {
         <TagCardItem />
         <TagCardItem />
         <TagCardItem />
-        <TagCardItem />
-        <TagCardItem />
+        <TagCardItem /> */}
       </TagCardLists>
     </>
   )
