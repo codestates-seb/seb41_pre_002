@@ -1,9 +1,9 @@
-package com.codestates.server.security;
+package com.codestates.server.security.dto;
 
 import lombok.Getter;
 
 @Getter
 public class LoginDto {
-    private String email;
+    private String username;
     private String password;
 }
