@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 import UserCardList from "./UserCardList";
 import UserPagenation from "./UserPagenation";
@@ -71,24 +71,43 @@ const UserDiv = styled.div`
 
 
 const Users = () => {
+
+  // 빈값으로 초기세팅
+  const[inputValue, setInputValue] = useState({
+    // title: '',
+    users: '',
+  })
+
+  //inputvalue 값 추출 -> input 의 value 속성에 추출한 값 할당
+  const { users } = inputValue;
+
+  const onChangeValue = (e) => {
+    setInputValue({
+      ...inputValue,[e.target.name]: e.target.value,
+    });
+    console.log(inputValue)
+  }
+
   return (
     <UserDiv>
       <h1>Users</h1>
       <div className="UserInputDiv">
-        <div class="flex--item ps-relative mb12">
+        <div className="flex--item ps-relative mb12">
           <input
-            id="tagfilter"
-            class="s-input s-input__search h100 js-tag-filter"
-            autocomplete="off"
-            name="tagfilter"
+            id="userfilter"
+            defaultValue={users}
+            className="s-input s-input__search h100 js-tag-filter"
+            autoComplete="off"
+            name="users"
             type="text"
-            maxlength="35"
+            maxLength="35"
             placeholder="Filter by user name"
-            autofocus=""
+            autoFocus=""
+            onChange={onChangeValue}
           ></input>
           <svg
             aria-hidden="true"
-            class="s-input-icon s-input-icon__search svg-icon iconSearch"
+            className="s-input-icon s-input-icon__search svg-icon iconSearch"
             width="18"
             height="18"
             viewBox="0 0 18 18"
