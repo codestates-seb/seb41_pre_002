@@ -62,6 +62,7 @@ public class SecurityConfiguration {
         return source;
     }
 
+    //Todo: 로그인 인증 401 에러 해결
     public class CustomFilterConfigurer extends AbstractHttpConfigurer<CustomFilterConfigurer, HttpSecurity> {
         @Override
         public void configure(HttpSecurity builder) throws Exception {
