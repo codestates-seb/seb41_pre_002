@@ -13,11 +13,13 @@ import com.codestates.server.vote.repository.AnswerVoteRepository;
 import com.codestates.server.vote.repository.QuestionVoteRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class VoteService {
     private final AnswerVoteRepository answerVoteRepository;
     private final QuestionVoteRepository questionVoteRepository;
@@ -65,10 +67,12 @@ public class VoteService {
     }
 
     // 이미 추천이 존재하는지 확인하는 메서드
+    @Transactional(readOnly = true)
     private Optional<AnswerVote> verifyExistsAnswerVote(Member member, Answer answer) {
         return answerVoteRepository.findByMemberAndAnswer(member, answer);
     }
 
+    @Transactional(readOnly = true)
     private Optional<QuestionVote> verifyExistsQuestionVote(Member member, Question question) {
         return questionVoteRepository.findByMemberAndQuestion(member, question);
     }
