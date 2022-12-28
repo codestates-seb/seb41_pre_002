@@ -23,9 +23,6 @@ public class TagService {
     private final QuestionTagRepository questionTagRepository;
 
     public Tag createTag(String category) {
-//        Tag.TagBuilder tag = Tag.builder();
-//        tag.category(category);
-//        return tagRepository.save(tag.build());
         Tag tag = new Tag();
         tag.setCategory(category);
         return tagRepository.save(tag);
@@ -70,12 +67,20 @@ public class TagService {
         return tags;
     }
 
+    public void updateQuestionsCount(Tag tag) {
+        tag.calQuestionsCount();
+        tagRepository.save(tag);
+    }
+
     public void updateQuestionTags(Question question, List<String> categories) {
         //Todo: 더 효율적인 방법이 존재함. 무식한 방법말고 업그레이드해야됨
 
         // 기존 질문태그 삭제
         questionTagRepository.findAllByQuestion(question).stream()
-                .forEach(questionTag -> questionTagRepository.delete(questionTag));
+                .forEach(questionTag -> {
+                    questionTagRepository.delete(questionTag);
+                    updateQuestionsCount(questionTag.getTag());
+                });
 
         // 새로운 태그 유효성 검사 및 등록
         List<Tag> findTags = findTagsElseCreateTags(categories);
@@ -86,7 +91,8 @@ public class TagService {
                     QuestionTag questionTag = new QuestionTag();
                     questionTag.setQuestion(question);
                     questionTag.setTag(tag);
-                    questionTagRepository.save(questionTag);
+                    QuestionTag savedQuestionTag = questionTagRepository.save(questionTag);
+                    updateQuestionsCount(savedQuestionTag.getTag());
                 });
     }
 

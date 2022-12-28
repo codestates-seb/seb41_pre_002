@@ -19,7 +19,7 @@ public interface TagMapper {
         TagResponseDto tagResponseDto = new TagResponseDto();
         tagResponseDto.setTagId(tag.getTagId());
         tagResponseDto.setCategory(tag.getCategory());
-        tagResponseDto.setQuestionsCount(tag.getQuestionTags().size());
+        tagResponseDto.setQuestionsCount(tag.getQuestionsCount());
 
         return tagResponseDto;
     }

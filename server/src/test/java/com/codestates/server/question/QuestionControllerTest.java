@@ -13,6 +13,7 @@ import com.codestates.server.question.entity.Question;
 import com.codestates.server.question.mapper.QuestionMapper;
 import com.codestates.server.question.service.QuestionService;
 import com.codestates.server.tag.dto.TagResponseDto;
+import com.codestates.server.tag.entity.Tag;
 import com.codestates.server.tag.service.TagService;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.Test;
@@ -85,6 +86,7 @@ public class QuestionControllerTest {
         given(tagService.findTagsElseCreateTags(Mockito.anyList())).willReturn(new ArrayList<>());
         given(questionMapper.questionPostDtoToQuestion(Mockito.any(QuestionPostDto.class), Mockito.anyList())).willReturn(new Question());
         given(questionService.createQuestion(Mockito.any(Question.class))).willReturn(new Question());
+        doNothing().when(tagService).updateQuestionsCount(Mockito.any(Tag.class));
         given(questionMapper.questionToQuestionSuccessResponseDto(Mockito.any(Question.class))).willReturn(response);
 
         String content = gson.toJson(post);

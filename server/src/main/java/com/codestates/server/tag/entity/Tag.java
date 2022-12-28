@@ -37,6 +37,6 @@ public class Tag {
     }
 
     public void calQuestionsCount() {
-        this.questionsCount = this.questionTags.size() - 1;
+        this.questionsCount = this.questionTags.size();
     }
 }

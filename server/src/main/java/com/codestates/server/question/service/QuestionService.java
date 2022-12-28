@@ -5,6 +5,8 @@ import com.codestates.server.exception.ExceptionCode;
 import com.codestates.server.member.service.MemberService;
 import com.codestates.server.question.entity.Question;
 import com.codestates.server.question.repository.QuestionRepository;
+import com.codestates.server.tag.service.TagService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -14,14 +16,11 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class QuestionService {
     private final QuestionRepository questionRepository;
     private final MemberService memberService;
-
-    public QuestionService(QuestionRepository questionRepository, MemberService memberService) {
-        this.questionRepository = questionRepository;
-        this.memberService = memberService;
-    }
+    private final TagService tagService;
 
     public Question createQuestion(Question question) {
 
@@ -42,8 +41,6 @@ public class QuestionService {
         // 질문이 존재하는지 확인, 수정및삭제 가능 여부를 확인
         canModifyOrDelete(findVerifiedQuestion(question.getQuestionId()));
 
-        question.getQuestionTags().stream().forEach(questionTag -> System.out.println(questionTag.getTag().getCategory()));
-
         return questionRepository.save(question);
     }
 
@@ -55,10 +52,14 @@ public class QuestionService {
         //Todo: 넘어온 멤버아이디와 질문의 멤버아이디가 동일한지 여부 확인
 
         // 질문이 존재하는지 확인, 수정및삭제 가능 여부를 확인
-        canModifyOrDelete(findVerifiedQuestion(questionId));
+        Question findQuestion = findVerifiedQuestion(questionId);
+        canModifyOrDelete(findQuestion);
 
         // 삭제
         questionRepository.deleteById(questionId);
+
+        findQuestion.getQuestionTags().stream()
+                .forEach(questionTag -> tagService.updateQuestionsCount(questionTag.getTag()));
     }
 
     private void canModifyOrDelete(Question findQuestion) {
