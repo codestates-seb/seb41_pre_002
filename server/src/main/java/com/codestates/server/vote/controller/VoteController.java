@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 
@@ -32,21 +31,20 @@ public class VoteController {
      * 아무것도 없는 상황에서 좋아요,싫어요를 누르면 누른게 반영된다
      */
 
-    @PostMapping(value = {"/answers/{request-id}", "/questions/{request-id}"})
-    public ResponseEntity postVote(HttpServletRequest httpServletRequest,
-                                   @Positive @PathVariable("request-id") long requestId,
-                                   @Valid @RequestBody VoteRequestDto voteRequestDto) {
+    @PostMapping("/questions/{question-id}")
+    public ResponseEntity postQuestionVote(@Positive @PathVariable("question-id") long questionId,
+                                           @Valid @RequestBody VoteRequestDto voteRequestDto) {
 
-        char request;
-        if (httpServletRequest.getRequestURI().contains("answers")) {
-            request = 'A';
-        } else if (httpServletRequest.getRequestURI().contains("questions")) {
-            request = 'Q';
-        } else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+        voteService.doVote('Q', voteRequestDto.getScore(), voteRequestDto.getMemberId(), questionId);
 
-        voteService.doVote(request, voteRequestDto.getScore(), voteRequestDto.getMemberId(), requestId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping("/answers/{answer-id}")
+    public ResponseEntity postAnswerVote(@Positive @PathVariable("answer-id") long answerId,
+                                         @Valid @RequestBody VoteRequestDto voteRequestDto) {
+
+        voteService.doVote('A', voteRequestDto.getScore(), voteRequestDto.getMemberId(), answerId);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/comments")
+@RequestMapping
 @RequiredArgsConstructor
 public class CommentController {
 
@@ -27,54 +27,57 @@ public class CommentController {
     private final QuestionCommentMapper questionCommentMapper;
 
     // AnswerComment
-    @PostMapping("/answers/{answer-id}")
+    @PostMapping("/answers/{answer-id}/comments")
     public ResponseEntity postAnswerComment(@PathVariable("answer-id") Long answerId,
                                             @Valid @RequestBody AnswerCommentDto.Post requestBody) {
 
         AnswerComment answerComment = answerCommentMapper.answerCommentPostDtoToComment(requestBody);
         AnswerComment response = answerCommentService.postAnswerComment(answerId, answerComment);
-        return new ResponseEntity<>(new SingleResponseDto<>(new AnswerCommentDto.AnswerIdResponse(answerId)),HttpStatus.CREATED);
+        return new ResponseEntity<>(new SingleResponseDto<>(answerCommentMapper.answerCommentToAnswerIdResponseDto(response)),HttpStatus.CREATED);
 
     }
 
-    @PatchMapping("/answers/{comment-id}")
-    public ResponseEntity patchAnswerComment(@PathVariable("comment-id") Long commentId,
+    @PatchMapping("/answers/{answer-id}/comments/{comment-id}")
+    public ResponseEntity patchAnswerComment(@PathVariable("answer-id") Long answerId,
+                                             @PathVariable("comment-id") Long commentId,
                                              @RequestBody AnswerCommentDto.Patch requestBody) {
 
         AnswerComment comment = answerCommentMapper.commentPatchDtoToComment(requestBody);
         AnswerComment response = answerCommentService.updateAnswerComment(commentId, comment);
-        return new ResponseEntity<>(new SingleResponseDto<>(new AnswerCommentDto.AnswerIdResponse(response.getAnswer().getAnswerId())),HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponseDto<>(answerCommentMapper.answerCommentToAnswerIdResponseDto(response)),HttpStatus.OK);
     }
 
-    @DeleteMapping("/answers/{comment-id}")
+    @DeleteMapping("/answers/{answer-id}/comments/{comment-id}")
     public ResponseEntity deleteAnswerComment(@PathVariable("comment-id") Long commentId) {
         Long questionId = answerCommentService.deleteComment(commentId);
-        return new ResponseEntity<>(new SingleResponseDto<>(new AnswerCommentDto.AnswerIdResponse(questionId)),HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponseDto<>(new AnswerCommentDto.QuestionIdResponse(questionId)),HttpStatus.OK);
     }
 
     // QuestionComment
-    @PostMapping("/questions/{question-id}")
+    @PostMapping("/questions/{question-id}/comments")
     public ResponseEntity postQuestionComment(@PathVariable("question-id") Long questionId,
                                               @Valid @RequestBody QuestionCommentDto.Post requestBody) {
 
         QuestionComment comment = questionCommentMapper.questionCommentPostDtoToQuestionComment(requestBody);
         QuestionComment response = questionCommentService.postQuestionComment(questionId, comment);
-        return new ResponseEntity<>(new SingleResponseDto<>(new QuestionCommentDto.QuestionIdResponse(questionId)),HttpStatus.CREATED);
+        return new ResponseEntity<>(new SingleResponseDto<>(questionCommentMapper.questionCommentToQuestionIdResponseDto(response)),HttpStatus.CREATED);
     }
 
-    @PatchMapping("/questions/{comment-id}")
-    public ResponseEntity patchQuestionComment(@PathVariable("comment-id") Long commentId,
+    @PatchMapping("/questions/{question-id}/comments/{comment-id}")
+    public ResponseEntity patchQuestionComment(@PathVariable("question-id") Long questionId,
+                                               @PathVariable("comment-id") Long commentId,
                                                @RequestBody QuestionCommentDto.Patch requestBody) {
 
         QuestionComment comment = questionCommentMapper.questionCommentPatchDtoToQuestionComment(requestBody);
         QuestionComment response = questionCommentService.updateQuestionComment(commentId, comment);
-        return new ResponseEntity<>(new SingleResponseDto<>(new QuestionCommentDto.QuestionIdResponse(response.getQuestion().getQuestionId())),HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponseDto<>(questionCommentMapper.questionCommentToQuestionIdResponseDto(response)),HttpStatus.OK);
     }
 
-    @DeleteMapping("/questions/{comment-id}")
-    public ResponseEntity deleteQuestionComment(@PathVariable("comment-id") Long commentId) {
+    @DeleteMapping("/questions/{question-id}/comments/{comment-id}")
+    public ResponseEntity deleteQuestionComment(@PathVariable("question-id")Long questionId,
+                                                @PathVariable("comment-id") Long commentId) {
 
-        Long questionId = questionCommentService.deleteComment(commentId);
+        questionCommentService.deleteComment(commentId);
 
         return new ResponseEntity<>(new SingleResponseDto<>(new QuestionCommentDto.QuestionIdResponse(questionId)),HttpStatus.OK);
     }

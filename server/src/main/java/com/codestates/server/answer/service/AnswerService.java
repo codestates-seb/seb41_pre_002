@@ -39,6 +39,9 @@ public class AnswerService {
 
         answerRepository.save(answer);
 
+        // 답변 갯수 반영
+        findQuestion.calAnswerCount();
+        questionRepository.save(findQuestion);
         return answer;
     }
     // 답글 조회
@@ -68,6 +71,12 @@ public class AnswerService {
         Answer findAnswer = verifyAnswer(answerId);
         canModifyOrDelete(findAnswer);
         answerRepository.deleteById(answerId);
+
+        // 답변 갯수 반영
+        Question findQuestion = findAnswer.getQuestion();
+        findQuestion.calAnswerCount();
+        System.out.println("ㅁ낭만ㅇ"+findQuestion.getAnswers().size());
+        questionRepository.save(findQuestion);
     }
 
     // 멤버 존재 확인

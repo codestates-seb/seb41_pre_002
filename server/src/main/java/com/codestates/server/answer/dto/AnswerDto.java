@@ -10,9 +10,9 @@ import lombok.Getter;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 
-@AllArgsConstructor // tset 를 위해 추가.
 public class AnswerDto {
     @Getter
+    @AllArgsConstructor
     public static class Post {
         private Long memberId;
         private Long questionId;
@@ -20,6 +20,7 @@ public class AnswerDto {
         private String content;
     }
     @Getter
+    @AllArgsConstructor
     public static class Patch {
         private Long memberId;
         private Long questionId;

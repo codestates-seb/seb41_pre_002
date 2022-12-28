@@ -9,6 +9,7 @@ import javax.validation.constraints.NotBlank;
 public class QuestionCommentDto {
 
     @Getter
+    @AllArgsConstructor
     public static class Post {
         private Long memberId;
         private Long questionId;
@@ -16,6 +17,7 @@ public class QuestionCommentDto {
         private String content;
     }
     @Getter
+    @AllArgsConstructor
     public static class Patch {
         private Long memberId;
         private Long questionId;

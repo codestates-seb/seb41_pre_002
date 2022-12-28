@@ -1,6 +1,7 @@
 package com.codestates.server.question.dto;
 
 import com.codestates.server.member.entity.Member;
+import lombok.Builder;
 import lombok.Getter;
 import org.hibernate.validator.constraints.Length;
 
@@ -9,6 +10,7 @@ import javax.validation.constraints.Positive;
 import java.util.List;
 
 @Getter
+@Builder // 테스트를 위해 추가
 public class QuestionPostDto {
     @Positive
     private long memberId;

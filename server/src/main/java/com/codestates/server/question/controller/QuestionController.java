@@ -46,6 +46,8 @@ public class QuestionController {
 
         List<Tag> tags = tagService.findTagsElseCreateTags(questionPostDto.getCategories());
         Question question = questionService.createQuestion(questionMapper.questionPostDtoToQuestion(questionPostDto, tags));
+        tags.stream()
+                .forEach(tag -> tagService.updateQuestionsCount(tag));
 
         return new ResponseEntity(
                 new SingleResponseDto<>(questionMapper.questionToQuestionSuccessResponseDto(question)),
@@ -88,12 +90,26 @@ public class QuestionController {
     }
 
     @GetMapping
-    public ResponseEntity getQuestions(@Positive @RequestParam int page,
-                                       @Positive @RequestParam int size) { //Todo: 다양한 정렬 조건들 받을 예정
-        Page<Question> pageQuestions = questionService.findQuestions(page - 1, size);
+    public ResponseEntity getQuestions(@Positive @RequestParam(required = false, defaultValue = "1") int page,
+                                       @Positive @RequestParam(required = false, defaultValue = "10") int size,
+                                       @RequestParam(required = false, defaultValue = "") String keyword,
+                                       @RequestParam(required = false, defaultValue = "all") String filter,
+                                       @RequestParam(required = false, defaultValue = "questionId") String sortedBy,
+                                       @RequestParam(required = false, defaultValue = "descending") String order) {
+
+        /**
+         * page
+         * size
+         * keyword - 검색어
+         * filter - 모두(기본값=all), 답변없음(noAnswer), 답변있음(answer)
+         * sortedBy - questionId(기본값), 추천순, 답변많은순 (규격 외에 questionId로 정렬됨)
+         * order - 내림차순(기본값) = descending, 오름차순 = ascending (규격 외에 오름차순 정렬됨)
+         * */
+
+        Page<Question> pageQuestions = questionService.findQuestions(page - 1, size, keyword, filter, sortedBy, order);
 
         return new ResponseEntity(
-                new MultiResponseDto<>(questionMapper.questionsToQuestionResponseDtos(pageQuestions.getContent(),questionCommentMapper), pageQuestions),
+                new MultiResponseDto<>(questionMapper.questionsToQuestionResponseDtos(pageQuestions.getContent(), questionCommentMapper), pageQuestions),
                 HttpStatus.OK
         );
     }
