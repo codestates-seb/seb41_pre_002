@@ -99,6 +99,8 @@ public interface QuestionMapper {
                     TagResponseDto tagResponseDto = new TagResponseDto();
                     tagResponseDto.setTagId(questionTag.getTag().getTagId());
                     tagResponseDto.setCategory(questionTag.getTag().getCategory());
+                    tagResponseDto.setQuestionsCount(questionTag.getTag().getQuestionsCount());
+
                     return tagResponseDto;
                 })
                 .collect(Collectors.toList());
