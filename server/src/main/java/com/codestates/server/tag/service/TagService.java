@@ -58,7 +58,7 @@ public class TagService {
                 break;
 
             default: // popular
-                pageable = PageRequest.of(page, size, Sort.by("questionCount").descending());
+                pageable = PageRequest.of(page, size, Sort.by("questionsCount").descending());
         }
 
         if (keyword.length() == 0) {

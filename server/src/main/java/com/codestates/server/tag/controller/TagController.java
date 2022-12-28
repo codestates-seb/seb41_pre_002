@@ -32,7 +32,7 @@ public class TagController {
 
         /**
          * 쿼리 파라미터 tab =
-         *  popular - questionCount 높은 순 : questionCount 기준 descending
+         *  popular - questionsCount 높은 순 : questionCount 기준 descending
          *  name - 이름순 : category 기준 ascending
          *  new - 최근에 만들어진 순 : tagId 기준 descending
          * */

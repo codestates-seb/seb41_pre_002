@@ -22,7 +22,7 @@ public class Tag {
     @Column(nullable = false, unique = true, length = 35)
     private String category;
 
-    private Integer questionCount = 0;
+    private Integer questionsCount = 0;
 
     @OneToMany(mappedBy = "tag")
     private List<QuestionTag> questionTags = new ArrayList<>();
@@ -36,7 +36,7 @@ public class Tag {
         }
     }
 
-    public void calQuestionCount() {
-        this.questionCount = this.questionTags.size() - 1;
+    public void calQuestionsCount() {
+        this.questionsCount = this.questionTags.size() - 1;
     }
 }
