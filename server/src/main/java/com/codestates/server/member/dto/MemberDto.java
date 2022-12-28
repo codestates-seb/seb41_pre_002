@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 public class MemberDto {
 
     @Getter
+    @AllArgsConstructor
     public static class Post{
         @NotBlank
         @Email
@@ -34,16 +35,13 @@ public class MemberDto {
 
     @Getter
     @AllArgsConstructor
-    public static class response{
+    public static class Response{
         private long memberId;
         private String email;
         private String memberName;
-
-        //password 제대로 저장되는지 확인용
         //Todo: 비밀번호 조회 안되도록 수정
         private String memberPassword;
-
-        private LocalDateTime createdAt;
-        private LocalDateTime modifiedAt;
+//        private LocalDateTime createdAt;
+//        private LocalDateTime modifiedAt;
     }
 }
