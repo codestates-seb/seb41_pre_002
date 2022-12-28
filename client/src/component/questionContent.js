@@ -21,7 +21,7 @@ function QuestionContent() {
             <div className="d-flex fd-column flex--item">
               <div className="flex--item">
                 <label for="problem" className="d-block s-label">
-                  What are the details of your problem?
+                What are the details of your problem?
                 </label>
               </div>
               <div className="d-flex flex--item md:fd-column">

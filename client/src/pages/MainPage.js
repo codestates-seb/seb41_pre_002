@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Header from "../component/header";
 import Footer from "../component/footer";
 import Nav from "../component/nav";
-import Questions from "../component/Questions";
+import Questions from "../component/question/Questions";
+import axios from "axios";
 
 const Maindiv = styled.div`
   width: 100vw;
@@ -13,13 +14,13 @@ const Maindiv = styled.div`
 `;
 
 function MainPage() {
-<<<<<<< Updated upstream
-=======
   const [questions, setQuestions] = useState([]);
 
   useEffect(() => {
     axios
-      .get("/questions", {})
+      .get("/questions", {
+        
+      })
       .then((response) => {
         console.log(response.data.data); //정상 통신 후 응답된 메시지 출력
       })
@@ -32,17 +33,12 @@ function MainPage() {
       });
   }, []);
 
->>>>>>> Stashed changes
   return (
     <>
       <Header />
       <Maindiv>
         <Nav />
-<<<<<<< Updated upstream
-        <Questions />
-=======
-        <Questions questions={questions} color="black" />
->>>>>>> Stashed changes
+        <Questions questions={questions} color="black"/>
       </Maindiv>
       <Footer />
     </>
