@@ -27,6 +27,7 @@ public class TagController {
     @GetMapping
     public ResponseEntity getTags(@Positive @RequestParam(required = false, defaultValue = "1") int page,
                                   @Positive @RequestParam(required = false, defaultValue = "36") int size,
+                                  @RequestParam(required = false, defaultValue = "") String keyword,
                                   @RequestParam(required = false, defaultValue = "popular") String tab) {
 
         /**
@@ -36,7 +37,7 @@ public class TagController {
          *  new - 최근에 만들어진 순 : tagId 기준 descending
          * */
 
-        Page<Tag> pageTags = tagService.findTags(page - 1, size, tab);
+        Page<Tag> pageTags = tagService.findTags(page - 1, size, keyword, tab);
 
         return new ResponseEntity(
                 new MultiResponseDto<>(tagMapper.tagsToTagResponseDtos(pageTags.getContent()), pageTags),

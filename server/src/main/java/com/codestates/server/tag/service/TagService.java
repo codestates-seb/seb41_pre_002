@@ -37,7 +37,7 @@ public class TagService {
                 .collect(Collectors.toList());
     }
 
-    public Page<Tag> findTags(int page, int size, String tab) {
+    public Page<Tag> findTags(int page, int size, String keyword, String tab) {
         /**
          * 쿼리 파라미터 tab =
          *  popular - questionCount 높은 순 : questionCount 기준 descending
@@ -46,6 +46,7 @@ public class TagService {
          * */
 
         Pageable pageable;
+        Page<Tag> tags;
 
         switch (tab) {
             case "new":
@@ -60,7 +61,13 @@ public class TagService {
                 pageable = PageRequest.of(page, size, Sort.by("questionCount").descending());
         }
 
-        return tagRepository.findAll(pageable);
+        if (keyword.length() == 0) {
+            tags = tagRepository.findAll(pageable);
+        } else {
+            tags = tagRepository.findAllByCategoryContains(keyword, pageable);
+        }
+
+        return tags;
     }
 
     public void updateQuestionTags(Question question, List<String> categories) {
