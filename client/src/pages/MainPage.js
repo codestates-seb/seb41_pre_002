@@ -13,12 +13,36 @@ const Maindiv = styled.div`
 `;
 
 function MainPage() {
+<<<<<<< Updated upstream
+=======
+  const [questions, setQuestions] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("/questions", {})
+      .then((response) => {
+        console.log(response.data.data); //정상 통신 후 응답된 메시지 출력
+      })
+      .catch((error) => {
+        console.log(error);
+        //오류발생시 실행
+      })
+      .then((response) => {
+        setQuestions(response.data.data); //정상 통신 후 응답된 메시지 출력
+      });
+  }, []);
+
+>>>>>>> Stashed changes
   return (
     <>
       <Header />
       <Maindiv>
         <Nav />
+<<<<<<< Updated upstream
         <Questions />
+=======
+        <Questions questions={questions} color="black" />
+>>>>>>> Stashed changes
       </Maindiv>
       <Footer />
     </>
