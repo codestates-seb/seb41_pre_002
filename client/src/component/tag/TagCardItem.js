@@ -43,15 +43,6 @@ const TagCardItems = styled.div`
 // tag card가 하나씩 들어가는 컴포넌트
 
 const TagCardItem = () => {
-  // const [tags, setTags] = useState([]);
-  // useEffect(() => {
-  //   setTags(dummydata);
-  // }, []);
-
-  
-  // const FilterTag = (tag) => {
-  //   Tags.filter((tag) => tag.text.to)
-  // }
 
   return (
     <>

@@ -12,7 +12,7 @@ const Problem = styled.div`
   }
 `;
 
-function QuestionContent() {
+function QuestionContent({ contentHandler, content }) {
   return (
     <>
       <Problem>
@@ -21,7 +21,7 @@ function QuestionContent() {
             <div className="d-flex fd-column flex--item">
               <div className="flex--item">
                 <label for="problem" className="d-block s-label">
-                What are the details of your problem?
+                  What are the details of your problem?
                 </label>
               </div>
               <div className="d-flex flex--item md:fd-column">
@@ -35,14 +35,15 @@ function QuestionContent() {
             </div>
             <div className="d-flex ps-relative">
               <textarea
-                id="problem"
-                name="problem"
+                id="content"
+                name="content"
                 type="text"
                 maxlength="3000"
                 className="s-input js-post-title-field ask-title-field"
-                value=""
                 data-min-length="15"
                 data-max-length="1500"
+                value={content}
+                onChange={contentHandler}
               />
               <svg
                 aria-hidden="true"

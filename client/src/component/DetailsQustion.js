@@ -3,7 +3,6 @@ import styled from "styled-components";
 import "../assets/fonts.css";
 
 const PageDiv = styled.div`
-  width: 100vw;
   display: flex;
   flex-direction: column;
   padding-top: 40px;
@@ -21,11 +20,10 @@ const Headernamediv = styled.div`
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   text-align: left;
-  font-size: 40px;
+  font-size: 30px;
   height: 937px;
-  width: 1265px;
+  width: 900px;
   line-height: 50px;
-  min-width: 0px;
 `;
 const Askbuttondiv = styled.div`
   width: 180px;
@@ -53,7 +51,6 @@ const ImportmationMain = styled.main`
 `;
 
 const Contentsdiv = styled.div`
-  width: 1000px;
   display: flex;
   flex-direction: row;
 `;
@@ -61,7 +58,7 @@ const Recomneddiv = styled.div`
   background-color: white;
   display: flex;
   flex-direction: column;
-  width: 100px;
+  width: 70px;
   color: #6a737c;
   i {
     margin-bottom: 10px;
@@ -69,13 +66,13 @@ const Recomneddiv = styled.div`
   }
 `;
 const Qustioncontentdiv = styled.div`
-  width: 900px;
+  width: 690px;
   padding: 15px 30px 3px 30px;
   background-color: white;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   text-align: left;
-  font-size: 20px;
+  font-size: 15px;
   height: auto;
   line-height: 40px;
   color: black;
@@ -85,7 +82,7 @@ const Codediv = styled.div`
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   text-align: left;
-  font-size: 20px;
+  font-size: 15px;
   height: 937px;
   line-height: 40px;
   margin-top: 60px;
@@ -104,19 +101,19 @@ const Tagsdiv = styled.div`
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   text-align: center;
-  font-size: 15px;
+  font-size: 10px;
   border-radius: 5px;
   margin: 2px 2px 2px 0;
-  padding: 0 6px 0px 6px;
+  padding: 0px 6px 0px 6px;
 `;
 
 const BolgAndReateddiv = styled.div`
   background-color: white;
-  width: 550px;
+  width: 350px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   text-align: left;
-  font-size: 23px;
+  font-size: 19px;
   display: flex;
   color: black;
   padding: 30px 40px 0px 60px;
@@ -128,24 +125,26 @@ const Relateddiv = styled.div`
   margin-top: 30px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  font-size: 20px;
+  font-size: 13px;
   text-align: left;
   color: #00f4cc;
 `;
 
 const Relatedboxdiv = styled.div`
-  width: 60px;
-  height: 30px;
-  margin: 0px 20px 0px 0px;
+  width: 30px;
+  height: 20px;
+  margin: 0px 10px 0px 0px;
   background-color: ${(props) => (props.color ? props.color : "white")};
   text-align: center;
+  font-size: 10px;
   border-radius: 5px;
+  padding-top: 3px;
 `;
 
 const Questioninput = styled.input`
   box-sizing: border-box;
-  width: 840px;
-  height: 300px;
+  width: 630px;
+  height: 200px;
   margin: 60px 20px 0px 0px;
   text-align: left;
   border: solid 1px;
@@ -155,10 +154,10 @@ const Questioninput = styled.input`
 const Postbuttondiv = styled.div`
   width: 180px;
   height: 120px;
-  margin: 10px 0px 0px 690px;
+  margin: 10px 0px 0px 480px;
 `;
 
-function DetailsQustion() {
+function DetailsQustion({ data }) {
   const [Number, SetNumber] = useState(0);
   const [Bookmark, SetBookmark] = useState(true);
 
@@ -182,7 +181,7 @@ function DetailsQustion() {
           <Importmationdiv>
             Asked <Importmationspan>today</Importmationspan> Modified{" "}
             <Importmationspan>today</Importmationspan>
-            Viewed <Importmationspan>2 times</Importmationspan>
+            Viewed <Importmationspan>{data}</Importmationspan>
           </Importmationdiv>
         </Headernamediv>
         <Askbuttondiv>

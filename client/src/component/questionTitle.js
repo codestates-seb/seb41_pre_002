@@ -9,7 +9,7 @@ const Title = styled.div`
   }
 `;
 
-function QuestionTitle() {
+function QuestionTitle({ titleHandler, title }) {
   return (
     <>
       <Title>
@@ -38,9 +38,10 @@ function QuestionTitle() {
                 maxlength="300"
                 placeholder="e.g. Is there an R function for finding the index of an element in a vector?"
                 className="s-input js-post-title-field ask-title-field"
-                value=""
                 data-min-length="15"
                 data-max-length="150"
+                value={title}
+                onChange={titleHandler}
               />
               <svg
                 aria-hidden="true"
