@@ -477,6 +477,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_답변_추천_하기">4.2. 답변 추천 하기</a></li>
 </ul>
 </li>
+<li><a href="#_tagcontroller">5. TagController</a>
+<ul class="sectlevel2">
+<li><a href="#_태그_목록_찾기">5.1. 태그 목록 찾기</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -484,7 +489,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Kim siyeong &lt;<a href="mailto:philip2767@gmail.com">philip2767@gmail.com</a>&gt;</p>
+<p>Be - Kim siyeong, Kim jeongwoo, Jeong harin</p>
+</div>
+<div class="paragraph">
+<p>Fe - Kang seongsim, Chae hyobeong, Jang kyeongwook</p>
+</div>
+<div class="paragraph">
+<p>If you have any questions, please contact me via email below</p>
+</div>
+<div class="paragraph">
+<p>&lt;<a href="mailto:philip2767@gmail.com">philip2767@gmail.com</a>&gt;</p>
 </div>
 <div class="paragraph">
 <p>v1.0.0, 2022.12.27</p>
@@ -802,8 +816,8 @@ Content-Length: 3148
       "title" : "질문 제목입니다",
       "content" : "질문 내용입니다",
       "auditableResponseDto" : {
-        "createdAt" : "2022-12-28T12:12:11.567378",
-        "modifiedAt" : "2022-12-28T12:12:11.567392"
+        "createdAt" : "2022-12-28T17:30:12.444233",
+        "modifiedAt" : "2022-12-28T17:30:12.444244"
       },
       "memberId" : 1,
       "memberName" : "사용자",
@@ -825,8 +839,8 @@ Content-Length: 3148
         "memberName" : "댓글사용자",
         "content" : "댓글 더미입니다",
         "auditableResponseDto" : {
-          "createdAt" : "2022-12-28T12:12:11.567378",
-          "modifiedAt" : "2022-12-28T12:12:11.567392"
+          "createdAt" : "2022-12-28T17:30:12.444233",
+          "modifiedAt" : "2022-12-28T17:30:12.444244"
         }
       } ]
     },
@@ -838,8 +852,8 @@ Content-Length: 3148
       "content" : "답변 내용입니다",
       "voteCount" : 3,
       "auditableResponseDto" : {
-        "createdAt" : "2022-12-28T12:12:11.567378",
-        "modifiedAt" : "2022-12-28T12:12:11.567392"
+        "createdAt" : "2022-12-28T17:30:12.444233",
+        "modifiedAt" : "2022-12-28T17:30:12.444244"
       },
       "commentResponseDtos" : [ {
         "commentId" : 1,
@@ -848,8 +862,8 @@ Content-Length: 3148
         "memberName" : "댓글작성한사용자1",
         "content" : "댓글 내용입니다",
         "auditableResponseDto" : {
-          "createdAt" : "2022-12-28T12:12:11.567378",
-          "modifiedAt" : "2022-12-28T12:12:11.567392"
+          "createdAt" : "2022-12-28T17:30:12.444233",
+          "modifiedAt" : "2022-12-28T17:30:12.444244"
         }
       } ]
     }, {
@@ -860,8 +874,8 @@ Content-Length: 3148
       "content" : "답변 내용입니다",
       "voteCount" : 3,
       "auditableResponseDto" : {
-        "createdAt" : "2022-12-28T12:12:11.567378",
-        "modifiedAt" : "2022-12-28T12:12:11.567392"
+        "createdAt" : "2022-12-28T17:30:12.444233",
+        "modifiedAt" : "2022-12-28T17:30:12.444244"
       },
       "commentResponseDtos" : [ {
         "commentId" : 2,
@@ -870,8 +884,8 @@ Content-Length: 3148
         "memberName" : "댓글작성한사용자2",
         "content" : "댓글 내용입니다",
         "auditableResponseDto" : {
-          "createdAt" : "2022-12-28T12:12:11.567378",
-          "modifiedAt" : "2022-12-28T12:12:11.567392"
+          "createdAt" : "2022-12-28T17:30:12.444233",
+          "modifiedAt" : "2022-12-28T17:30:12.444244"
         }
       } ]
     }, {
@@ -882,8 +896,8 @@ Content-Length: 3148
       "content" : "답변 내용입니다",
       "voteCount" : 3,
       "auditableResponseDto" : {
-        "createdAt" : "2022-12-28T12:12:11.567378",
-        "modifiedAt" : "2022-12-28T12:12:11.567392"
+        "createdAt" : "2022-12-28T17:30:12.444233",
+        "modifiedAt" : "2022-12-28T17:30:12.444244"
       },
       "commentResponseDtos" : [ {
         "commentId" : 3,
@@ -892,8 +906,8 @@ Content-Length: 3148
         "memberName" : "댓글작성한사용자3",
         "content" : "댓글 내용입니다",
         "auditableResponseDto" : {
-          "createdAt" : "2022-12-28T12:12:11.567378",
-          "modifiedAt" : "2022-12-28T12:12:11.567392"
+          "createdAt" : "2022-12-28T17:30:12.444233",
+          "modifiedAt" : "2022-12-28T17:30:12.444244"
         }
       } ]
     } ]
@@ -1178,7 +1192,7 @@ Host: localhost:8080</code></pre>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>filter</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">필터 (defaultValue = all, 답변없음 = noAnswer, 답변있음 = Answer)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">필터 (defaultValue = all, 답변없음 = noAnswer, 답변있음 = answer)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>sortedBy</code></p></td>
@@ -1195,7 +1209,7 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 995
+Content-Length: 997
 
 {
   "data" : [ {
@@ -1203,8 +1217,8 @@ Content-Length: 995
     "title" : "질문 제목입니다9",
     "content" : "질문 내용입니다9",
     "auditableResponseDto" : {
-      "createdAt" : "2022-12-28T12:12:11.50892",
-      "modifiedAt" : "2022-12-28T12:12:11.508929"
+      "createdAt" : "2022-12-28T17:30:12.383021",
+      "modifiedAt" : "2022-12-28T17:30:12.383032"
     },
     "memberId" : 9,
     "memberName" : "사용자9",
@@ -1226,8 +1240,8 @@ Content-Length: 995
       "memberName" : "사용자1",
       "content" : "댓글 더미입니다",
       "auditableResponseDto" : {
-        "createdAt" : "2022-12-28T12:12:11.50892",
-        "modifiedAt" : "2022-12-28T12:12:11.508929"
+        "createdAt" : "2022-12-28T17:30:12.383021",
+        "modifiedAt" : "2022-12-28T17:30:12.383032"
       }
     } ]
   } ],
@@ -1524,7 +1538,7 @@ Content-Length: 309
     "content" : "content",
     "voteCount" : 0,
     "auditableResponseDto" : {
-      "createdAt" : "2022-12-28T12:12:10.838794",
+      "createdAt" : "2022-12-28T17:30:11.709157",
       "modifiedAt" : null
     },
     "commentResponseDtos" : null
@@ -1688,7 +1702,7 @@ Content-Length: 317
     "content" : "patched content",
     "voteCount" : 0,
     "auditableResponseDto" : {
-      "createdAt" : "2022-12-28T12:12:11.019253",
+      "createdAt" : "2022-12-28T17:30:11.884307",
       "modifiedAt" : null
     },
     "commentResponseDtos" : null
@@ -2637,6 +2651,177 @@ Host: localhost:8080
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK</code></pre>
 </div>
 </div>
+<hr>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_tagcontroller">5. TagController</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_태그_목록_찾기">5.1. 태그 목록 찾기</h3>
+<div class="listingblock">
+<div class="title">curl-request</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/tags?page=1&amp;size=10&amp;keyword=&amp;tab=new' -i -X GET \
+    -H 'Accept: application/json'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">http-request</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">GET /tags?page=1&amp;size=10&amp;keyword=&amp;tab=new HTTP/1.1
+Accept: application/json
+Host: localhost:8080</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 37. request-parameters</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>page</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">출력할 페이지 (defaultValue = 1)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>size</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">페이지당 게시물 수 (defaultValue = 36)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>keyword</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">검색어</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>tab</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">정렬 기준 (defaultValue = popular (인기순), 이름순 = name, 최근에 만들어진 순 = new)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">http-response</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+Content-Length: 811
+
+{
+  "data" : [ {
+    "tagId" : 9,
+    "category" : "태그9",
+    "questionsCount" : 3
+  }, {
+    "tagId" : 8,
+    "category" : "태그8",
+    "questionsCount" : 3
+  }, {
+    "tagId" : 7,
+    "category" : "태그7",
+    "questionsCount" : 3
+  }, {
+    "tagId" : 6,
+    "category" : "태그6",
+    "questionsCount" : 3
+  }, {
+    "tagId" : 5,
+    "category" : "태그5",
+    "questionsCount" : 3
+  }, {
+    "tagId" : 4,
+    "category" : "태그4",
+    "questionsCount" : 3
+  }, {
+    "tagId" : 3,
+    "category" : "태그3",
+    "questionsCount" : 3
+  }, {
+    "tagId" : 2,
+    "category" : "태그2",
+    "questionsCount" : 3
+  }, {
+    "tagId" : 1,
+    "category" : "태그1",
+    "questionsCount" : 3
+  } ],
+  "pageInfo" : {
+    "page" : 1,
+    "size" : 10,
+    "totalElements" : 9,
+    "totalPages" : 1
+  }
+}</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 38. response-fields</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">결과 데이터</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[*].tagId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">태그 식별자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[*].category</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">태그 이름</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[*].questionsCount</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">태그를 사용한 질문 수</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pageInfo</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Object</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">페이지 정보</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pageInfo.page</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">현재 페이지</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pageInfo.size</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">한 페이지에 노출할 데이터 갯수</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pageInfo.totalElements</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">총 데이터 갯수</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pageInfo.totalPages</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">총 페이지 갯수</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
@@ -2644,7 +2829,7 @@ Host: localhost:8080
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2022-12-28 12:11:39 +0900
+Last updated 2022-12-28 17:30:09 +0900
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

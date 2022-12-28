@@ -5,13 +5,21 @@
 :toc-title: Table of Contents
 :source-highlighter: prettify
 
-Kim siyeong <philip2767@gmail.com>
+Be - Kim siyeong, Kim jeongwoo, Jeong harin
+
+Fe - Kang seongsim, Chae hyobeong, Jang kyeongwook
+
+If you have any questions, please contact me via email below
+
+<philip2767@gmail.com>
 
 v1.0.0, 2022.12.27
 
 ***
 == QuestionController
+
 === 질문 등록
+
 .curl-request
 include::{snippets}/post-question/curl-request.adoc[]
 
@@ -27,8 +35,8 @@ include::{snippets}/post-question/http-response.adoc[]
 .response-fields
 include::{snippets}/post-question/response-fields.adoc[]
 
-
 === 질문 수정
+
 .curl-request
 include::{snippets}/patch-question/curl-request.adoc[]
 
@@ -47,8 +55,8 @@ include::{snippets}/patch-question/http-response.adoc[]
 .response-fields
 include::{snippets}/patch-question/response-fields.adoc[]
 
-
 === 질문 상세 정보 조회
+
 .curl-request
 include::{snippets}/get-questionDetail/curl-request.adoc[]
 
@@ -64,8 +72,8 @@ include::{snippets}/get-questionDetail/http-response.adoc[]
 .response-fields
 include::{snippets}/get-questionDetail/response-fields.adoc[]
 
-
 === 질문 목록 찾기
+
 .curl-request
 include::{snippets}/get-questions/curl-request.adoc[]
 
@@ -81,8 +89,8 @@ include::{snippets}/get-questions/http-response.adoc[]
 .response-fields
 include::{snippets}/get-questions/response-fields.adoc[]
 
-
 === 질문 정보 삭제
+
 .curl-request
 include::{snippets}/delete-question/curl-request.adoc[]
 
@@ -97,8 +105,11 @@ include::{snippets}/delete-question/http-response.adoc[]
 
 
 ***
+
 == AnswerController
+
 === 답변 등록
+
 .curl-request
 include::{snippets}/post-answer/curl-request.adoc[]
 
@@ -115,6 +126,7 @@ include::{snippets}/post-answer/http-response.adoc[]
 include::{snippets}/post-answer/response-fields.adoc[]
 
 === 답변 내용 수정
+
 .curl-request
 include::{snippets}/patch-answer/curl-request.adoc[]
 
@@ -134,6 +146,7 @@ include::{snippets}/patch-answer/http-response.adoc[]
 include::{snippets}/patch-answer/response-fields.adoc[]
 
 === 답변 내용 삭제
+
 .curl-request
 include::{snippets}/delete-answer/curl-request.adoc[]
 
@@ -153,8 +166,11 @@ include::{snippets}/delete-answer/http-response.adoc[]
 include::{snippets}/delete-answer/response-fields.adoc[]
 
 ***
+
 == CommentController
+
 === 질문 댓글 등록
+
 .curl-request
 include::{snippets}/post-questionComment/curl-request.adoc[]
 
@@ -171,6 +187,7 @@ include::{snippets}/post-questionComment/http-response.adoc[]
 include::{snippets}/post-questionComment/response-fields.adoc[]
 
 === 질문 댓글 수정
+
 .curl-request
 include::{snippets}/patch-questionComment/curl-request.adoc[]
 
@@ -190,6 +207,7 @@ include::{snippets}/patch-questionComment/http-response.adoc[]
 include::{snippets}/patch-questionComment/response-fields.adoc[]
 
 === 질문 댓글 삭제
+
 .curl-request
 include::{snippets}/delete-questionComment/curl-request.adoc[]
 
@@ -205,8 +223,8 @@ include::{snippets}/delete-questionComment/http-response.adoc[]
 .response-fields
 include::{snippets}/delete-questionComment/response-fields.adoc[]
 
-
 === 답변 댓글 등록
+
 .curl-request
 include::{snippets}/post-answerComment/curl-request.adoc[]
 
@@ -223,6 +241,7 @@ include::{snippets}/post-answerComment/http-response.adoc[]
 include::{snippets}/post-answerComment/response-fields.adoc[]
 
 === 답변 댓글 수정
+
 .curl-request
 include::{snippets}/patch-answerComment/curl-request.adoc[]
 
@@ -242,6 +261,7 @@ include::{snippets}/patch-answerComment/http-response.adoc[]
 include::{snippets}/patch-answerComment/response-fields.adoc[]
 
 === 답변 댓글 삭제
+
 .curl-request
 include::{snippets}/delete-answerComment/curl-request.adoc[]
 
@@ -260,8 +280,11 @@ include::{snippets}/delete-answerComment/response-fields.adoc[]
 
 
 ***
+
 == VoteController
+
 === 질문 추천 하기
+
 .curl-request
 include::{snippets}/post-questionVote/curl-request.adoc[]
 
@@ -278,6 +301,7 @@ include::{snippets}/post-questionVote/request-fields.adoc[]
 include::{snippets}/post-questionVote/http-response.adoc[]
 
 === 답변 추천 하기
+
 .curl-request
 include::{snippets}/post-answerVote/curl-request.adoc[]
 
@@ -292,3 +316,25 @@ include::{snippets}/post-answerVote/request-fields.adoc[]
 
 .http-response
 include::{snippets}/post-answerVote/http-response.adoc[]
+
+
+***
+
+== TagController
+
+=== 태그 목록 찾기
+
+.curl-request
+include::{snippets}/get-tags/curl-request.adoc[]
+
+.http-request
+include::{snippets}/get-tags/http-request.adoc[]
+
+.request-parameters
+include::{snippets}/get-tags/request-parameters.adoc[]
+
+.http-response
+include::{snippets}/get-tags/http-response.adoc[]
+
+.response-fields
+include::{snippets}/get-tags/response-fields.adoc[]
