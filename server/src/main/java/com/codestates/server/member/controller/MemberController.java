@@ -27,16 +27,6 @@ public class MemberController {
     private final MemberService memberService;
     private final MemberMapper mapper;
 
-    @PostMapping
-    public ResponseEntity postMember(@Valid @RequestBody MemberDto.Post requestBody) {
-        Member member = mapper.memberPostToMember(requestBody);
-        Member createdMember = memberService.createMember(member);
-
-        return new ResponseEntity<>(
-                new SingleResponseDto<>(mapper.memberToMemberResponse(createdMember)),
-                HttpStatus.CREATED);
-    }
-
     @PatchMapping("/{member-id}")
     public ResponseEntity patchMember(
             @PathVariable("member-id") @Positive long memberId,
@@ -52,8 +42,7 @@ public class MemberController {
     }
 
     @GetMapping("/{member-id}")
-    public ResponseEntity getMember(
-            @PathVariable("member-id") @Positive long memberId) {
+    public ResponseEntity getMember(@PathVariable("member-id") @Positive long memberId) {
         Member member = memberService.findMember(memberId);
         return new ResponseEntity<>(
                 new SingleResponseDto<>(mapper.memberToMemberResponse(member))
