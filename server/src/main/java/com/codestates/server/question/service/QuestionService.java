@@ -70,11 +70,15 @@ public class QuestionService {
 
     public Page<Question> findQuestions(int page, int size, String keyword, String filter, String sortedBy, String order) {
         // Todo: 필터 구현해야됨
-
         /**
-         * filter - 모두(기본값), 답변없음(noAnswer), 답변있음(Answer)
-         * sortedBy - 최신순(기본값), 추천순, 답변많은순
+         * page
+         * size
+         * keyword - 검색어
+         * filter - 모두(기본값=all), 답변없음(noAnswer), 답변있음(answer)
+         * sortedBy - questionId(기본값), 추천순, 답변많은순 (규격 외에 questionId로 정렬됨)
+         * order - 내림차순(기본값) = descending, 오름차순 = ascending (규격 외에 오름차순 정렬됨)
          * */
+
         System.out.println("파인드퀘스쳔 메서드 시작===================");
 
         // 필요한 변수들 선언
