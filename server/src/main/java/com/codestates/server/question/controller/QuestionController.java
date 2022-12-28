@@ -46,6 +46,8 @@ public class QuestionController {
 
         List<Tag> tags = tagService.findTagsElseCreateTags(questionPostDto.getCategories());
         Question question = questionService.createQuestion(questionMapper.questionPostDtoToQuestion(questionPostDto, tags));
+        tags.stream()
+                .forEach(tag -> tagService.updateQuestionsCount(tag));
 
         return new ResponseEntity(
                 new SingleResponseDto<>(questionMapper.questionToQuestionSuccessResponseDto(question)),

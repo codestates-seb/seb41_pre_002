@@ -8,6 +8,7 @@ import com.codestates.server.tag.repository.TagRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -22,9 +23,6 @@ public class TagService {
     private final QuestionTagRepository questionTagRepository;
 
     public Tag createTag(String category) {
-//        Tag.TagBuilder tag = Tag.builder();
-//        tag.category(category);
-//        return tagRepository.save(tag.build());
         Tag tag = new Tag();
         tag.setCategory(category);
         return tagRepository.save(tag);
@@ -36,10 +34,42 @@ public class TagService {
                 .collect(Collectors.toList());
     }
 
-    public Page<Tag> findTags(int page, int size) {
-        return tagRepository.findAll(PageRequest.of(
-                page, size, Sort.by("tagId").descending()
-        ));
+    public Page<Tag> findTags(int page, int size, String keyword, String tab) {
+        /**
+         * 쿼리 파라미터 tab =
+         *  popular - questionCount 높은 순 : questionCount 기준 descending
+         *  name - 이름순 : category 기준 ascending
+         *  new - 최근에 만들어진 순 : tagId 기준 descending
+         * */
+
+        Pageable pageable;
+        Page<Tag> tags;
+
+        switch (tab) {
+            case "new":
+                pageable = PageRequest.of(page, size, Sort.by("tagId").descending());
+                break;
+
+            case "name":
+                pageable = PageRequest.of(page, size, Sort.by("category").ascending());
+                break;
+
+            default: // popular
+                pageable = PageRequest.of(page, size, Sort.by("questionsCount").descending());
+        }
+
+        if (keyword.length() == 0) {
+            tags = tagRepository.findAll(pageable);
+        } else {
+            tags = tagRepository.findAllByCategoryContains(keyword, pageable);
+        }
+
+        return tags;
+    }
+
+    public void updateQuestionsCount(Tag tag) {
+        tag.calQuestionsCount();
+        tagRepository.save(tag);
     }
 
     public void updateQuestionTags(Question question, List<String> categories) {
@@ -47,7 +77,10 @@ public class TagService {
 
         // 기존 질문태그 삭제
         questionTagRepository.findAllByQuestion(question).stream()
-                .forEach(questionTag -> questionTagRepository.delete(questionTag));
+                .forEach(questionTag -> {
+                    questionTagRepository.delete(questionTag);
+                    updateQuestionsCount(questionTag.getTag());
+                });
 
         // 새로운 태그 유효성 검사 및 등록
         List<Tag> findTags = findTagsElseCreateTags(categories);
@@ -58,7 +91,8 @@ public class TagService {
                     QuestionTag questionTag = new QuestionTag();
                     questionTag.setQuestion(question);
                     questionTag.setTag(tag);
-                    questionTagRepository.save(questionTag);
+                    QuestionTag savedQuestionTag = questionTagRepository.save(questionTag);
+                    updateQuestionsCount(savedQuestionTag.getTag());
                 });
     }
 
