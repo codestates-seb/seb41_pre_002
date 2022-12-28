@@ -4,6 +4,7 @@ import Header from "../component/header";
 import Footer from "../component/footer";
 import Nav from "../component/nav";
 import Questions from "../component/question/Questions";
+import QuestionItem from "../component/question/QuestionItem";
 import axios from "axios";
 
 const Maindiv = styled.div`
@@ -13,36 +14,49 @@ const Maindiv = styled.div`
   flex-direction: row;
 `;
 
-function MainPage() {
-  const [questions, setQuestions] = useState([]);
+const MainPage = () => {
+  // const {} = data;
+  const [mainData, setMainData] = useState(null);
+  let [questionData, setQuestionData] = useState([]);
 
   useEffect(() => {
     axios
-      .get("/questions", {
-        
-      })
+      .get(
+        // "/questions"
+        "/questions?questionId"
+        // {params: {"questionResponseDto": ""}}
+      )
       .then((response) => {
-        console.log(response.data.data); //정상 통신 후 응답된 메시지 출력
+        // const questionData = response.data.data;
+        setQuestionData(response.data);
+        // console.log(data); //전체데이터
+        console.log(response.data.data); // data& pageinfo
+        // console.log(response.data.data[0]); // questionid 7의 정보
+        // console.log(response.data.pageInfo);
+        // console.log(questionData); // pageinfo 관련
       })
       .catch((error) => {
         console.log(error);
         //오류발생시 실행
-      })
-      .then((response) => {
-        setQuestions(response.data.data); //정상 통신 후 응답된 메시지 출력
       });
-  }, []);
+  },[]);
 
   return (
     <>
       <Header />
       <Maindiv>
         <Nav />
-        <Questions questions={questions} color="black"/>
+        {questionData &&<Questions questionData={questionData} />}
+        {console.log("이게 뭐지", questionData.data)}
+        {/* <div>
+          {questionData.map((item, index) => (
+            <QuestionItem key={index} questionData={questionData} />
+          ))}
+        </div> */}
       </Maindiv>
       <Footer />
     </>
   );
-}
+};
 
 export default MainPage;

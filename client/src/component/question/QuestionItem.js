@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
@@ -6,13 +6,12 @@ const QuestionItemdiv = styled.div`
   display: flex;
   flex-direction: column;
   /* border-bottom: 1px solid #e3e6e8; */
-`;
-
-const QuestionItems = styled.div`
-  display: flex;
-  border-bottom: 1px solid #e3e6e8;
-  padding: 30px;
-  height: 120px;
+  .qo {
+    display: flex;
+    border-bottom: 1px solid #e3e6e8;
+    padding: 30px;
+    height: 120px;
+  }
 `;
 
 const SummaryStatus = styled.div`
@@ -56,23 +55,29 @@ const TagDiV = styled.div`
   }
 `;
 
-const QuestionItem = () => {
+const QuestionItem = ({ questionData }) => {
   return (
     <QuestionItemdiv>
-      <QuestionItems>
-        <SummaryStatus>0 vote 0 answer</SummaryStatus>
+      {questionData.data &&
+        questionData.data.map((item) => {
+          return (
+            <div className="qo" key={item.id}>
+              <SummaryStatus>{item.voteCount} vote</SummaryStatus>
 
-        <SummaryContent>
-          <Link to="/QuesetionRead">질문상세보기로 연결해주세요</Link>
-          <SummaryMeta>
-            <TagDiV>
-              <button className="tag-button">javascript</button>
-            </TagDiV>
-            유저이미지 유저정보 div
-          </SummaryMeta>
-        </SummaryContent>
-        
-      </QuestionItems>
+              <SummaryContent>
+                <Link to="/QuesetionRead">{item.title}</Link>
+                <SummaryMeta>
+                  <TagDiV>
+                    <button className="tag-button">
+                      {item.tagResponseDtos[0].category}
+                    </button>
+                  </TagDiV>
+                  {item.memberName}
+                </SummaryMeta>
+              </SummaryContent>
+            </div>
+          );
+        })}
     </QuestionItemdiv>
   );
 };
