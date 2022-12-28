@@ -56,14 +56,14 @@ const TagDiV = styled.div`
   }
 `;
 
-const QuestionItem = () => {
+const QuestionItem = ({ title }) => {
   return (
     <QuestionItemdiv>
       <QuestionItems>
         <SummaryStatus>0 vote 0 answer</SummaryStatus>
 
         <SummaryContent>
-          <Link to="/QuesetionRead">질문상세보기로 연결해주세요</Link>
+          <Link to="/QuesetionRead">{title}</Link>
           <SummaryMeta>
             <TagDiV>
               <button className="tag-button">javascript</button>
@@ -71,7 +71,6 @@ const QuestionItem = () => {
             유저이미지 유저정보 div
           </SummaryMeta>
         </SummaryContent>
-        
       </QuestionItems>
     </QuestionItemdiv>
   );
