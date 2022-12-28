@@ -8,6 +8,7 @@ import com.codestates.server.tag.repository.TagRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -36,10 +37,30 @@ public class TagService {
                 .collect(Collectors.toList());
     }
 
-    public Page<Tag> findTags(int page, int size) {
-        return tagRepository.findAll(PageRequest.of(
-                page, size, Sort.by("tagId").descending()
-        ));
+    public Page<Tag> findTags(int page, int size, String tab) {
+        /**
+         * 쿼리 파라미터 tab =
+         *  popular - questionCount 높은 순 : questionCount 기준 descending
+         *  name - 이름순 : category 기준 ascending
+         *  new - 최근에 만들어진 순 : tagId 기준 descending
+         * */
+
+        Pageable pageable;
+
+        switch (tab) {
+            case "new":
+                pageable = PageRequest.of(page, size, Sort.by("tagId").descending());
+                break;
+
+            case "name":
+                pageable = PageRequest.of(page, size, Sort.by("category").ascending());
+                break;
+
+            default: // popular
+                pageable = PageRequest.of(page, size, Sort.by("questionCount").descending());
+        }
+
+        return tagRepository.findAll(pageable);
     }
 
     public void updateQuestionTags(Question question, List<String> categories) {
