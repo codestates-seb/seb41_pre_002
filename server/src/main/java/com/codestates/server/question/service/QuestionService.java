@@ -12,11 +12,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class QuestionService {
     private final QuestionRepository questionRepository;
     private final MemberService memberService;
@@ -44,6 +46,7 @@ public class QuestionService {
         return questionRepository.save(question);
     }
 
+    @Transactional(readOnly = true)
     public Question findQuestion(long questionId) {
         return findVerifiedQuestion(questionId);
     }
@@ -62,6 +65,7 @@ public class QuestionService {
                 .forEach(questionTag -> tagService.updateQuestionsCount(questionTag.getTag()));
     }
 
+    @Transactional(readOnly = true)
     private void canModifyOrDelete(Question findQuestion) {
         // 답변이나 댓글이 존재할 경우 수정 또는 삭제할 수 없음
         if (findQuestion.getAnswers().size() > 0 || findQuestion.getComments().size() > 0) {
@@ -69,6 +73,7 @@ public class QuestionService {
         }
     }
 
+    @Transactional(readOnly = true)
     public Page<Question> findQuestions(int page, int size, String keyword, String filter, String sortedBy, String order) {
         /**
          * page
@@ -122,6 +127,7 @@ public class QuestionService {
         return questions;
     }
 
+    @Transactional(readOnly = true)
     public Question findVerifiedQuestion(long questionId) {
         Optional<Question> optionalQuestion = questionRepository.findById(questionId);
         Question findQuestion = optionalQuestion.orElseThrow(() -> new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
