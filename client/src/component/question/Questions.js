@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import QuestionList from "./QuestionList";
-
+import QuestionList from "./questionlist";
+import QuestionItem from "./QuestionItem";
 
 const ContentDiv = styled.div`
   width: 1000px;
@@ -66,7 +66,7 @@ const ButtonBox = styled.div`
 
 
 
-const Questions = () => {
+const Questions = ({questionData}) => {
   return (
       <ContentDiv>
         {/*question 상단 */}
@@ -85,7 +85,8 @@ const Questions = () => {
           <button className="Btn">Month</button>
         </ButtonBox>
         {/* question을 요약해서 보여주는 하나의 박스 */}
-        <QuestionList/>
+        {questionData && <QuestionList questionData={questionData}/>}
+        {/* {console.log(questionData)} */}
       </ContentDiv>
     
   );
