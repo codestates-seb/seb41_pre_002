@@ -9,7 +9,7 @@ const Tag = styled.div`
   }
 `;
 
-function QuestionTag() {
+function QuestionTag({ tagHandler, tag }) {
   return (
     <>
       <Tag>
@@ -32,15 +32,16 @@ function QuestionTag() {
             </div>
             <div className="d-flex ps-relative">
               <input
-                id="tag"
-                name="tag"
+                id="categories"
+                name="categories"
                 type="text"
                 maxlength="300"
                 placeholder="e.g. (c# php objective-c)"
                 className="s-input js-post-title-field ask-title-field"
-                value=""
                 data-min-length="15"
                 data-max-length="150"
+                value={tag}
+                onChange={tagHandler}
               />
               <svg
                 aria-hidden="true"
