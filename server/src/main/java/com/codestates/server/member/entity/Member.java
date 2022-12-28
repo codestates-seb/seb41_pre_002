@@ -36,6 +36,10 @@ public class Member extends Auditable {
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
 
+    public Member(String email, String memberName, String memberPassword) {
+        super();
+    }
+
     public enum MemberRole{
         ROLE_USER,
         ROLE_ADMIN
@@ -52,4 +56,6 @@ public class Member extends Auditable {
 
     @OneToMany(mappedBy = "member")
     private List<AnswerComment> answerComments = new ArrayList<>();
+
+
 }
