@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import QuestionList from "./questionlist";
-import QuestionItem from "./QuestionItem";
+
 
 const ContentDiv = styled.div`
   width: 1000px;
