@@ -92,13 +92,16 @@ public class QuestionController {
                                        @Positive @RequestParam(required = false, defaultValue = "10") int size,
                                        @RequestParam(required = false, defaultValue = "") String keyword,
                                        @RequestParam(required = false, defaultValue = "all") String filter,
-                                       @RequestParam(required = false, defaultValue = "questionId") String sortedBy, // questionId, voteCount, answerCount 만 허용, 규격외의 값은 questionId로 정렬됨
-                                       @RequestParam(required = false, defaultValue = "descending") String order) { // 기본값 내림차순, 규격외의 값 입력 시 오름차순 정렬됨
+                                       @RequestParam(required = false, defaultValue = "questionId") String sortedBy,
+                                       @RequestParam(required = false, defaultValue = "descending") String order) {
 
         /**
-         * Todo: 다양한 정렬 조건들 받을 예정
-         * filter - 모두(기본값), 답변없음, 답변있음
-         * sortedBy - 최신순(기본값), 추천순, 답변많은순
+         * page
+         * size
+         * keyword - 검색어
+         * filter - 모두(기본값=all), 답변없음(noAnswer), 답변있음(answer)
+         * sortedBy - questionId(기본값), 추천순, 답변많은순 (규격 외에 questionId로 정렬됨)
+         * order - 내림차순(기본값) = descending, 오름차순 = ascending (규격 외에 오름차순 정렬됨)
          * */
 
         Page<Question> pageQuestions = questionService.findQuestions(page - 1, size, keyword, filter, sortedBy, order);

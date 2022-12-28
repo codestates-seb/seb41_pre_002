@@ -412,7 +412,7 @@ public class QuestionControllerTest {
                                 parameterWithName("page").description("출력할 페이지 (defaultValue = 1)"),
                                 parameterWithName("size").description("페이지당 게시물 수 (defaultValue = 10)"),
                                 parameterWithName("keyword").description("검색어"),
-                                parameterWithName("filter").description("필터 (defaultValue = all, 답변없음 = noAnswer, 답변있음 = Answer)"),
+                                parameterWithName("filter").description("필터 (defaultValue = all, 답변없음 = noAnswer, 답변있음 = answer)"),
                                 parameterWithName("sortedBy").description("정렬 기준 (defaultValue = questionId, 추천 순 = voteCount, 답변 개수 순 = answerCount)"),
                                 parameterWithName("order").description("정렬 기준을 내림차순 또는 오름차순 (defaultValue = descending, 오름차순 = ascending)")
                         ),

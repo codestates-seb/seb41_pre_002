@@ -69,13 +69,14 @@ public class QuestionService {
     }
 
     public Page<Question> findQuestions(int page, int size, String keyword, String filter, String sortedBy, String order) {
-        // Todo: 필터 구현해야됨
-
         /**
-         * filter - 모두(기본값), 답변없음(noAnswer), 답변있음(Answer)
-         * sortedBy - 최신순(기본값), 추천순, 답변많은순
+         * page
+         * size
+         * keyword - 검색어
+         * filter - 모두(기본값=all), 답변없음(noAnswer), 답변있음(answer)
+         * sortedBy - questionId(기본값), 추천순, 답변많은순 (규격 외에 questionId로 정렬됨)
+         * order - 내림차순(기본값) = descending, 오름차순 = ascending (규격 외에 오름차순 정렬됨)
          * */
-        System.out.println("파인드퀘스쳔 메서드 시작===================");
 
         // 필요한 변수들 선언
         Page<Question> questions;
@@ -93,13 +94,30 @@ public class QuestionService {
             pageable = PageRequest.of(page, size, Sort.by(sortedBy).ascending()); // 기준 외 입력 시
         }
 
-        // 질문 내용 검색
-        if (keyword.length() == 0) { // 검색 내용이 없을 경우
-            questions = questionRepository.findAll(pageable);
-        } else { // 검색 내용이 있을 경우
-            questions = questionRepository.findAllByTitleContainsOrContentContains(keyword, keyword, pageable);
+        // 필터 유무 및 검색 내용 유무
+        switch (filter) {
+            case "noAnswer": // 답변 없음
+                if (keyword.length() == 0) { // 검색 내용이 없을 경우
+                    questions = questionRepository.findAllByAnswerCountIs(0, pageable);
+                } else { // 검색 내용이 있을 경우
+                    questions = questionRepository.findAllByAnswerCountIsAndTitleContainsOrContentContains(0, keyword, keyword, pageable);
+                }
+                break;
+            case "answer": // 답변 있음
+                if (keyword.length() == 0) { // 검색 내용이 없을 경우
+                    questions = questionRepository.findAllByAnswerCountGreaterThan(0, pageable);
+                } else { // 검색 내용이 있을 경우
+                    questions = questionRepository.findAllByAnswerCountGreaterThanAndTitleContainsOrContentContains(0, keyword, keyword, pageable);
+                }
+                break;
+            default: // 전체 조회
+                if (keyword.length() == 0) { // 검색 내용이 없을 경우
+                    questions = questionRepository.findAll(pageable);
+                } else { // 검색 내용이 있을 경우
+                    questions = questionRepository.findAllByTitleContainsOrContentContains(keyword, keyword, pageable);
+                }
         }
-        System.out.println("파인드퀘스쳔 메서드 시작===================");
+
         return questions;
     }
 
