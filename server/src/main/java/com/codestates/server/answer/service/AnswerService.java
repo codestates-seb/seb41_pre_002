@@ -15,7 +15,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 @Transactional(readOnly = true)
@@ -89,7 +88,7 @@ public class AnswerService {
     }
     // 질문 존재 확인
     public Question verifyQuestion(Long questionId){
-        Optional<Question> optionalQuestion = questionRepository.findByQuestionId(questionId);
+        Optional<Question> optionalQuestion = questionRepository.findById(questionId);
         Question question = optionalQuestion.orElseThrow(
                 () -> new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND)
         );

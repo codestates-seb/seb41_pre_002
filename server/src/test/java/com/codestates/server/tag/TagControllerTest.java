@@ -1,5 +1,7 @@
 package com.codestates.server.tag;
 
+import com.codestates.server.config.SecurityTestConfig;
+import com.codestates.server.config.TestUserDetailService;
 import com.codestates.server.tag.controller.TagController;
 import com.codestates.server.tag.dto.TagResponseDto;
 import com.codestates.server.tag.entity.Tag;
@@ -13,6 +15,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -44,6 +47,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc // security 임시
 @MockBean(JpaMetamodelMappingContext.class)
 @AutoConfigureRestDocs
+@Import({SecurityTestConfig.class, TestUserDetailService.class})
 public class TagControllerTest {
     @Autowired
     private MockMvc mockMvc;

@@ -1,5 +1,7 @@
 package com.codestates.server.vote;
 
+import com.codestates.server.config.SecurityTestConfig;
+import com.codestates.server.config.TestUserDetailService;
 import com.codestates.server.vote.controller.VoteController;
 import com.codestates.server.vote.dto.VoteRequestDto;
 import com.codestates.server.vote.service.VoteService;
@@ -12,6 +14,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
@@ -37,6 +40,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc // security 임시
 @MockBean(JpaMetamodelMappingContext.class)
 @AutoConfigureRestDocs
+@Import({SecurityTestConfig.class, TestUserDetailService.class})
 public class VoteControllerTest {
     @Autowired
     private MockMvc mockMvc;

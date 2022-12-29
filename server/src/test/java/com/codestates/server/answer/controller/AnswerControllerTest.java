@@ -6,6 +6,8 @@ import com.codestates.server.answer.mapper.AnswerMapper;
 import com.codestates.server.answer.service.AnswerService;
 import com.codestates.server.audit.AuditableResponseDto;
 import com.codestates.server.comment.mapper.AnswerCommentMapper;
+import com.codestates.server.config.SecurityTestConfig;
+import com.codestates.server.config.TestUserDetailService;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -15,6 +17,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
@@ -42,7 +45,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest // security 임시
 @AutoConfigureMockMvc // security 임시
 @MockBean(JpaMetamodelMappingContext.class)
-@AutoConfigureRestDocs
+@AutoConfigureMockMvc
+@Import({SecurityTestConfig.class, TestUserDetailService.class})
 public class AnswerControllerTest {
     @Autowired
     private MockMvc mockMvc;
