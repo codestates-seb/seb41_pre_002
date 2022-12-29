@@ -14,25 +14,19 @@ const Maindiv = styled.div`
 `;
 
 const MainPage = () => {
-  // const {} = data;
-  const [mainData, setMainData] = useState(null);
+  
   let [questionData, setQuestionData] = useState([]);
 
   useEffect(() => {
     axios
-      .get('/questions', {})
+      .get(`/questions`, {})
       .then((response) => {
-        // const questionData = response.data.data;
         setQuestionData(response.data);
-        // console.log(data); //전체데이터
-        console.log(response.data.data); // data& pageinfo
-        // console.log(response.data.data[0]); // questionid 7의 정보
-        // console.log(response.data.pageInfo);
-        // console.log(questionData); // pageinfo 관련
+        console.log(response.data); // data& pageinfo
       })
       .catch((error) => {
         console.log(error);
-        //오류발생시 실행
+
       });
   }, []);
 
@@ -42,7 +36,7 @@ const MainPage = () => {
       <Maindiv>
         <Nav />
         {questionData && <Questions questionData={questionData} />}
-        {console.log('이게 뭐지', questionData.data)}
+        {/* {console.log('이게 뭐지', questionData.data)} */}
         {/* <div>
           {questionData.map((item, index) => (
             <QuestionItem key={index} questionData={questionData} />
