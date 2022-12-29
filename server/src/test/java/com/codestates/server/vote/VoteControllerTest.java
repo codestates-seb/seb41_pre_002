@@ -35,9 +35,7 @@ import static org.springframework.restdocs.request.RequestDocumentation.paramete
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-//@WebMvcTest(VoteController.class)
-@SpringBootTest // security 임시
-@AutoConfigureMockMvc // security 임시
+@WebMvcTest(VoteController.class)
 @MockBean(JpaMetamodelMappingContext.class)
 @AutoConfigureRestDocs
 @Import({SecurityTestConfig.class, TestUserDetailService.class})
