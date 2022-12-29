@@ -5,16 +5,16 @@ import com.codestates.server.exception.ExceptionCode;
 import com.codestates.server.member.service.MemberService;
 import com.codestates.server.question.entity.Question;
 import com.codestates.server.question.repository.QuestionRepository;
+import com.codestates.server.tag.entity.Tag;
 import com.codestates.server.tag.service.TagService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -48,7 +48,7 @@ public class QuestionService {
 
     @Transactional(readOnly = true)
     public Question findQuestion(long questionId) {
-       return findVerifiedQuestion(questionId);
+        return findVerifiedQuestion(questionId);
     }
 
     public void deleteQuestion(long questionId) {
@@ -125,6 +125,23 @@ public class QuestionService {
         }
 
         return questions;
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Question> findQuestionsByOptionalTag(int page, int size, Optional<Tag> optionalTag) {
+        PageRequest pageRequest = PageRequest.of(page - 1, size, Sort.by("questionId").descending());
+
+        if (optionalTag.isEmpty()) { // optionalTag 객체가 빈값일 경우 전체 질문을 조회한다.
+            return questionRepository.findAll(pageRequest);
+        }
+
+        List<Question> questions = optionalTag.get().getQuestionTags().stream()
+                .map(questionTag -> questionTag.getQuestion())
+                .collect(Collectors.toList());
+
+        Page<Question> pageQuestions = new PageImpl<>(questions, pageRequest, questions.size());
+
+        return pageQuestions;
     }
 
     @Transactional(readOnly = true)
