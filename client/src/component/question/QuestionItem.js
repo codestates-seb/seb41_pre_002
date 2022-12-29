@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 const QuestionItemdiv = styled.div`
   display: flex;
@@ -56,16 +57,26 @@ const TagDiV = styled.div`
 `;
 
 const QuestionItem = ({ questionData }) => {
+  const dispatch = useDispatch();
   return (
     <QuestionItemdiv>
       {questionData.data &&
         questionData.data.map((item) => {
+          const toDO = item.memberId;
           return (
             <div className="qo" key={item.id}>
               <SummaryStatus>{item.voteCount} vote</SummaryStatus>
 
               <SummaryContent>
-                <Link to="/QuesetionRead">{item.title}</Link>
+                <Link
+                  to="/QuesetionRead"
+                  onClick={() => {
+                    dispatch({ type: "increase", number: toDO });
+                    console.log(item.memberId);
+                  }}
+                >
+                  {item.title}
+                </Link>
                 <SummaryMeta>
                   <TagDiV>
                     <button className="tag-button">

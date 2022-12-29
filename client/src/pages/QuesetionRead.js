@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import Header from "../component/header";
 import Footer from "../component/footer";
 import Nav from "../component/nav";
 import Question from "../component/DetailsQustion";
-import dummyquestions from "../assets/dummyData";
 
 const Qustionpagediv = styled.div`
   width: 100vw;
