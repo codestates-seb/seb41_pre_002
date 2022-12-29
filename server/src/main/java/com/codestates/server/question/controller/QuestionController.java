@@ -114,6 +114,19 @@ public class QuestionController {
         );
     }
 
+    @GetMapping("/tagged/{category}")
+    public ResponseEntity getQuestionsByTag(@PathVariable("category") String category,
+                                            @Positive @RequestParam(required = false, defaultValue = "1") int page,
+                                            @Positive @RequestParam(required = false, defaultValue = "10") int size) {
+
+        Page<Question> pageQuestions = questionService.findQuestionsByOptionalTag(page, size, tagService.findOptionalTagByCategory(category));
+
+        return new ResponseEntity(
+                new MultiResponseDto<>(questionMapper.questionsToQuestionResponseDtos(pageQuestions.getContent(), questionCommentMapper), pageQuestions),
+                HttpStatus.OK
+        );
+    }
+
     @DeleteMapping("/{question-id}")
     public ResponseEntity deleteQuestion(@Positive @PathVariable("question-id") long questionId) {
         // 답변 혹은 댓글이 있으면 수정/삭제 할 수 없음
