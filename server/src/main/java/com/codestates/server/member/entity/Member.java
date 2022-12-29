@@ -5,16 +5,24 @@ import com.codestates.server.audit.Auditable;
 import com.codestates.server.comment.entity.AnswerComment;
 import com.codestates.server.comment.entity.QuestionComment;
 import com.codestates.server.question.entity.Question;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.*;
 import javax.persistence.*;
 
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Getter
 @Setter
-public class Member extends Auditable {
+public class Member extends Auditable implements UserDetails
+{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long memberId;
@@ -28,7 +36,53 @@ public class Member extends Auditable {
     @Column(nullable = false)
     private String memberPassword;
 
-    // 연관관계 매핑
+    //멤버 권한 정보 테이블과 매핑
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<String> roles = new ArrayList<>();
+
+    public Member(String email, String memberName, String memberPassword) {
+        super();
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public String getPassword() {
+        return memberPassword;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    public enum MemberRole{
+        ROLE_USER,
+        ROLE_ADMIN
+    }
 
     @OneToMany(mappedBy = "member")
     private List<Question> questionList = new ArrayList<>();

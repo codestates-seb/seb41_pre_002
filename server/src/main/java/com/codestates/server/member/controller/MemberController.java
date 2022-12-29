@@ -6,6 +6,7 @@ import com.codestates.server.member.dto.MemberDto;
 import com.codestates.server.member.entity.Member;
 import com.codestates.server.member.mapper.MemberMapper;
 import com.codestates.server.member.service.MemberService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -21,24 +22,10 @@ import java.util.List;
 @RequestMapping("/members")
 @Validated
 @Slf4j
+@RequiredArgsConstructor
 public class MemberController {
     private final MemberService memberService;
     private final MemberMapper mapper;
-
-    public MemberController(MemberService memberService, MemberMapper mapper) {
-        this.memberService = memberService;
-        this.mapper = mapper;
-    }
-
-    @PostMapping
-    public ResponseEntity postMember(@Valid @RequestBody MemberDto.Post requestBody) {
-        Member member = mapper.memberPostToMember(requestBody);
-        Member createdMember = memberService.createMember(member);
-
-        return new ResponseEntity<>(
-                new SingleResponseDto<>(mapper.memberToMemberResponse(createdMember)),
-                HttpStatus.CREATED);
-    }
 
     @PatchMapping("/{member-id}")
     public ResponseEntity patchMember(
@@ -55,8 +42,7 @@ public class MemberController {
     }
 
     @GetMapping("/{member-id}")
-    public ResponseEntity getMember(
-            @PathVariable("member-id") @Positive long memberId) {
+    public ResponseEntity getMember(@PathVariable("member-id") @Positive long memberId) {
         Member member = memberService.findMember(memberId);
         return new ResponseEntity<>(
                 new SingleResponseDto<>(mapper.memberToMemberResponse(member))
