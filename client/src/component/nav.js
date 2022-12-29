@@ -10,7 +10,7 @@ const NavWrapper = styled.nav`
   padding-top: 24px;
   padding-left: 100px;
   max-height: 100%;
-  height: 100vh;
+  height: 1000px;
   position: sticky;
   color: #525960;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,

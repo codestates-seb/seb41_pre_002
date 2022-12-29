@@ -14,9 +14,8 @@ const Maindiv = styled.div`
 `;
 
 const MainPage = () => {
-  // const {} = data;
-  const [mainData, setMainData] = useState(null);
-  let [questionData, setQuestionData] = useState([]);
+
+  const [questionData, setQuestionData] = useState([]);
 
   useEffect(() => {
     axios

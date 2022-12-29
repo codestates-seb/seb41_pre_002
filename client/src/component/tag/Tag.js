@@ -1,37 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import TagCard from "./TagCardList";
+import TagInput from "./TagInput";
+import TagCardItem from "./TagCardItem";
 import TagPagenation from "./TagPagenation";
 
 const TagDIV = styled.div`
-  display: flex;
-  flex-direction: column;
+  /* display: flex; */
+  /* flex-direction: column; */
   align-items: flex-start;
   padding: 30px;
   width: 100%;
   min-width: 200px;
   background-color: aqua;
-  /* height: auto; */
+  /* height: 100vh; */
   /* box-sizing: border-box; */
   h1 {
+    text-align: left;
     font-size: 27px;
     margin: 0px 0px 27px;
     color: black;
     font-weight: 400;
   }
   p {
-    color: black;
+    color: #232629;
+    text-align: left;
     font-size: 15px;
     max-width: 625px;
     margin: 0px 0px 27px;
   }
-  .TagSearchDiv {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    width: 100%;
-    height: 50px;
-  }
+  
   .ButtonBox {
     display: flex;
     border-color: var(--_bu-outlined-bc-selected);
@@ -59,29 +56,10 @@ const TagDIV = styled.div`
   }
 `;
 
-const Tag = () => {
-
+const Tag = ({ tagData }) => {
   // 빈값으로 초기세팅
-  const[inputValue, setInputValue] = useState({
-    // title: '',
-    tags: '',
-  })
+  
 
-  //inputvalue 값 추출 -> input 의 value 속성에 추출한 값 할당
-  const { tags } = inputValue;
-  // const {title, tags} = inputValue;
-
-  const onChangeValue = (e) => {
-    setInputValue({
-      ...inputValue,[e.target.name]: e.target.value,
-    });
-    console.log(inputValue)
-  }
-  // const [text, setText] = useState("");
-
-  // const onChange = (e) => {
-  //   setText(e.target.value);
-  // };
 
   return (
     <TagDIV>
@@ -95,39 +73,15 @@ const Tag = () => {
         </p>
       }
       {/*tag input && buttion div 묶음 */}
-      <div className="TagSearchDiv">
-        <div className="flex--item ps-relative mb12">
-          <input
-            id="tagfilter"
-            onChange={onChangeValue}
-            defaultValue={tags}
-            // value={text}
-            className="s-input s-input__search h100 js-tag-filter"
-            autoComplete="off"
-            name="tags"
-            type="text"
-            maxLength="35"
-            placeholder="Filter by tag name"
-            autoFocus=""
-          ></input>
-          <svg
-            aria-hidden="true"
-            className="s-input-icon s-input-icon__search svg-icon iconSearch"
-            width="18"
-            height="18"
-            viewBox="0 0 18 18"
-          >
-            <path d="m18 16.5-5.14-5.18h-.35a7 7 0 1 0-1.19 1.19v.35L16.5 18l1.5-1.5ZM12 7A5 5 0 1 1 2 7a5 5 0 0 1 10 0Z"></path>
-          </svg>
-        </div>
+      <TagInput />
         <div className="ButtonBox">
           <button className="Btn">Popular</button>
           <button className="Btn">Name</button>
           <button className="Btn">New</button>
         </div>
-      </div>
-      <TagCard />
-      <TagPagenation />
+      
+      <TagCardItem tagData={tagData} />
+      {/* <TagPagenation /> */}
     </TagDIV>
   );
 };

@@ -31,12 +31,8 @@ const QuestionList = ({questionData}) => {
 
     <QusetionListDiv>
       <QuestionLists >
-        {/* {questionData.data &&
-        questionData.data.map((item) => {
-          return <div className="qo"> {item.title}</div>;
-        })} */}
       {questionData && <QuestionItem questionData={questionData}/>}
-      {console.log(questionData)}
+      {/* {console.log(questionData)} */}
       </QuestionLists>
     </QusetionListDiv>
   );
