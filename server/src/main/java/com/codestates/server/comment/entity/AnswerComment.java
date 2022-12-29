@@ -3,6 +3,7 @@ package com.codestates.server.comment.entity;
 import com.codestates.server.answer.entity.Answer;
 import com.codestates.server.audit.Auditable;
 import com.codestates.server.member.entity.Member;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,11 +20,11 @@ public class AnswerComment extends Auditable {
     @Column(nullable = false)
     private String content;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "answer_id")
     private Answer answer;
 
