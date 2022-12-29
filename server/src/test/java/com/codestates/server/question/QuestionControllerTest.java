@@ -7,6 +7,8 @@ import com.codestates.server.comment.dto.AnswerCommentDto;
 import com.codestates.server.comment.dto.QuestionCommentDto;
 import com.codestates.server.comment.mapper.AnswerCommentMapper;
 import com.codestates.server.comment.mapper.QuestionCommentMapper;
+import com.codestates.server.config.SecurityTestConfig;
+import com.codestates.server.config.TestUserDetailService;
 import com.codestates.server.question.controller.QuestionController;
 import com.codestates.server.question.dto.*;
 import com.codestates.server.question.entity.Question;
@@ -22,6 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -51,6 +54,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(QuestionController.class)
 @MockBean(JpaMetamodelMappingContext.class)
 @AutoConfigureRestDocs
+@Import({SecurityTestConfig.class, TestUserDetailService.class})
 public class QuestionControllerTest {
     @Autowired
     private MockMvc mockMvc;
