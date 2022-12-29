@@ -46,7 +46,7 @@ public class SecurityController {
         TokenInfo tokenInfo = securityService.login(username, password);
 
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add(JwtAuthenticationFilter.AUTHORIZATION_HEADER, "Bearer" + tokenInfo.getAccessToken());
+        httpHeaders.add(JwtAuthenticationFilter.AUTHORIZATION_HEADER, "Bearer " + tokenInfo.getAccessToken());
 
         return new ResponseEntity(tokenInfo, httpHeaders, HttpStatus.OK);
     }
