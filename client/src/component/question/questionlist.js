@@ -1,7 +1,5 @@
-import React, {useState, useEffect} from "react";
 import styled from "styled-components";
 import QuestionItem from "./QuestionItem";
-
 
 const QusetionListDiv = styled.div`
   /* width: 800px; */
@@ -18,25 +16,21 @@ const QuestionLists = styled.div`
   @media (max-width: 980px) {
     flex-direction: column;
   } */
-  .qo{
+  .qo {
     color: black;
   }
 `;
 
-const QuestionList = ({questionData}) => {
-
-  
-
+const QuestionList = ({ questionData }) => {
   return (
-
     <QusetionListDiv>
-      <QuestionLists >
+      <QuestionLists>
         {/* {questionData.data &&
         questionData.data.map((item) => {
           return <div className="qo"> {item.title}</div>;
         })} */}
-      {questionData && <QuestionItem questionData={questionData}/>}
-      {console.log(questionData)}
+        {questionData && <QuestionItem questionData={questionData} />}
+        {console.log(questionData)}
       </QuestionLists>
     </QusetionListDiv>
   );

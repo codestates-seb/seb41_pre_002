@@ -1,6 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
+// import dummyquestions from "../assets/dummyData";
+import { useSelector } from "react-redux";
 import "../assets/fonts.css";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 const PageDiv = styled.div`
   display: flex;
@@ -157,7 +161,7 @@ const Postbuttondiv = styled.div`
   margin: 10px 0px 0px 480px;
 `;
 
-function DetailsQustion({ data }) {
+function DetailsQustion({ title }) {
   const [Number, SetNumber] = useState(0);
   const [Bookmark, SetBookmark] = useState(true);
 
@@ -172,16 +176,36 @@ function DetailsQustion({ data }) {
     SetBookmark(!Bookmark);
   };
 
+  const num = useSelector((state) => state);
+  const [questions, setQuestions] = useState(0);
+
+  useEffect(() => {
+    axios
+      .get(`/questions/${num}`, {})
+      .then((response) => {
+        console.log(response.data.data.questionResponseDto.title); //정상 통신 후 응답된 메시지 출력
+        setQuestions(response.data.data.questionResponseDto); //정상 통신 후 응답된 메시지 출력
+      })
+      .catch((error) => {
+        console.log(error);
+        //오류발생시 실행
+      });
+  }, []);
+
+  // const quantity = questions.filter(
+  //   (el) => el.questionResponseDto.memberId === num
+  // );
+
   return (
     <PageDiv>
       <PageHeader>
         <Headernamediv>
-          How to run "AND" operator with "filter()" without "SyntaxError:
-          keyword argument repeated:" error in Django?
+          {questions.title}
+          {num}
           <Importmationdiv>
             Asked <Importmationspan>today</Importmationspan> Modified{" "}
             <Importmationspan>today</Importmationspan>
-            Viewed <Importmationspan>{data}</Importmationspan>
+            Viewed <Importmationspan>{questions.title}</Importmationspan>
           </Importmationdiv>
         </Headernamediv>
         <Askbuttondiv>
@@ -211,11 +235,7 @@ function DetailsQustion({ data }) {
             <i class="fa-solid fa-clock-rotate-left"></i>
           </Recomneddiv>
           <Qustioncontentdiv>
-            I want to print the details of the packets that is capture using
-            pyshark. I want the details of the packet like info of packet,
-            source-ip, destination-ip, protocol(like, unp, tcp, imp, arp, dns
-            etc). <br />
-            <br />I use the code below.
+            {questions.content}
             <Codediv>
               import pyshark import time capture =
               pyshark.LiveCapture(interface='eth0') capture.sniff(timeout=5) for
