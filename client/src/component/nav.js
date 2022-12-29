@@ -88,25 +88,10 @@ const QuestionList = styled.div`
   border-right: 3px;
   width: 165px;
   height: 35px;
-  /* font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;; */
-  .clicked & .div {
-    align-items: center;
-    font-size: 13px;
-    /* padding: 4px 8px 4px 0px; */
-    font-weight: bold;
-    background: red;
-    color: var(--black-900);
-    border-right: 3px solid var(--theme-primary-color);
-  }
   &:hover {
     font-weight: bold;
-    /* background: var(--black-050); */
     color: var(--black-900);
-    /* border-right: 3px solid var(--theme-primary-color); */
   }
-
-  // 페이지 라우터해서 동적으로 구현해야함
-  // 현재 path랑 목록이랑 일치하는지 체크해서 active 넣기!
   &.active {
     align-items: center;
     /* padding: 4px 8px 4px 0px; */
@@ -115,10 +100,16 @@ const QuestionList = styled.div`
     color: var(--black-900);
     border-right: 3px solid var(--theme-primary-color);
   }
-  &.active a {
+  &.active .Link {
     font-weight: bold;
     background-color: hsl(210, 8%, 95%);
     color: #222;
+  }
+`;
+const StyledLink = styled(Link)`
+  &:hover {
+    font-weight: bold;
+    color: var(--black-900);
   }
 `;
 
@@ -129,7 +120,7 @@ const Nav = () => {
     <NavWrapper>
       <NavDiv>
         <div className="Home">
-          <Link to="/">Home</Link> {/*link to || link로 구현 */}
+          <StyledLink to="/">Home</StyledLink> {/*link to || link로 구현 */}
         </div>
         <SubNav>
           <div className="Public">PUBLIC</div>
@@ -147,7 +138,7 @@ const Nav = () => {
               />
             </svg>
             <span>
-              <Link to="/">Question</Link>
+              <StyledLink to="/">Question</StyledLink>
             </span>
           </QuestionDiv>
 
@@ -155,13 +146,13 @@ const Nav = () => {
             className={"TagPag" === active ? "active" : ""}
             onClick={() => setActive("TagPag")}
           >
-            <Link to="/TagPage">Tag</Link>
+            <StyledLink to="/TagPage">Tag</StyledLink>
           </QuestionList>
           <QuestionList
             className={"UserPage" === active ? "active" : ""}
             onClick={() => setActive("UserPage")}
           >
-            <Link to="/UserPage">User</Link>
+            <StyledLink to="/UserPage">User</StyledLink>
           </QuestionList>
           <QuestionList
             className={"Companies" === active ? "active" : ""}
