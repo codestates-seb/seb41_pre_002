@@ -585,6 +585,11 @@ Host: localhost:8080
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 201 Created
 Content-Type: application/json;charset=UTF-8
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
 Content-Length: 108
 
 {
@@ -729,6 +734,11 @@ Host: localhost:8080
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
 Content-Length: 108
 
 {
@@ -808,6 +818,11 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
 Content-Length: 3148
 
 {
@@ -817,8 +832,8 @@ Content-Length: 3148
       "title" : "질문 제목입니다",
       "content" : "질문 내용입니다",
       "auditableResponseDto" : {
-        "createdAt" : "2022-12-29T15:24:22.333532",
-        "modifiedAt" : "2022-12-29T15:24:22.333542"
+        "createdAt" : "2022-12-29T16:47:01.946692",
+        "modifiedAt" : "2022-12-29T16:47:01.946702"
       },
       "memberId" : 1,
       "memberName" : "사용자",
@@ -840,8 +855,8 @@ Content-Length: 3148
         "memberName" : "댓글사용자",
         "content" : "댓글 더미입니다",
         "auditableResponseDto" : {
-          "createdAt" : "2022-12-29T15:24:22.333532",
-          "modifiedAt" : "2022-12-29T15:24:22.333542"
+          "createdAt" : "2022-12-29T16:47:01.946692",
+          "modifiedAt" : "2022-12-29T16:47:01.946702"
         }
       } ]
     },
@@ -853,8 +868,8 @@ Content-Length: 3148
       "content" : "답변 내용입니다",
       "voteCount" : 3,
       "auditableResponseDto" : {
-        "createdAt" : "2022-12-29T15:24:22.333532",
-        "modifiedAt" : "2022-12-29T15:24:22.333542"
+        "createdAt" : "2022-12-29T16:47:01.946692",
+        "modifiedAt" : "2022-12-29T16:47:01.946702"
       },
       "commentResponseDtos" : [ {
         "commentId" : 1,
@@ -863,8 +878,8 @@ Content-Length: 3148
         "memberName" : "댓글작성한사용자1",
         "content" : "댓글 내용입니다",
         "auditableResponseDto" : {
-          "createdAt" : "2022-12-29T15:24:22.333532",
-          "modifiedAt" : "2022-12-29T15:24:22.333542"
+          "createdAt" : "2022-12-29T16:47:01.946692",
+          "modifiedAt" : "2022-12-29T16:47:01.946702"
         }
       } ]
     }, {
@@ -875,8 +890,8 @@ Content-Length: 3148
       "content" : "답변 내용입니다",
       "voteCount" : 3,
       "auditableResponseDto" : {
-        "createdAt" : "2022-12-29T15:24:22.333532",
-        "modifiedAt" : "2022-12-29T15:24:22.333542"
+        "createdAt" : "2022-12-29T16:47:01.946692",
+        "modifiedAt" : "2022-12-29T16:47:01.946702"
       },
       "commentResponseDtos" : [ {
         "commentId" : 2,
@@ -885,8 +900,8 @@ Content-Length: 3148
         "memberName" : "댓글작성한사용자2",
         "content" : "댓글 내용입니다",
         "auditableResponseDto" : {
-          "createdAt" : "2022-12-29T15:24:22.333532",
-          "modifiedAt" : "2022-12-29T15:24:22.333542"
+          "createdAt" : "2022-12-29T16:47:01.946692",
+          "modifiedAt" : "2022-12-29T16:47:01.946702"
         }
       } ]
     }, {
@@ -897,8 +912,8 @@ Content-Length: 3148
       "content" : "답변 내용입니다",
       "voteCount" : 3,
       "auditableResponseDto" : {
-        "createdAt" : "2022-12-29T15:24:22.333532",
-        "modifiedAt" : "2022-12-29T15:24:22.333542"
+        "createdAt" : "2022-12-29T16:47:01.946692",
+        "modifiedAt" : "2022-12-29T16:47:01.946702"
       },
       "commentResponseDtos" : [ {
         "commentId" : 3,
@@ -907,8 +922,8 @@ Content-Length: 3148
         "memberName" : "댓글작성한사용자3",
         "content" : "댓글 내용입니다",
         "auditableResponseDto" : {
-          "createdAt" : "2022-12-29T15:24:22.333532",
-          "modifiedAt" : "2022-12-29T15:24:22.333542"
+          "createdAt" : "2022-12-29T16:47:01.946692",
+          "modifiedAt" : "2022-12-29T16:47:01.946702"
         }
       } ]
     } ]
@@ -1210,7 +1225,12 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 995
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+Content-Length: 997
 
 {
   "data" : [ {
@@ -1218,8 +1238,8 @@ Content-Length: 995
     "title" : "질문 제목입니다9",
     "content" : "질문 내용입니다9",
     "auditableResponseDto" : {
-      "createdAt" : "2022-12-29T15:24:22.262648",
-      "modifiedAt" : "2022-12-29T15:24:22.26266"
+      "createdAt" : "2022-12-29T16:47:01.877815",
+      "modifiedAt" : "2022-12-29T16:47:01.877823"
     },
     "memberId" : 9,
     "memberName" : "사용자9",
@@ -1241,8 +1261,8 @@ Content-Length: 995
       "memberName" : "사용자1",
       "content" : "댓글 더미입니다",
       "auditableResponseDto" : {
-        "createdAt" : "2022-12-29T15:24:22.262648",
-        "modifiedAt" : "2022-12-29T15:24:22.26266"
+        "createdAt" : "2022-12-29T16:47:01.877815",
+        "modifiedAt" : "2022-12-29T16:47:01.877823"
       }
     } ]
   } ],
@@ -1482,6 +1502,11 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
 Content-Length: 997
 
 {
@@ -1490,8 +1515,8 @@ Content-Length: 997
     "title" : "질문 제목입니다9",
     "content" : "질문 내용입니다9",
     "auditableResponseDto" : {
-      "createdAt" : "2022-12-29T15:24:22.298762",
-      "modifiedAt" : "2022-12-29T15:24:22.298772"
+      "createdAt" : "2022-12-29T16:47:01.914103",
+      "modifiedAt" : "2022-12-29T16:47:01.914112"
     },
     "memberId" : 9,
     "memberName" : "사용자9",
@@ -1513,8 +1538,8 @@ Content-Length: 997
       "memberName" : "사용자1",
       "content" : "댓글 더미입니다",
       "auditableResponseDto" : {
-        "createdAt" : "2022-12-29T15:24:22.298762",
-        "modifiedAt" : "2022-12-29T15:24:22.298772"
+        "createdAt" : "2022-12-29T16:47:01.914103",
+        "modifiedAt" : "2022-12-29T16:47:01.914112"
       }
     } ]
   } ],
@@ -1727,7 +1752,12 @@ Host: localhost:8080</code></pre>
 <div class="listingblock">
 <div class="title">http-response</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 204 No Content</code></pre>
+<pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 204 No Content
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0</code></pre>
 </div>
 </div>
 <hr>
@@ -1800,6 +1830,11 @@ Host: localhost:8080
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 201 Created
 Content-Type: application/json;charset=UTF-8
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
 Content-Length: 309
 
 {
@@ -1811,7 +1846,7 @@ Content-Length: 309
     "content" : "content",
     "voteCount" : 0,
     "auditableResponseDto" : {
-      "createdAt" : "2022-12-29T15:24:21.585327",
+      "createdAt" : "2022-12-29T16:47:00.435464",
       "modifiedAt" : null
     },
     "commentResponseDtos" : null
@@ -1964,6 +1999,11 @@ Host: localhost:8080
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
 Content-Length: 317
 
 {
@@ -1975,7 +2015,7 @@ Content-Length: 317
     "content" : "patched content",
     "voteCount" : 0,
     "auditableResponseDto" : {
-      "createdAt" : "2022-12-29T15:24:21.758415",
+      "createdAt" : "2022-12-29T16:47:00.584251",
       "modifiedAt" : null
     },
     "commentResponseDtos" : null
@@ -2106,6 +2146,11 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
 Content-Length: 41
 
 {
@@ -2212,6 +2257,11 @@ Host: localhost:8080
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 201 Created
 Content-Type: application/json;charset=UTF-8
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
 Content-Length: 41
 
 {
@@ -2335,6 +2385,11 @@ Host: localhost:8080
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
 Content-Length: 41
 
 {
@@ -2417,6 +2472,11 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
 Content-Length: 41
 
 {
@@ -2517,6 +2577,11 @@ Host: localhost:8080
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 201 Created
 Content-Type: application/json;charset=UTF-8
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
 Content-Length: 39
 
 {
@@ -2640,6 +2705,11 @@ Host: localhost:8080
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
 Content-Length: 39
 
 {
@@ -2722,6 +2792,11 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
 Content-Length: 41
 
 {
@@ -2841,7 +2916,12 @@ Host: localhost:8080
 <div class="listingblock">
 <div class="title">http-response</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK</code></pre>
+<pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0</code></pre>
 </div>
 </div>
 </div>
@@ -2921,7 +3001,12 @@ Host: localhost:8080
 <div class="listingblock">
 <div class="title">http-response</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK</code></pre>
+<pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0</code></pre>
 </div>
 </div>
 <hr>
@@ -2984,6 +3069,11 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
 Content-Length: 811
 
 {
@@ -3102,7 +3192,7 @@ Content-Length: 811
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2022-12-29 15:23:12 +0900
+Last updated 2022-12-29 15:43:43 +0900
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
