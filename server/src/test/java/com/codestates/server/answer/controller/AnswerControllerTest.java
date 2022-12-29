@@ -41,11 +41,9 @@ import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-//@WebMvcTest(AnswerController.class)
-@SpringBootTest // security 임시
-@AutoConfigureMockMvc // security 임시
+@WebMvcTest(AnswerController.class)
 @MockBean(JpaMetamodelMappingContext.class)
-@AutoConfigureMockMvc
+@AutoConfigureRestDocs
 @Import({SecurityTestConfig.class, TestUserDetailService.class})
 public class AnswerControllerTest {
     @Autowired
