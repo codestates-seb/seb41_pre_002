@@ -8,6 +8,7 @@ import LoginPage from "./pages/LoginPage";
 import SignInPage from "./pages/SignInPage";
 import TagPage from "./pages/TagPage";
 import UserPage from "./pages/UserPage";
+import QuestionTagPage from "./pages/QuestionTagPage";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -19,7 +20,7 @@ function App() {
     axios
       .get(`/questions/${number}`, {})
       .then((response) => {
-        console.log(response.data.data.questionResponseDto.title); //정상 통신 후 응답된 메시지 출력
+        // console.log(response.data.data.questionResponseDto.title); //정상 통신 후 응답된 메시지 출력
         setQuestions(response.data.data.questionResponseDto); //정상 통신 후 응답된 메시지 출력
       })
       .catch((error) => {
@@ -44,6 +45,7 @@ function App() {
             {/* <Route path="/LogoutPage" element={<LogoutPage />} /> */}
             <Route path="/SignInPage" element={<SignInPage />} />
             <Route path="/TagPage" element={<TagPage />} />
+            <Route path="/QuestionTagPage" element={<QuestionTagPage questions={questions} />} />
             <Route path="/UserPage" element={<UserPage />} />
           </Routes>
         </div>
