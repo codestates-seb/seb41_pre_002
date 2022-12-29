@@ -48,7 +48,7 @@ public class QuestionService {
 
     @Transactional(readOnly = true)
     public Question findQuestion(long questionId) {
-        return findVerifiedQuestion(questionId);
+       return findVerifiedQuestion(questionId);
     }
 
     public void deleteQuestion(long questionId) {
@@ -129,7 +129,7 @@ public class QuestionService {
 
     @Transactional(readOnly = true)
     public Question findVerifiedQuestion(long questionId) {
-        Optional<Question> optionalQuestion = questionRepository.findById(questionId);
+        Optional<Question> optionalQuestion = questionRepository.findByQuestionId(questionId);
         Question findQuestion = optionalQuestion.orElseThrow(() -> new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
         return findQuestion;
     }

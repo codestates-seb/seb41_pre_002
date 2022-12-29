@@ -19,11 +19,11 @@ public class QuestionVote {
     @Range(min = -1, max = 1, message = "투표는 한번만 할 수 있습니다.")
     private Integer score;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "QUESTION_ID")
     private Question question;
 

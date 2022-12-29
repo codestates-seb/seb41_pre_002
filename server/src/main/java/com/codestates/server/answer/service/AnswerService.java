@@ -89,7 +89,7 @@ public class AnswerService {
     }
     // 질문 존재 확인
     public Question verifyQuestion(Long questionId){
-        Optional<Question> optionalQuestion = questionRepository.findById(questionId);
+        Optional<Question> optionalQuestion = questionRepository.findByQuestionId(questionId);
         Question question = optionalQuestion.orElseThrow(
                 () -> new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND)
         );
