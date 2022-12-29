@@ -62,7 +62,7 @@ const QuestionItem = ({ questionData }) => {
     <QuestionItemdiv>
       {questionData.data &&
         questionData.data.map((item) => {
-          const toDO = item.memberId;
+          const toDO = item.questionId;
           return (
             <div className="qo" key={item.id}>
               <SummaryStatus>{item.voteCount} vote</SummaryStatus>
