@@ -5,7 +5,6 @@ import com.codestates.server.comment.entity.AnswerComment;
 import com.codestates.server.member.entity.Member;
 import com.codestates.server.question.entity.Question;
 import com.codestates.server.vote.entity.AnswerVote;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,7 +24,7 @@ public class Answer extends Auditable {
     @Column(nullable = false)
     private String content;
 
-    @JsonIgnore
+
     @OneToMany(mappedBy = "answer")
     private List<AnswerComment> answerComments;
 

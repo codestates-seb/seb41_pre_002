@@ -3,7 +3,6 @@ package com.codestates.server.comment.entity;
 import com.codestates.server.answer.entity.Answer;
 import com.codestates.server.audit.Auditable;
 import com.codestates.server.member.entity.Member;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
