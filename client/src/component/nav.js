@@ -1,6 +1,6 @@
-// eslint-disable-next-line     
+// eslint-disable-next-line
 
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
@@ -64,6 +64,19 @@ const QuestionDiv = styled.div`
   span {
     padding-left: 10px;
   }
+  /* svg {
+        flex-shrink: 0;
+        margin-top: -1px;
+        margin-right: 4px;
+        fill: hsl(210, 8%, 55%);
+        vertical-align: bottom;
+        &:hover {
+          fill: #222;
+        }
+        &.orange {
+          fill: hsl(27, 90%, 55%);
+        }
+      } */
 `;
 
 const QuestionList = styled.div`
@@ -76,11 +89,14 @@ const QuestionList = styled.div`
   width: 165px;
   height: 35px;
   /* font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;; */
-  &.clicked {
-    background-image: linear-gradient(to right, rgb(241, 242, 243) 98.1%, rgb(229, 136, 61) 1.9%);
-    /* background-color: rgb(241, 242, 243); */
-    background-color: red;
+  .clicked & .div {
+    align-items: center;
+    font-size: 13px;
+    /* padding: 4px 8px 4px 0px; */
     font-weight: bold;
+    background: red;
+    color: var(--black-900);
+    border-right: 3px solid var(--theme-primary-color);
   }
   &:hover {
     font-weight: bold;
@@ -91,8 +107,7 @@ const QuestionList = styled.div`
 
   // 페이지 라우터해서 동적으로 구현해야함
   // 현재 path랑 목록이랑 일치하는지 체크해서 active 넣기!
-  &:active {
-    /* -webkit-box-align: center; */
+  &.active {
     align-items: center;
     /* padding: 4px 8px 4px 0px; */
     font-weight: bold;
@@ -100,54 +115,61 @@ const QuestionList = styled.div`
     color: var(--black-900);
     border-right: 3px solid var(--theme-primary-color);
   }
-  /* &.no-icon {
-    padding-left: 30px;
-  } */
-  
+  &.active a {
+    font-weight: bold;
+    background-color: hsl(210, 8%, 95%);
+    color: #222;
+  }
 `;
 
-const Nav = ({path}) => {
-
-  const [clicked, setClicked] = useState(path);
-
-  const onClick = useCallback(() => {
-    setClicked(path);
-  }, [clicked]);
+const Nav = () => {
+  const [active, setActive] = useState();
 
   return (
-    
-      <NavWrapper>
-        <NavDiv>
-          <div className='Home'>
-            <Link to="/">Home</Link> {/*link to || link로 구현 */}
-          </div>
-          <SubNav>
-            <div className="Public">PUBLIC</div>
-            <QuestionDiv>
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 18 18"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M9 1C4.64267 1 1 4.64267 1 9C1 13.3573 4.64266 17 9 17C13.3573 17 17 13.3573 17 9C17 4.64266 13.3573 1 9 1ZM8 15.32C6.26864 15.0438 4.68393 14.0332 3.70319 12.58C2.72245 11.1267 2.37828 9.27893 2.77 7.57L7 11.68V12.48C7 13.36 7.12 13.8 8 13.8V15.32ZM13.72 13.32C13.52 12.66 12.72 12 12 12H11V10C11 9.56 10.44 9 10 9H6V7H7C7.44 7 8 6.44 8 6V5H10C10.88 5 11.4 4.28 11.4 3.4V3.07C13.3216 3.85114 14.7733 5.56167 15.2317 7.5847C15.69 9.60773 15.1173 11.7769 13.72 13.31V13.32Z"
-                  fill="#525960"
-                />
-              </svg>
-              <span>Question</span>
-            </QuestionDiv>
-            <QuestionList >
-            <div className={clicked === 'Tags' ? 'clicked' : ''} onClick={onClick}></div>
-              <Link to="/TagPage">Tag</Link>
-            </QuestionList>
-            <QuestionList>
-            <div className={clicked === 'Users' ? 'clicked' : ''} onClick={onClick}></div>
-              <Link to="/UserPage">User</Link>
-            </QuestionList>
-            <QuestionList>Companies</QuestionList>
-            {/* <li>COLLECTIVEIS</li>
+    <NavWrapper>
+      <NavDiv>
+        <div className="Home">
+          <Link to="/">Home</Link> {/*link to || link로 구현 */}
+        </div>
+        <SubNav>
+          <div className="Public">PUBLIC</div>
+          <QuestionDiv>
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 18 18"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M9 1C4.64267 1 1 4.64267 1 9C1 13.3573 4.64266 17 9 17C13.3573 17 17 13.3573 17 9C17 4.64266 13.3573 1 9 1ZM8 15.32C6.26864 15.0438 4.68393 14.0332 3.70319 12.58C2.72245 11.1267 2.37828 9.27893 2.77 7.57L7 11.68V12.48C7 13.36 7.12 13.8 8 13.8V15.32ZM13.72 13.32C13.52 12.66 12.72 12 12 12H11V10C11 9.56 10.44 9 10 9H6V7H7C7.44 7 8 6.44 8 6V5H10C10.88 5 11.4 4.28 11.4 3.4V3.07C13.3216 3.85114 14.7733 5.56167 15.2317 7.5847C15.69 9.60773 15.1173 11.7769 13.72 13.31V13.32Z"
+                fill="#525960"
+              />
+            </svg>
+            <span>
+              <Link to="/">Question</Link>
+            </span>
+          </QuestionDiv>
+
+          <QuestionList
+            className={"TagPag" === active ? "active" : ""}
+            onClick={() => setActive("TagPag")}
+          >
+            <Link to="/TagPage">Tag</Link>
+          </QuestionList>
+          <QuestionList
+            className={"UserPage" === active ? "active" : ""}
+            onClick={() => setActive("UserPage")}
+          >
+            <Link to="/UserPage">User</Link>
+          </QuestionList>
+          <QuestionList
+            className={"Companies" === active ? "active" : ""}
+            onClick={() => setActive("Companies")}
+          >
+            Companies
+          </QuestionList>
+          {/* <li>COLLECTIVEIS</li>
           <svg
           width="18"
           height="18"
@@ -163,8 +185,8 @@ const Nav = ({path}) => {
           />
           </svg>
         <li>Explore Colletives</li> */}
-          </SubNav>
-          {/* <ul>
+        </SubNav>
+        {/* <ul>
             <li>teams</li>
             <svg
             aria-hidden="true"
@@ -178,8 +200,8 @@ const Nav = ({path}) => {
             </svg>
             <li>create free team</li>
           </ul> */}
-        </NavDiv>
-      </NavWrapper>
+      </NavDiv>
+    </NavWrapper>
   );
 };
 
