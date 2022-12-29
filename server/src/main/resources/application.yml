@@ -1,6 +1,7 @@
 spring:
   profiles:
     active: local # 로컬 환경에서 개발할 경우
+    include: secret # 비밀정보들
 
 logging:
   level:
