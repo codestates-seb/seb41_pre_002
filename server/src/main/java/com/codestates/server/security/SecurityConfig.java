@@ -40,10 +40,11 @@ public class SecurityConfig {
                 .formLogin().disable()
                 .httpBasic().disable()
                 .authorizeRequests()
-                .antMatchers("/signUp", "/login", "/home").permitAll()
+                .antMatchers("/signUp", "/login", "/").permitAll()  //회원가입, 로그인, 홈페이지는 모두 허용
                 .antMatchers("/auth/user").hasRole("USER")
                 .antMatchers("/auth/admin", "/members").hasRole("ADMIN")    //관리자 권한만 이곳에 설정
                 .anyRequest().hasAnyRole("USER", "ADMIN")   //나머지는 관리자, 유저 모두 접근 가능 & 권한 없으면 접근 불가
+//                .anyRequest().permitAll()     //나머지를 설정된 api 외에 모든 접근 허용 버전
                 .and()
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
         return http.build();
