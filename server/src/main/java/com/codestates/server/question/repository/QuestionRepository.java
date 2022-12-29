@@ -18,6 +18,6 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
 
     Page<Question> findAllByAnswerCountGreaterThanAndTitleContainsOrContentContains(Integer answerCount, String title, String content, Pageable pageable);
 
-    @Query("select q from Question q join fetch q.member join fetch q.answers a")
-    Optional<Question> findByQuestionId(Long questionId);
+    @Query("select q from Question q join fetch q.member where q.questionId= :id")
+    Optional<Question> findByQuestionId(@Param("id") Long questionId);
 }
