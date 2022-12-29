@@ -12,6 +12,7 @@ import com.codestates.server.dto.SingleResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -19,6 +20,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping
 @RequiredArgsConstructor
+@Validated
 public class CommentController {
 
     private final QuestionCommentService questionCommentService;
