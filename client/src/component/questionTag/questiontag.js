@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import QuestionTagList from "../questionTag/QuestionTagList";
+import QuestionTagItem from "./QuestionTagItem";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -102,10 +102,7 @@ const QuestionsTag = ({ questionTag }) => {
         <button className="Btn">Week</button>
         <button className="Btn">Month</button>
       </ButtonBox>
-      {/* question을 요약해서 보여주는 하나의 박스 */}
-      <QuestionTagList questionData={questionData} questionTag={questionTag} />
-      {/* {console.log(questionData)} */}
-      {/* <QuestionTagItem/> */}
+      <QuestionTagItem/>
       <div />
     </ContentDiv>
   );
