@@ -10,9 +10,7 @@ const ContentDiv = styled.div`
   display: flex;
   background-color: beige;
   height: auto;
-  width: 90vw; // 전체 넓이 지정함
-  /* height: auto; */
-  /* flex-direction: row; */
+  width: 100vw; // 전체 넓이 지정함
 `;
 
 const TagPage = () => {

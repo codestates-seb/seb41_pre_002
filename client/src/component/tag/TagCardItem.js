@@ -1,19 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 
-// import Tag from "./Tag";
+
+
 
 const TagCardItems = styled.div`
   display: block;
   height: auto;
-  /* min-width: 200px; */
 
   .TagDiV {
     display: grid;
     gap: 16px;
-    /* grid-template-rows: repeat(4, 250px); */
+ 
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 15px;
     margin-top: 15px;
@@ -51,17 +50,15 @@ const TagCardItems = styled.div`
     white-space: normal;
     line-height: 1.4;
     word-wrap: break-word;
-    -webkit-box-orient: vertical; // 플렉스 박스의 방향 설정(가로)
+    -webkit-box-orient: vertical; 
   }
   .QuestionCount {
-    /* display: flex;
-    justify-content: flex-end; */
     margin: 10px 0px 4px 0px;
     font-size: 13px;
     color: #6a737c;
   }
   .tag {
-    /* width: 100%; */
+
     color: black;
     font-size: 13px;
     text-align: left;
@@ -71,10 +68,9 @@ const TagCardItems = styled.div`
   }
 `;
 
-// tag card가 하나씩 들어가는 컴포넌트
+
 
 const TagCardItem = ({ tagsAll }) => {
-  const dispatch = useDispatch();
 
   // const [clicked, setClicked] = useState();
   //   const handleCardClick = (category) => {

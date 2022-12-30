@@ -1,20 +1,15 @@
 import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
-import TagInput from "./TagInput";
 import TagCardItem from "./TagCardItem";
 import TagPagenation from "./TagPagenation";
-import axios from "axios";
 
 const TagDIV = styled.div`
-  /* display: flex; */
-  /* flex-direction: column; */
-  align-items: flex-start;
+  display: block;
   padding: 30px;
-  width: 100%;
+  width: 70%;
   min-width: 200px;
   background-color: aqua;
-  /* height: 100vh; */
-  /* box-sizing: border-box; */
+
   h1 {
     text-align: left;
     font-size: 27px;
@@ -29,6 +24,9 @@ const TagDIV = styled.div`
     max-width: 625px;
     margin: 0px 0px 27px;
   }
+  .TagSearchDiv {
+    width: 200px;
+  }
 
   .ButtonBox {
     display: flex;
@@ -37,7 +35,6 @@ const TagDIV = styled.div`
     min-width: 100px;
   }
   .Btn {
-    /* display: flex; */
     height: 40px;
     width: 60px;
     background-color: var(--_bu-outlined-bg);
@@ -65,7 +62,8 @@ const TagDIV = styled.div`
     float: right;
     align-items: center;
     min-width: 100px;
-  
+    margin-bottom: 15px;
+
     @media screen and (max-width: 640px) {
       font-size: 15.4px;
       flex-direction: column !important;
@@ -76,7 +74,9 @@ const TagDIV = styled.div`
     > .question-sort {
       margin-bottom: 12px;
       > button {
-        font-size: 12px;
+        height: 40px;
+        width: 60px;
+        font-size: 13px;
         border: 1px solid hsl(210, 8%, 55%);
         padding: 8px 10px;
         color: hsl(210, 8%, 45%);
