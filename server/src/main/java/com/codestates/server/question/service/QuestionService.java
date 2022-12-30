@@ -29,19 +29,25 @@ public class QuestionService {
         //멤버 유효성검증
         memberService.findVerifiedMember(question.getMember().getMemberId());
 
-        // 생각해볼것 : 같은 제목의 질문을 올리면 어떻게 되는가 ?
-
         return questionRepository.save(question);
     }
 
     public Question updateQuestion(Question question) {
-        // 하나만 수정하는 식으로 요청하는 것이 아니라 굳이 옵셔널 써야하나 ??
+        long requestMemberId = question.getMember().getMemberId();
 
-        //멤버 유효성검증 //Todo: 넘어온 멤버아이디와 질문의 멤버아이디가 동일한지 여부 확인
-        memberService.findVerifiedMember(question.getMember().getMemberId());
+        //멤버 유효성검증
+        memberService.findVerifiedMember(requestMemberId);
 
-        // 질문이 존재하는지 확인, 수정및삭제 가능 여부를 확인
-        canModifyOrDelete(findVerifiedQuestion(question.getQuestionId()));
+        // 질문이 존재하는지 확인
+        Question findQuestion = findVerifiedQuestion(question.getQuestionId());
+
+        // 질문의 작성자와 수정을 요청하는 사람이 같은지 확인
+        if (requestMemberId != findQuestion.getMember().getMemberId()) {
+            throw new BusinessLogicException(ExceptionCode.REQUEST_FORBIDDEN);
+        }
+
+        // 수정및삭제 가능 여부를 확인
+        canModifyOrDelete(findQuestion);
 
         return questionRepository.save(question);
     }
