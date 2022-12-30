@@ -451,7 +451,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_질문_수정">1.2. 질문 수정</a></li>
 <li><a href="#_질문_상세_정보_조회">1.3. 질문 상세 정보 조회</a></li>
 <li><a href="#_질문_목록_찾기">1.4. 질문 목록 찾기</a></li>
-<li><a href="#_질문_정보_삭제">1.5. 질문 정보 삭제</a></li>
+<li><a href="#_해당_태그를_사용한_질문_목록_찾기">1.5. 해당 태그를 사용한 질문 목록 찾기</a></li>
+<li><a href="#_질문_정보_삭제">1.6. 질문 정보 삭제</a></li>
 </ul>
 </li>
 <li><a href="#_answercontroller">2. AnswerController</a>
@@ -584,6 +585,11 @@ Host: localhost:8080
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 201 Created
 Content-Type: application/json;charset=UTF-8
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
 Content-Length: 108
 
 {
@@ -728,6 +734,11 @@ Host: localhost:8080
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
 Content-Length: 108
 
 {
@@ -807,6 +818,11 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
 Content-Length: 3148
 
 {
@@ -816,8 +832,8 @@ Content-Length: 3148
       "title" : "질문 제목입니다",
       "content" : "질문 내용입니다",
       "auditableResponseDto" : {
-        "createdAt" : "2022-12-28T17:30:12.444233",
-        "modifiedAt" : "2022-12-28T17:30:12.444244"
+        "createdAt" : "2022-12-29T16:47:01.946692",
+        "modifiedAt" : "2022-12-29T16:47:01.946702"
       },
       "memberId" : 1,
       "memberName" : "사용자",
@@ -839,8 +855,8 @@ Content-Length: 3148
         "memberName" : "댓글사용자",
         "content" : "댓글 더미입니다",
         "auditableResponseDto" : {
-          "createdAt" : "2022-12-28T17:30:12.444233",
-          "modifiedAt" : "2022-12-28T17:30:12.444244"
+          "createdAt" : "2022-12-29T16:47:01.946692",
+          "modifiedAt" : "2022-12-29T16:47:01.946702"
         }
       } ]
     },
@@ -852,8 +868,8 @@ Content-Length: 3148
       "content" : "답변 내용입니다",
       "voteCount" : 3,
       "auditableResponseDto" : {
-        "createdAt" : "2022-12-28T17:30:12.444233",
-        "modifiedAt" : "2022-12-28T17:30:12.444244"
+        "createdAt" : "2022-12-29T16:47:01.946692",
+        "modifiedAt" : "2022-12-29T16:47:01.946702"
       },
       "commentResponseDtos" : [ {
         "commentId" : 1,
@@ -862,8 +878,8 @@ Content-Length: 3148
         "memberName" : "댓글작성한사용자1",
         "content" : "댓글 내용입니다",
         "auditableResponseDto" : {
-          "createdAt" : "2022-12-28T17:30:12.444233",
-          "modifiedAt" : "2022-12-28T17:30:12.444244"
+          "createdAt" : "2022-12-29T16:47:01.946692",
+          "modifiedAt" : "2022-12-29T16:47:01.946702"
         }
       } ]
     }, {
@@ -874,8 +890,8 @@ Content-Length: 3148
       "content" : "답변 내용입니다",
       "voteCount" : 3,
       "auditableResponseDto" : {
-        "createdAt" : "2022-12-28T17:30:12.444233",
-        "modifiedAt" : "2022-12-28T17:30:12.444244"
+        "createdAt" : "2022-12-29T16:47:01.946692",
+        "modifiedAt" : "2022-12-29T16:47:01.946702"
       },
       "commentResponseDtos" : [ {
         "commentId" : 2,
@@ -884,8 +900,8 @@ Content-Length: 3148
         "memberName" : "댓글작성한사용자2",
         "content" : "댓글 내용입니다",
         "auditableResponseDto" : {
-          "createdAt" : "2022-12-28T17:30:12.444233",
-          "modifiedAt" : "2022-12-28T17:30:12.444244"
+          "createdAt" : "2022-12-29T16:47:01.946692",
+          "modifiedAt" : "2022-12-29T16:47:01.946702"
         }
       } ]
     }, {
@@ -896,8 +912,8 @@ Content-Length: 3148
       "content" : "답변 내용입니다",
       "voteCount" : 3,
       "auditableResponseDto" : {
-        "createdAt" : "2022-12-28T17:30:12.444233",
-        "modifiedAt" : "2022-12-28T17:30:12.444244"
+        "createdAt" : "2022-12-29T16:47:01.946692",
+        "modifiedAt" : "2022-12-29T16:47:01.946702"
       },
       "commentResponseDtos" : [ {
         "commentId" : 3,
@@ -906,8 +922,8 @@ Content-Length: 3148
         "memberName" : "댓글작성한사용자3",
         "content" : "댓글 내용입니다",
         "auditableResponseDto" : {
-          "createdAt" : "2022-12-28T17:30:12.444233",
-          "modifiedAt" : "2022-12-28T17:30:12.444244"
+          "createdAt" : "2022-12-29T16:47:01.946692",
+          "modifiedAt" : "2022-12-29T16:47:01.946702"
         }
       } ]
     } ]
@@ -1209,6 +1225,11 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
 Content-Length: 997
 
 {
@@ -1217,8 +1238,8 @@ Content-Length: 997
     "title" : "질문 제목입니다9",
     "content" : "질문 내용입니다9",
     "auditableResponseDto" : {
-      "createdAt" : "2022-12-28T17:30:12.383021",
-      "modifiedAt" : "2022-12-28T17:30:12.383032"
+      "createdAt" : "2022-12-29T16:47:01.877815",
+      "modifiedAt" : "2022-12-29T16:47:01.877823"
     },
     "memberId" : 9,
     "memberName" : "사용자9",
@@ -1240,8 +1261,8 @@ Content-Length: 997
       "memberName" : "사용자1",
       "content" : "댓글 더미입니다",
       "auditableResponseDto" : {
-        "createdAt" : "2022-12-28T17:30:12.383021",
-        "modifiedAt" : "2022-12-28T17:30:12.383032"
+        "createdAt" : "2022-12-29T16:47:01.877815",
+        "modifiedAt" : "2022-12-29T16:47:01.877823"
       }
     } ]
   } ],
@@ -1418,7 +1439,284 @@ Content-Length: 997
 </table>
 </div>
 <div class="sect2">
-<h3 id="_질문_정보_삭제">1.5. 질문 정보 삭제</h3>
+<h3 id="_해당_태그를_사용한_질문_목록_찾기">1.5. 해당 태그를 사용한 질문 목록 찾기</h3>
+<div class="listingblock">
+<div class="title">curl-request</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/questions/tagged/%ED%83%9C%EA%B7%B81?page=1&amp;size=10' -i -X GET \
+    -H 'Accept: application/json'</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">http-request</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">GET /questions/tagged/%ED%83%9C%EA%B7%B81?page=1&amp;size=10 HTTP/1.1
+Accept: application/json
+Host: localhost:8080</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 10. /questions/tagged/{category}</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>category</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">요청 태그 이름 (존재하지 않는 태그일 경우 전체 질문을 가져옴)</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 11. request-parameters</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>page</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">출력할 페이지 (defaultValue = 1)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>size</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">페이지당 게시물 수 (defaultValue = 10)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">http-response</div>
+<div class="content">
+<pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
+Content-Type: application/json;charset=UTF-8
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
+Content-Length: 997
+
+{
+  "data" : [ {
+    "questionId" : 9,
+    "title" : "질문 제목입니다9",
+    "content" : "질문 내용입니다9",
+    "auditableResponseDto" : {
+      "createdAt" : "2022-12-29T16:47:01.914103",
+      "modifiedAt" : "2022-12-29T16:47:01.914112"
+    },
+    "memberId" : 9,
+    "memberName" : "사용자9",
+    "tagResponseDtos" : [ {
+      "tagId" : 1,
+      "category" : "태그1",
+      "questionsCount" : 9
+    }, {
+      "tagId" : 2,
+      "category" : "태그2",
+      "questionsCount" : 9
+    } ],
+    "answerCount" : 3,
+    "voteCount" : 5,
+    "commentResponseDtos" : [ {
+      "commentId" : 9,
+      "questionId" : 9,
+      "memberId" : 1,
+      "memberName" : "사용자1",
+      "content" : "댓글 더미입니다",
+      "auditableResponseDto" : {
+        "createdAt" : "2022-12-29T16:47:01.914103",
+        "modifiedAt" : "2022-12-29T16:47:01.914112"
+      }
+    } ]
+  } ],
+  "pageInfo" : {
+    "page" : 1,
+    "size" : 10,
+    "totalElements" : 9,
+    "totalPages" : 1
+  }
+}</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 12. response-fields</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">결과 데이터</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[*].questionId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">질문 식별자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[*].title</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">질문 제목</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[*].content</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">질문 내용</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[*].auditableResponseDto</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Object</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">질문 시간 정보</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[*].auditableResponseDto.createdAt</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">질문 생성일자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[*].auditableResponseDto.modifiedAt</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">질문 수정일자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[*].memberId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">질문 작성자 식별자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[*].memberName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">질문 작성자 이름</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[*].tagResponseDtos</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">사용한 태그들 정보</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[*].tagResponseDtos[*].tagId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">태그 식별자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[*].tagResponseDtos[*].category</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">태그 이름</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[*].tagResponseDtos[*].questionsCount</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">태그를 사용한 질문 수 (미구현)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[*].answerCount</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">질문에 달린 답변 수</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[*].voteCount</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">질문에 달린 추천 수</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[*].commentResponseDtos</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">질문에 달린 댓글들 정보</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[*].commentResponseDtos[*].commentId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">댓글 식별자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[*].commentResponseDtos[*].questionId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">댓글이 달린 질문의 식별자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[*].commentResponseDtos[*].memberId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">댓글을 작성한 회원의 식별자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[*].commentResponseDtos[*].memberName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">댓글을 작성한 회원의 이름</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[*].commentResponseDtos[*].content</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">댓글 내용</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[*].commentResponseDtos[*].auditableResponseDto</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Object</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">댓글을 작성한 시간 정보</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[*].commentResponseDtos[*].auditableResponseDto.createdAt</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">댓글을 작성한 시간</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data[*].commentResponseDtos[*].auditableResponseDto.modifiedAt</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">댓글을 수정한 시간</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pageInfo</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Object</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">페이지 정보</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pageInfo.page</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">현재 페이지</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pageInfo.size</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">한 페이지에 노출할 데이터 갯수</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pageInfo.totalElements</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">총 데이터 갯수</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pageInfo.totalPages</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">총 페이지 갯수</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_질문_정보_삭제">1.6. 질문 정보 삭제</h3>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
@@ -1433,7 +1731,7 @@ Host: localhost:8080</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 10. /questions/{question-id}</caption>
+<caption class="title">Table 13. /questions/{question-id}</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1454,7 +1752,12 @@ Host: localhost:8080</code></pre>
 <div class="listingblock">
 <div class="title">http-response</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 204 No Content</code></pre>
+<pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 204 No Content
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0</code></pre>
 </div>
 </div>
 <hr>
@@ -1496,7 +1799,7 @@ Host: localhost:8080
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 11. request-fields</caption>
+<caption class="title">Table 14. request-fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -1527,6 +1830,11 @@ Host: localhost:8080
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 201 Created
 Content-Type: application/json;charset=UTF-8
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
 Content-Length: 309
 
 {
@@ -1538,7 +1846,7 @@ Content-Length: 309
     "content" : "content",
     "voteCount" : 0,
     "auditableResponseDto" : {
-      "createdAt" : "2022-12-28T17:30:11.709157",
+      "createdAt" : "2022-12-29T16:47:00.435464",
       "modifiedAt" : null
     },
     "commentResponseDtos" : null
@@ -1547,7 +1855,7 @@ Content-Length: 309
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 12. response-fields</caption>
+<caption class="title">Table 15. response-fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -1641,7 +1949,7 @@ Host: localhost:8080
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 13. /answers/{answer-id}</caption>
+<caption class="title">Table 16. /answers/{answer-id}</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1660,7 +1968,7 @@ Host: localhost:8080
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 14. request-fields</caption>
+<caption class="title">Table 17. request-fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -1691,6 +1999,11 @@ Host: localhost:8080
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
 Content-Length: 317
 
 {
@@ -1702,7 +2015,7 @@ Content-Length: 317
     "content" : "patched content",
     "voteCount" : 0,
     "auditableResponseDto" : {
-      "createdAt" : "2022-12-28T17:30:11.884307",
+      "createdAt" : "2022-12-29T16:47:00.584251",
       "modifiedAt" : null
     },
     "commentResponseDtos" : null
@@ -1711,7 +2024,7 @@ Content-Length: 317
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 15. response-fields</caption>
+<caption class="title">Table 18. response-fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -1791,7 +2104,7 @@ Host: localhost:8080</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 16. /answers/{answer-id}</caption>
+<caption class="title">Table 19. /answers/{answer-id}</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1810,7 +2123,7 @@ Host: localhost:8080</code></pre>
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 17. /answers/{answer-id}</caption>
+<caption class="title">Table 20. /answers/{answer-id}</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1833,6 +2146,11 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
 Content-Length: 41
 
 {
@@ -1843,7 +2161,7 @@ Content-Length: 41
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 18. response-fields</caption>
+<caption class="title">Table 21. response-fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -1908,7 +2226,7 @@ Host: localhost:8080
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 19. request-fields</caption>
+<caption class="title">Table 22. request-fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -1939,6 +2257,11 @@ Host: localhost:8080
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 201 Created
 Content-Type: application/json;charset=UTF-8
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
 Content-Length: 41
 
 {
@@ -1949,7 +2272,7 @@ Content-Length: 41
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 20. response-fields</caption>
+<caption class="title">Table 23. response-fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -2008,7 +2331,7 @@ Host: localhost:8080
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 21. /questions/{question-id}/comments/{comment-id}</caption>
+<caption class="title">Table 24. /questions/{question-id}/comments/{comment-id}</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -2031,7 +2354,7 @@ Host: localhost:8080
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 22. request-fields</caption>
+<caption class="title">Table 25. request-fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -2062,6 +2385,11 @@ Host: localhost:8080
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
 Content-Length: 41
 
 {
@@ -2072,7 +2400,7 @@ Content-Length: 41
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 23. response-fields</caption>
+<caption class="title">Table 26. response-fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -2117,7 +2445,7 @@ Host: localhost:8080</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 24. /questions/{question-id}/comments/{comment-id}</caption>
+<caption class="title">Table 27. /questions/{question-id}/comments/{comment-id}</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -2144,6 +2472,11 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
 Content-Length: 41
 
 {
@@ -2154,7 +2487,7 @@ Content-Length: 41
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 25. response-fields</caption>
+<caption class="title">Table 28. response-fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -2213,7 +2546,7 @@ Host: localhost:8080
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 26. request-fields</caption>
+<caption class="title">Table 29. request-fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -2244,6 +2577,11 @@ Host: localhost:8080
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 201 Created
 Content-Type: application/json;charset=UTF-8
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
 Content-Length: 39
 
 {
@@ -2254,7 +2592,7 @@ Content-Length: 39
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 27. response-fields</caption>
+<caption class="title">Table 30. response-fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -2313,7 +2651,7 @@ Host: localhost:8080
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 28. /answers/{answer-id}/comments/{comment-id}</caption>
+<caption class="title">Table 31. /answers/{answer-id}/comments/{comment-id}</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -2336,7 +2674,7 @@ Host: localhost:8080
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 29. request-fields</caption>
+<caption class="title">Table 32. request-fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -2367,6 +2705,11 @@ Host: localhost:8080
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
 Content-Length: 39
 
 {
@@ -2377,7 +2720,7 @@ Content-Length: 39
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 30. response-fields</caption>
+<caption class="title">Table 33. response-fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -2422,7 +2765,7 @@ Host: localhost:8080</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 31. /answers/{answer-id}/comments/{comment-id}</caption>
+<caption class="title">Table 34. /answers/{answer-id}/comments/{comment-id}</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -2449,6 +2792,11 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
 Content-Length: 41
 
 {
@@ -2459,7 +2807,7 @@ Content-Length: 41
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 32. response-fields</caption>
+<caption class="title">Table 35. response-fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -2520,7 +2868,7 @@ Host: localhost:8080
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 33. /votes/questions/{question-id}</caption>
+<caption class="title">Table 36. /votes/questions/{question-id}</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -2539,7 +2887,7 @@ Host: localhost:8080
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 34. request-fields</caption>
+<caption class="title">Table 37. request-fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -2568,7 +2916,12 @@ Host: localhost:8080
 <div class="listingblock">
 <div class="title">http-response</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK</code></pre>
+<pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0</code></pre>
 </div>
 </div>
 </div>
@@ -2600,7 +2953,7 @@ Host: localhost:8080
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 35. /votes/answers/{answer-id}</caption>
+<caption class="title">Table 38. /votes/answers/{answer-id}</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -2619,7 +2972,7 @@ Host: localhost:8080
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 36. request-fields</caption>
+<caption class="title">Table 39. request-fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -2648,7 +3001,12 @@ Host: localhost:8080
 <div class="listingblock">
 <div class="title">http-response</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK</code></pre>
+<pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0</code></pre>
 </div>
 </div>
 <hr>
@@ -2676,7 +3034,7 @@ Host: localhost:8080</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 37. request-parameters</caption>
+<caption class="title">Table 40. request-parameters</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -2711,6 +3069,11 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+Pragma: no-cache
+Expires: 0
 Content-Length: 811
 
 {
@@ -2761,7 +3124,7 @@ Content-Length: 811
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 38. response-fields</caption>
+<caption class="title">Table 41. response-fields</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -2829,7 +3192,7 @@ Content-Length: 811
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2022-12-28 17:30:09 +0900
+Last updated 2022-12-29 15:43:43 +0900
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

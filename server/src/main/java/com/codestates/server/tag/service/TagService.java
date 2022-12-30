@@ -75,6 +75,11 @@ public class TagService {
         tagRepository.save(tag);
     }
 
+    @Transactional(readOnly = true)
+    public Optional<Tag> findOptionalTagByCategory(String category) {
+        return tagRepository.findByCategory(category);
+    }
+
     public void updateQuestionTags(Question question, List<String> categories) {
         //Todo: 더 효율적인 방법이 존재함. 무식한 방법말고 업그레이드해야됨
 

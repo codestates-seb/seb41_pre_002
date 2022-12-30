@@ -12,16 +12,7 @@ spring:
     properties:
       hibernate:
         format_sql: true  # 쿼리문 가독성 있게 띄워줌
+        default_batch_fetch_size: 100
   sql:
     init:
       data-locations: classpath*:db/h2/data.sql
-  redis:  #redis 관련정보
-    host: localhost
-    port: 6379
-
-mail: #관리자 권한 메일
-  address:
-    admin: admin@mail.com
-
-jwt:  #jwt 관련 정보
-  key: "ThisIsCodesStatesPreProjectStackOverflowCloneCodingSecretKeyTestVersion"

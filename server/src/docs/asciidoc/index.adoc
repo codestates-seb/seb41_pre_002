@@ -89,6 +89,26 @@ include::{snippets}/get-questions/http-response.adoc[]
 .response-fields
 include::{snippets}/get-questions/response-fields.adoc[]
 
+=== 해당 태그를 사용한 질문 목록 찾기
+
+.curl-request
+include::{snippets}/get-questionsByTag/curl-request.adoc[]
+
+.http-request
+include::{snippets}/get-questionsByTag/http-request.adoc[]
+
+.path-parameters
+include::{snippets}/get-questionsByTag/path-parameters.adoc[]
+
+.request-parameters
+include::{snippets}/get-questionsByTag/request-parameters.adoc[]
+
+.http-response
+include::{snippets}/get-questionsByTag/http-response.adoc[]
+
+.response-fields
+include::{snippets}/get-questionsByTag/response-fields.adoc[]
+
 === 질문 정보 삭제
 
 .curl-request

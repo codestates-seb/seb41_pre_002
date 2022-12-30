@@ -9,14 +9,22 @@ import com.codestates.server.comment.mapper.AnswerCommentMapper;
 import com.codestates.server.comment.mapper.QuestionCommentMapper;
 import com.codestates.server.comment.service.AnswerCommentService;
 import com.codestates.server.comment.service.QuestionCommentService;
+import com.codestates.server.config.SecurityTestConfig;
+import com.codestates.server.config.TestUserDetailService;
+import com.codestates.server.security.SecurityConfig;
 import com.google.gson.Gson;
 import com.jayway.jsonpath.JsonPath;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
@@ -43,6 +51,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(CommentController.class)
 @MockBean(JpaMetamodelMappingContext.class)
+@Import({SecurityTestConfig.class, TestUserDetailService.class})
 @AutoConfigureRestDocs
 public class CommentControllerTest {
 
@@ -65,6 +74,7 @@ public class CommentControllerTest {
     private QuestionCommentService questionCommentService;
 
     @Test
+
     public void postAnswerCommentTest() throws Exception {
         //given
         AnswerCommentDto.Post post = new AnswerCommentDto.Post(1L, 1L, "content");
