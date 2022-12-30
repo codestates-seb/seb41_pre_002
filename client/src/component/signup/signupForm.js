@@ -28,7 +28,7 @@ function SignUpForm() {
 
   const addMember = () => {
     axios
-      .post('/members', {
+      .post('/signUp', {
         email: email,
         memberName: memberName,
         memberPassword: memberPassword,
