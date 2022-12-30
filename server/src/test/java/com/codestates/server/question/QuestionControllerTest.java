@@ -590,7 +590,7 @@ public class QuestionControllerTest {
     void deleteQuestionTest() throws Exception {
         //given
         long questionId = 1L;
-        doNothing().when(questionService).deleteQuestion(Mockito.anyLong());
+        doNothing().when(questionService).deleteQuestion(Mockito.anyLong(), Mockito.anyString());
 
         //when
         ResultActions actions = mockMvc.perform(

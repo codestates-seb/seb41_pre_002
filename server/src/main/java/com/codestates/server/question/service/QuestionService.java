@@ -57,12 +57,16 @@ public class QuestionService {
         return findVerifiedQuestion(questionId);
     }
 
-    public void deleteQuestion(long questionId) {
-        //Todo: 넘어온 멤버아이디와 질문의 멤버아이디가 동일한지 여부 확인
+    public void deleteQuestion(long questionId, String email) {
 
         // 질문이 존재하는지 확인, 수정및삭제 가능 여부를 확인
         Question findQuestion = findVerifiedQuestion(questionId);
         canModifyOrDelete(findQuestion);
+
+        // 넘어온 멤버아이디와 질문의 멤버아이디가 동일한지 여부 확인
+        if (findQuestion.getMember() != memberService.findMemberByEmail(email)) {
+            throw new BusinessLogicException(ExceptionCode.REQUEST_FORBIDDEN);
+        }
 
         // 삭제
         questionRepository.deleteById(questionId);
