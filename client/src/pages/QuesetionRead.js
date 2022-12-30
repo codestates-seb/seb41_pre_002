@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Header from "../component/header";
 import Footer from "../component/footer";
 import Nav from "../component/nav";
+
 import Question from "../component/DetailsQustion";
 
 const Qustionpagediv = styled.div`

@@ -1,9 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-// import dummyquestions from "../assets/dummyData";
+import useForceUpdate from "use-force-update";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "../assets/fonts.css";
 import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 
 const PageDiv = styled.div`
@@ -131,7 +133,11 @@ const Relateddiv = styled.div`
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-size: 13px;
   text-align: left;
-  color: #00f4cc;
+  color: black;
+  cursor: grab;
+  &:hover {
+    color: blue;
+  }
 `;
 
 const Relatedboxdiv = styled.div`
@@ -161,7 +167,10 @@ const Postbuttondiv = styled.div`
   margin: 10px 0px 0px 480px;
 `;
 
-function DetailsQustion({ title }) {
+function DetailsQustion() {
+  const dispatch = useDispatch();
+  const forceUpdate = useForceUpdate();
+  const num = useSelector((state) => state);
   const [Number, SetNumber] = useState(0);
   const [Bookmark, SetBookmark] = useState(true);
 
@@ -176,15 +185,21 @@ function DetailsQustion({ title }) {
     SetBookmark(!Bookmark);
   };
 
-  const num = useSelector((state) => state);
-  const [questions, setQuestions] = useState(0);
+  const [questionsnumber, setQuestionsnumber] = useState(0);
+  const [questionsstring, setQuestionsstring] = useState("");
+  const [questionsobject, setQuestionsobject] = useState({});
+  const [questionsstring1, setQuestionsstring1] = useState("");
+  const [questionsstring2, setQuestionsstring2] = useState("");
+  const [questionsstring3, setQuestionsstring3] = useState("");
+  const [arrybox, setarrybox] = useState("");
 
   useEffect(() => {
     axios
       .get(`/questions/${num}`, {})
       .then((response) => {
-        console.log(response.data.data.questionResponseDto.title); //정상 통신 후 응답된 메시지 출력
-        setQuestions(response.data.data.questionResponseDto); //정상 통신 후 응답된 메시지 출력
+        // console.log(response.data.data.questionResponseDto.tagResponseDtos);
+        setQuestionsstring(response.data.data.questionResponseDto);
+        console.log(questionsstring.title);
       })
       .catch((error) => {
         console.log(error);
@@ -192,20 +207,100 @@ function DetailsQustion({ title }) {
       });
   }, []);
 
-  // const quantity = questions.filter(
-  //   (el) => el.questionResponseDto.memberId === num
-  // );
+  const axiosdata = (x) => {
+    axios
+      .get(`/questions/${num - x}`, {})
+      .then((response) => {
+        setQuestionsstring1(response.data.data.questionResponseDto.title); //정상 통신 후 응답된 메시지 출력
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  const axiosdata1 = (x) => {
+    axios
+      .get(`/questions/${num - x}`, {})
+      .then((response) => {
+        setQuestionsstring2(response.data.data.questionResponseDto.title); //정상 통신 후 응답된 메시지 출력
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  const axiosdata2 = (x) => {
+    axios
+      .get(`/questions/${num - x}`, {})
+      .then((response) => {
+        setQuestionsstring3(response.data.data.questionResponseDto.title); //정상 통신 후 응답된 메시지 출력
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const todaynow = new Date();
+  const today = (x) => {
+    return (
+      todaynow.getFullYear() +
+      (todaynow.getMonth() + 1) +
+      (todaynow.getDate() - x)
+    );
+  };
+
+  const createdAtnow = new Date(questionsstring.auditableResponseDto.createdAt);
+  const createdAtday =
+    createdAtnow.getFullYear() +
+    (createdAtnow.getMonth() + 1) +
+    createdAtnow.getDate() -
+    3;
+  // const today = new Date(now.setDate(now.getDate()));
+  const RenderingcreatedAt = () => {
+    for (let i = 0; i < 31; i++) {
+      if (today(i) === createdAtday) {
+        if (i === 0) return "today";
+        if (i === 1) return "yesterday";
+        return `${i}days ago`;
+      }
+    }
+  };
+
+  const modifiedAtnow = new Date(
+    questionsstring.auditableResponseDto.modifiedAt
+  );
+  const modifiedAtday =
+    modifiedAtnow.getFullYear() +
+    (modifiedAtnow.getMonth() + 1) +
+    modifiedAtnow.getDate() -
+    2;
+  // const today = new Date(now.setDate(now.getDate()));
+  const RenderingmodifiedAt = () => {
+    for (let i = 0; i < 31; i++) {
+      if (today(i) === modifiedAtday) {
+        if (i === 0) return "today";
+        if (i === 1) return "yesterday";
+        return `${i}days ago`;
+      }
+    }
+  };
+  // const lisItem = arrybox.map((el) => {
+  //   return <Tagsdiv>{arrybox}</Tagsdiv>;
+  // });
 
   return (
     <PageDiv>
       <PageHeader>
         <Headernamediv>
-          {questions.title}
+          {questionsstring.title}
           {num}
           <Importmationdiv>
-            Asked <Importmationspan>today</Importmationspan> Modified{" "}
-            <Importmationspan>today</Importmationspan>
-            Viewed <Importmationspan>{questions.title}</Importmationspan>
+            Asked <Importmationspan> {RenderingcreatedAt()}</Importmationspan>{" "}
+            Modified
+            <Importmationspan>{RenderingmodifiedAt()}</Importmationspan>
+            Viewed{" "}
+            <Importmationspan>
+              {console.log("new data" + createdAtday)}
+              {/* {console.log("new data" + today)} */}
+            </Importmationspan>
           </Importmationdiv>
         </Headernamediv>
         <Askbuttondiv>
@@ -235,7 +330,7 @@ function DetailsQustion({ title }) {
             <i class="fa-solid fa-clock-rotate-left"></i>
           </Recomneddiv>
           <Qustioncontentdiv>
-            {questions.content}
+            {questionsstring.content}
             <Codediv>
               import pyshark import time capture =
               pyshark.LiveCapture(interface='eth0') capture.sniff(timeout=5) for
@@ -248,11 +343,7 @@ function DetailsQustion({ title }) {
               src_addr,"\t", src_port,"\t", dst_addr) # print (packet.show())
             </Codediv>
             <Tagboxdiv>
-              <Tagsdiv>python</Tagsdiv>
-              <Tagsdiv>tcp</Tagsdiv>
-              <Tagsdiv>protocols</Tagsdiv>
-              <Tagsdiv>arp</Tagsdiv>
-              <Tagsdiv>icmp</Tagsdiv>
+              <Tagsdiv>{arrybox}</Tagsdiv>
             </Tagboxdiv>
             <Questioninput />
             <Postbuttondiv>
@@ -267,35 +358,25 @@ function DetailsQustion({ title }) {
         </Contentsdiv>
         <BolgAndReateddiv>
           Related
-          <Relateddiv>
+          <Relateddiv
+            onClick={() => {
+              forceUpdate();
+              dispatch({ type: "decrease" });
+            }}
+          >
             <Relatedboxdiv color="#f1f2f3">0</Relatedboxdiv>
-            <a
-              href="https://stackoverflow.com/questions/5805269/why-does-this-connection-keep-closing-syn-syn-ack-ack-rst-ack?rq=1"
-              class="question-hyperlink"
-            >
-              Why does this connection keep closing -
-              SYN-&gt;SYN,ACK-&gt;ACK-&gt;RST,ACK
-            </a>
+            <a href="http://localhost:3000/QuesetionRead">{questionsstring1}</a>
+            {axiosdata(1)}
           </Relateddiv>
           <Relateddiv>
             <Relatedboxdiv color="#52ba7D">0</Relatedboxdiv>
-            <a
-              href="https://stackoverflow.com/questions/5805269/why-does-this-connection-keep-closing-syn-syn-ack-ack-rst-ack?rq=1"
-              class="question-hyperlink"
-            >
-              Why does this connection keep closing -
-              SYN-&gt;SYN,ACK-&gt;ACK-&gt;RST,ACK
-            </a>
+            {axiosdata1(2)}
+            {questionsstring2}
           </Relateddiv>
           <Relateddiv>
             <Relatedboxdiv color="#f1f2f3">5</Relatedboxdiv>
-            <a
-              href="https://stackoverflow.com/questions/5805269/why-does-this-connection-keep-closing-syn-syn-ack-ack-rst-ack?rq=1"
-              class="question-hyperlink"
-            >
-              Why does this connection keep closing -
-              SYN-&gt;SYN,ACK-&gt;ACK-&gt;RST,ACK
-            </a>
+            {axiosdata2(3)}
+            {questionsstring3}
           </Relateddiv>
         </BolgAndReateddiv>
       </ImportmationMain>

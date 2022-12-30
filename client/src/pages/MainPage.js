@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import Header from '../component/header';
-import Footer from '../component/footer';
-import Nav from '../component/nav';
-import Questions from '../component/question/Questions';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import Header from "../component/header";
+import Footer from "../component/footer";
+import Nav from "../component/nav";
+import Questions from "../component/question/Questions";
+import axios from "axios";
 
 const Maindiv = styled.div`
   width: 100vw;
@@ -14,13 +14,11 @@ const Maindiv = styled.div`
 `;
 
 const MainPage = () => {
-  // const {} = data;
-  const [mainData, setMainData] = useState(null);
   let [questionData, setQuestionData] = useState([]);
 
   useEffect(() => {
     axios
-      .get('/questions', {})
+      .get("/questions", {})
       .then((response) => {
         // const questionData = response.data.data;
         setQuestionData(response.data);
@@ -42,12 +40,6 @@ const MainPage = () => {
       <Maindiv>
         <Nav />
         {questionData && <Questions questionData={questionData} />}
-        {console.log('이게 뭐지', questionData.data)}
-        {/* <div>
-          {questionData.map((item, index) => (
-            <QuestionItem key={index} questionData={questionData} />
-          ))}
-        </div> */}
       </Maindiv>
       <Footer />
     </>
