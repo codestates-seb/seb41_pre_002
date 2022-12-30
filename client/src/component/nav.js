@@ -114,7 +114,7 @@ const StyledLink = styled(Link)`
 `;
 
 const Nav = () => {
-  const [active, setActive] = useState();
+  const [active, setActive] = useState('');
 
   return (
     <NavWrapper>

@@ -44,7 +44,7 @@ const TagDiV = styled.div`
   .tag-button {
     display: flex;
     font-size: 13px;
-    width: 60px;
+    width: auto;
     //버튼 사이즈를 버튼 글자의 크기에 따라 조절이 되게끔 구혐
     color: var(--powder-700);
     cursor: pointer;

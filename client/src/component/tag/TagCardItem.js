@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 // import Tag from "./Tag";
 
 const TagCardItems = styled.div`
-  display:block;
+  display: block;
   height: auto;
   /* min-width: 200px; */
-	
 
   .TagDiV {
     display: grid;
@@ -18,29 +19,39 @@ const TagCardItems = styled.div`
     margin-top: 15px;
     width: 100%;
     min-width: 150px;
-    
   }
 
   .tag-button {
-    display: flex;
+    display: inline-block;
     font-size: 13px;
-    width: 60px;
-    //버튼 사이즈를 버튼 글자의 크기에 따라 조절이 되게끔 구혐
+    width: auto;
     color: var(--powder-700);
     cursor: pointer;
     background-color: var(--powder-100);
     border-radius: 3px;
     padding: 4.8px 6px;
-    border: 1px transparent;
+    border: none;
     margin: 2px 6px 2px 0px;
+
+    &:hover {
+      background-color: #d0e3f1;
+      color: #2c5877;
+    }
   }
 
   .tag-content {
-    display: flex ;
-    flex-direction: column;
-    color: #3B4045;
+    display: inline-block;
+    color: #3b4045;
+    width: 100%;
     font-size: 13px;
-    margin: 10px 0px 10px 0px;
+    text-align: left;
+    margin-top: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    line-height: 1.4;
+    word-wrap: break-word;
+    -webkit-box-orient: vertical; // 플렉스 박스의 방향 설정(가로)
   }
   .QuestionCount {
     /* display: flex;
@@ -62,8 +73,8 @@ const TagCardItems = styled.div`
 
 // tag card가 하나씩 들어가는 컴포넌트
 
-const TagCardItem = ({ tagData }) => {
-  console.log(tagData)
+const TagCardItem = ({ tagsAll }) => {
+  const dispatch = useDispatch();
 
   // const [clicked, setClicked] = useState();
   //   const handleCardClick = (category) => {
@@ -73,18 +84,18 @@ const TagCardItem = ({ tagData }) => {
   return (
     <TagCardItems>
       <div className="TagDiV">
-        {tagData &&
-          tagData.map((item) => {
+        {tagsAll &&
+          tagsAll.map((item) => {
             return (
-              <div className="tag" key={item.tagId} >
+              <div className="tag" key={item.tagId}>
                 <button className="tag-button">
-                  {item.category}
+                  <Link to="/QuestionTagPage">{item.category}</Link>
                 </button>
                 <div className="tag-content">
-                  {item.category} is a multi-paradigm,
-                  dynamically typed, multi-purpose programming language. It is
-                  designed to be quick to learn, understand, and use, and
-                  enforces
+                  NOTICE: All {item.category} questions must be related to
+                  programming; those that aren't will be closed. Use this tag
+                  only if your question relates to programming using Linux APIs
+                  or...
                   <div className="QuestionCount">
                     {item.questionsCount} questions
                   </div>
@@ -93,36 +104,6 @@ const TagCardItem = ({ tagData }) => {
             );
           })}
       </div>
-      {/* <TagCardItems>
-        <div className="TagDiv">
-        <button className="tag-button">python</button>
-          <div className="tag-content">
-          Python is a multi-paradigm, dynamically typed, multi-purpose
-          programming language. It is designed to be quick to learn,
-          understand, and use, and enforces
-          </div>
-          </div>
-        </TagCardItems> */}
-      {/* <TagCardItems>
-        <div className="TagDiv">
-        <button className="tag-button">java</button>
-        <div className="tag-content">
-        Python is a multi-paradigm, dynamically typed, multi-purpose
-        programming language. It is designed to be quick to learn,
-        understand, and use, and enforces
-        </div>
-        </div>
-        </TagCardItems>
-        <TagCardItems>
-        <div className="TagDiv">
-        <button className="tag-button">c#</button>
-        <div className="tag-content">
-        Python is a multi-paradigm, dynamically typed, multi-purpose
-        programming language. It is designed to be quick to learn,
-        understand, and use, and enforces
-        </div>
-        </div>
-      </TagCardItems> */}
     </TagCardItems>
   );
 };
