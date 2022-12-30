@@ -1,14 +1,14 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import TagCardItem from "./TagCardItem";
-import TagPagenation from "./TagPagenation";
+
 
 const TagDIV = styled.div`
   display: block;
   padding: 30px;
   width: 70%;
   min-width: 200px;
-  background-color: aqua;
+  /* background-color: aqua; */
 
   h1 {
     text-align: left;
@@ -51,9 +51,6 @@ const TagDIV = styled.div`
     &:hover {
       background-color: rgb(242, 244, 245);
     }
-  }
-  .tag {
-    color: beige;
   }
   .sort {
     width: 100%;
@@ -225,7 +222,6 @@ const Tag = ({ tagsAll, tagsName, tagData }) => {
         */}
 
       <TagCardItem tagsAll={tagsAll} tagsName={tagsName} />
-      {/* <TagPagenation /> */}
     </TagDIV>
   );
 };

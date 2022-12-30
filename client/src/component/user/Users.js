@@ -7,7 +7,7 @@ const UserDiv = styled.div`
   padding: 30px;
   min-width: 200px;
   width: 70%;
-  background-color: aqua;
+  /* background-color: aqua; */
 
   h1 {
     text-align: left;

@@ -8,7 +8,7 @@ import axios from "axios";
 
 const ContentDiv = styled.div`
   display: flex;
-  background-color: beige;
+  /* background-color: beige; */
   height: auto;
   width: 100vw; // 전체 넓이 지정함
 `;
