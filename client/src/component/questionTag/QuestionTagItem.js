@@ -56,13 +56,13 @@ const TagDiV = styled.div`
   }
 `;
 
-const QuestionTagItem = ({ questionData, tagsAll }) => {
+const QuestionTagItem = ({ questionData }) => {
   
   // const showMsg = (event) => {
   //   const msg = event.target.getAttribute('data-msg');
   //   console.log(msg);
   // };
-  // console.log(questionTag)
+
   // const onClickHandler = ({questionTag})
   const dispatch = useDispatch();
   return (
