@@ -27,11 +27,23 @@ const AskButton = styled.button`
   font-size: 13px;
   background-color: #0a95ff;
   padding: 10px;
-  color: white;
+  color: #ffffff;
   border: none;
   border-radius: 4px;
   box-sizing: border-box;
   box-shadow: rgba(255, 255, 255, 0.4) 0px 1px;
+  &:hover {
+    color: #ffffff;
+    background-color: var(--blue-700);
+    }
+`;
+
+const StyleLink = styled(Link)`
+  color: #ffffff;
+  &:hover {
+    color: #ffffff;
+    background-color: var(--blue-700);
+    }
 `;
 
 const ButtonBox = styled.div`
@@ -69,7 +81,7 @@ const Questions = ({ questionData }) => {
       <ContentHeader>
         <h1 className="QuestionHeader">Top Questions</h1>
         <AskButton>
-          <Link to="/QuestionWrite">Ask Question</Link>
+          <StyleLink to="/QuestionWrite">Ask Question</StyleLink>
         </AskButton>
       </ContentHeader>
       {/* question 관련 버튼 */}
