@@ -30,9 +30,9 @@ const TagPage = () => {
           setTagsAll(response1.data.data);
           setTagsName(response2.data.data);
           setTagsNew(response3.data.data);
-          console.log(response1.data.data);
-          console.log(response2.data.data);
-          console.log(response3.data.data);
+          // console.log(response1.data.data);
+          // console.log(response2.data.data);
+          // console.log(response3.data.data);
         })
       )
       .catch((error) => {

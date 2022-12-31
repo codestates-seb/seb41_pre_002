@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import TagCardItem from "./TagCardItem";
 
-
 const TagDIV = styled.div`
   display: block;
   padding: 30px;
