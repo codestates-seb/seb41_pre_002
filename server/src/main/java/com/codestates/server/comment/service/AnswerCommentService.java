@@ -6,6 +6,7 @@ import com.codestates.server.comment.entity.AnswerComment;
 import com.codestates.server.comment.repository.AnswerCommentRepository;
 import com.codestates.server.exception.BusinessLogicException;
 import com.codestates.server.exception.ExceptionCode;
+import com.codestates.server.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +19,7 @@ import java.util.Optional;
 public class AnswerCommentService {
     private final AnswerCommentRepository answerCommentRepository;
     private final AnswerService answerService;
+    private final MemberService memberService;
 
     // 답글에 댓글 달기
     public AnswerComment postAnswerComment(Long answerId, AnswerComment answerComment) {
@@ -37,9 +39,14 @@ public class AnswerCommentService {
     }
 
     // 댓글 삭제
-    public Long deleteComment(Long commentId) {
+    public Long deleteComment(Long commentId, String email) {
         AnswerComment verifyComment = findVerifyAnswerComment(commentId);
         Long questionId = verifyComment.getAnswer().getQuestion().getQuestionId();
+
+        if(verifyComment.getMember() != memberService.findMemberByEmail(email)) {
+            throw new BusinessLogicException(ExceptionCode.REQUEST_FORBIDDEN);
+        }
+
         answerCommentRepository.delete(verifyComment);
         return questionId;
     }

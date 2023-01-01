@@ -4,6 +4,7 @@ import com.codestates.server.comment.entity.QuestionComment;
 import com.codestates.server.comment.repository.QuestionCommentRepository;
 import com.codestates.server.exception.BusinessLogicException;
 import com.codestates.server.exception.ExceptionCode;
+import com.codestates.server.member.service.MemberService;
 import com.codestates.server.question.entity.Question;
 import com.codestates.server.question.service.QuestionService;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ import java.util.Optional;
 public class QuestionCommentService {
     private final QuestionCommentRepository questionCommentRepository;
     private final QuestionService questionService;
+    private final MemberService memberService;
 
 
     // 질문에 댓글 달기
@@ -37,9 +39,15 @@ public class QuestionCommentService {
     }
 
     // 댓글 삭제
-    public Long deleteComment(Long commentId) {
+    public Long deleteComment(Long commentId, String email) {
+
         QuestionComment verifyComment = findVerifyComment(commentId);
         Long questionId = verifyComment.getQuestion().getQuestionId();
+
+        if(verifyComment.getMember() != memberService.findMemberByEmail(email)) {
+            throw new BusinessLogicException(ExceptionCode.REQUEST_FORBIDDEN);
+        }
+
         questionCommentRepository.delete(verifyComment);
         return questionId;
     }

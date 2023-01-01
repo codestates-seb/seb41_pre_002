@@ -11,10 +11,13 @@ import com.codestates.server.comment.service.AnswerCommentService;
 import com.codestates.server.comment.service.QuestionCommentService;
 import com.codestates.server.config.SecurityTestConfig;
 import com.codestates.server.config.TestUserDetailService;
+import com.codestates.server.member.entity.Member;
+import com.codestates.server.member.service.MemberService;
 import com.codestates.server.security.SecurityConfig;
 import com.google.gson.Gson;
 import com.jayway.jsonpath.JsonPath;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
@@ -73,12 +76,20 @@ public class CommentControllerTest {
     @MockBean
     private QuestionCommentService questionCommentService;
 
+    @MockBean
+    private MemberService memberService;
+
     @Test
 
     public void postAnswerCommentTest() throws Exception {
         //given
         AnswerCommentDto.Post post = new AnswerCommentDto.Post(1L, 1L, "content");
         String content = gson.toJson(post);
+
+        Member member = new Member();
+        member.setMemberId(post.getMemberId());
+
+        given(memberService.findMemberByEmail(Mockito.anyString())).willReturn(member);
 
         given(answerCommentMapper.answerCommentPostDtoToComment(Mockito.any(AnswerCommentDto.Post.class))).willReturn(new AnswerComment());
 
@@ -132,6 +143,11 @@ public class CommentControllerTest {
         AnswerCommentDto.Patch patch = new AnswerCommentDto.Patch(1L, 1L, "content");
         String content = gson.toJson(patch);
 
+        Member member = new Member();
+        member.setMemberId(patch.getMemberId());
+
+        given(memberService.findMemberByEmail(Mockito.anyString())).willReturn(member);
+
         given(answerCommentMapper.commentPatchDtoToComment(Mockito.any(AnswerCommentDto.Patch.class))).willReturn(new AnswerComment());
 
         AnswerComment mockAnswerComment = new AnswerComment();
@@ -183,7 +199,7 @@ public class CommentControllerTest {
     @Test
     public void deleteAnswerCommentTest() throws Exception {
         //given
-        given(answerCommentService.deleteComment(Mockito.anyLong())).willReturn(1L);
+        given(answerCommentService.deleteComment(Mockito.anyLong(),Mockito.anyString())).willReturn(1L);
 
         Long answerId = 1L;
         Long commentId = 1L;
@@ -218,6 +234,11 @@ public class CommentControllerTest {
         //given
         QuestionCommentDto.Post post = new QuestionCommentDto.Post(1L, 1L, "content");
         String content = gson.toJson(post);
+
+        Member member = new Member();
+        member.setMemberId(post.getMemberId());
+
+        given(memberService.findMemberByEmail(Mockito.anyString())).willReturn(member);
 
         given(questionCommentMapper.questionCommentPostDtoToQuestionComment(Mockito.any(QuestionCommentDto.Post.class))).willReturn(new QuestionComment());
 
@@ -272,6 +293,11 @@ public class CommentControllerTest {
         QuestionCommentDto.Patch patch = new QuestionCommentDto.Patch(1L, 1L, "content");
         String content = gson.toJson(patch);
 
+        Member member = new Member();
+        member.setMemberId(patch.getMemberId());
+
+        given(memberService.findMemberByEmail(Mockito.anyString())).willReturn(member);
+
         given(questionCommentMapper.questionCommentPatchDtoToQuestionComment(Mockito.any(QuestionCommentDto.Patch.class))).willReturn(new QuestionComment());
 
         QuestionComment mockQuestionComment = new QuestionComment();
@@ -323,7 +349,7 @@ public class CommentControllerTest {
     @Test
     public void deleteQuestionCommentTest() throws Exception {
         //given
-        given(questionCommentService.deleteComment(Mockito.anyLong())).willReturn(1L);
+        given(questionCommentService.deleteComment(Mockito.anyLong(),Mockito.anyString())).willReturn(1L);
 
         Long questionId = 1L;
         Long commentId = 1L;
