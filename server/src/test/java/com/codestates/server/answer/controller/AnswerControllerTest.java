@@ -8,6 +8,8 @@ import com.codestates.server.audit.AuditableResponseDto;
 import com.codestates.server.comment.mapper.AnswerCommentMapper;
 import com.codestates.server.config.SecurityTestConfig;
 import com.codestates.server.config.TestUserDetailService;
+import com.codestates.server.member.entity.Member;
+import com.codestates.server.member.service.MemberService;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -61,6 +63,9 @@ public class AnswerControllerTest {
     @MockBean
     private AnswerService answerService;
 
+    @MockBean
+    private MemberService memberService;
+
     @Test
     public void postAnswerTest() throws Exception {
         //given
@@ -79,6 +84,10 @@ public class AnswerControllerTest {
                 .commentResponseDtos(null)
                 .build();
 
+        Member member = new Member();
+        member.setMemberId(post.getMemberId());
+
+        given(memberService.findMemberByEmail(Mockito.anyString())).willReturn(member);
 
         given(mapper.AnswerPostDtoToAnswer(Mockito.any(AnswerDto.Post.class))).willReturn(new Answer());
 
@@ -153,6 +162,11 @@ public class AnswerControllerTest {
                 .commentResponseDtos(null)
                 .build();
 
+        Member member = new Member();
+        member.setMemberId(patch.getMemberId());
+
+        given(memberService.findMemberByEmail(Mockito.anyString())).willReturn(member);
+
         given(mapper.AnswerPatchDtoToAnswer(Mockito.any(AnswerDto.Patch.class))).willReturn(new Answer());
         Answer mockResultAnswer = new Answer();
         mockResultAnswer.setAnswerId(1L);
@@ -214,7 +228,7 @@ public class AnswerControllerTest {
         //given
         Long answerId = 1L;
 
-        doNothing().when(answerService).deleteAnswer(Mockito.anyLong());
+        doNothing().when(answerService).deleteAnswer(Mockito.anyLong(),Mockito.anyString());
 
 
         //when
