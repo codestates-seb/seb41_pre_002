@@ -2,6 +2,8 @@ package com.codestates.server.vote;
 
 import com.codestates.server.config.SecurityTestConfig;
 import com.codestates.server.config.TestUserDetailService;
+import com.codestates.server.member.entity.Member;
+import com.codestates.server.member.service.MemberService;
 import com.codestates.server.vote.controller.VoteController;
 import com.codestates.server.vote.dto.VoteRequestDto;
 import com.codestates.server.vote.service.VoteService;
@@ -10,9 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
@@ -24,6 +24,7 @@ import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.List;
 
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
@@ -46,6 +47,8 @@ public class VoteControllerTest {
     private Gson gson;
     @MockBean
     private VoteService voteService;
+    @MockBean
+    private MemberService memberService;
 
     @Test
     void postQuestionVote() throws Exception {
@@ -54,6 +57,10 @@ public class VoteControllerTest {
         post.setMemberId(1L);
         post.setScore(1);
 
+        Member member = new Member();
+        member.setMemberId(1L);
+
+        given(memberService.findMemberByEmail(Mockito.anyString())).willReturn(member);
         doNothing().when(voteService).doVote(Mockito.anyChar(), Mockito.anyInt(), Mockito.anyLong(), Mockito.anyLong());
 
         String content = gson.toJson(post);
@@ -90,7 +97,10 @@ public class VoteControllerTest {
         VoteRequestDto post = new VoteRequestDto();
         post.setMemberId(1L);
         post.setScore(1);
+        Member member = new Member();
+        member.setMemberId(1L);
 
+        given(memberService.findMemberByEmail(Mockito.anyString())).willReturn(member);
         doNothing().when(voteService).doVote(Mockito.anyChar(), Mockito.anyInt(), Mockito.anyLong(), Mockito.anyLong());
 
         String content = gson.toJson(post);
