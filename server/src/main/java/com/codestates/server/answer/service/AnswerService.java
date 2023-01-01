@@ -6,6 +6,7 @@ import com.codestates.server.exception.BusinessLogicException;
 import com.codestates.server.exception.ExceptionCode;
 import com.codestates.server.member.entity.Member;
 import com.codestates.server.member.repository.MemberRepository;
+import com.codestates.server.member.service.MemberService;
 import com.codestates.server.question.entity.Question;
 import com.codestates.server.question.repository.QuestionRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,8 @@ public class AnswerService {
     private final AnswerRepository answerRepository;
     private final MemberRepository memberRepository;
     private final QuestionRepository questionRepository;
+
+    private final MemberService memberService;
 
     // 답글 생성.
     @Transactional
@@ -66,10 +69,15 @@ public class AnswerService {
     }
     // 답글 삭제
     @Transactional
-    public void deleteAnswer(Long answerId) {
+    public void deleteAnswer(Long answerId, String email) {
         Answer findAnswer = verifyAnswer(answerId);
         canModifyOrDelete(findAnswer);
         answerRepository.deleteById(answerId);
+
+        // 넘어온 멤버아이디와 질문의 멤버아이디가 동일한지 여부 확인
+        if (findAnswer.getMember() != memberService.findMemberByEmail(email)) {
+            throw new BusinessLogicException(ExceptionCode.REQUEST_FORBIDDEN);
+        }
 
         // 답변 갯수 반영
         Question findQuestion = findAnswer.getQuestion();

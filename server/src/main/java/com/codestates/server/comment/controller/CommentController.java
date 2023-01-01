@@ -9,9 +9,13 @@ import com.codestates.server.comment.mapper.QuestionCommentMapper;
 import com.codestates.server.comment.service.AnswerCommentService;
 import com.codestates.server.comment.service.QuestionCommentService;
 import com.codestates.server.dto.SingleResponseDto;
+import com.codestates.server.exception.BusinessLogicException;
+import com.codestates.server.exception.ExceptionCode;
+import com.codestates.server.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,11 +31,19 @@ public class CommentController {
     private final AnswerCommentService answerCommentService;
     private final AnswerCommentMapper answerCommentMapper;
     private final QuestionCommentMapper questionCommentMapper;
+    private final MemberService memberService;
 
     // AnswerComment
     @PostMapping("/answers/{answer-id}/comments")
     public ResponseEntity postAnswerComment(@PathVariable("answer-id") Long answerId,
                                             @Valid @RequestBody AnswerCommentDto.Post requestBody) {
+
+        // 헤더에 담겨서 넘어온 JWT토큰을 해독하여 email 정보를 가져온다
+        String jwtEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+        if(memberService.findMemberByEmail(jwtEmail).getMemberId() != requestBody.getMemberId()){
+            throw new BusinessLogicException(ExceptionCode.REQUEST_FORBIDDEN);
+
+        }
 
         AnswerComment answerComment = answerCommentMapper.answerCommentPostDtoToComment(requestBody);
         AnswerComment response = answerCommentService.postAnswerComment(answerId, answerComment);
@@ -44,6 +56,13 @@ public class CommentController {
                                              @PathVariable("comment-id") Long commentId,
                                              @RequestBody AnswerCommentDto.Patch requestBody) {
 
+        // 헤더에 담겨서 넘어온 JWT토큰을 해독하여 email 정보를 가져온다
+        String jwtEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+        if(memberService.findMemberByEmail(jwtEmail).getMemberId() != requestBody.getMemberId()){
+            throw new BusinessLogicException(ExceptionCode.REQUEST_FORBIDDEN);
+
+        }
+
         AnswerComment comment = answerCommentMapper.commentPatchDtoToComment(requestBody);
         AnswerComment response = answerCommentService.updateAnswerComment(commentId, comment);
         return new ResponseEntity<>(new SingleResponseDto<>(answerCommentMapper.answerCommentToAnswerIdResponseDto(response)),HttpStatus.OK);
@@ -51,7 +70,10 @@ public class CommentController {
 
     @DeleteMapping("/answers/{answer-id}/comments/{comment-id}")
     public ResponseEntity deleteAnswerComment(@PathVariable("comment-id") Long commentId) {
-        Long questionId = answerCommentService.deleteComment(commentId);
+        // 헤더에 담겨서 넘어온 JWT토큰을 해독하여 email 정보를 가져온다
+        String jwtEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        Long questionId = answerCommentService.deleteComment(commentId,jwtEmail);
         return new ResponseEntity<>(new SingleResponseDto<>(new AnswerCommentDto.QuestionIdResponse(questionId)),HttpStatus.OK);
     }
 
@@ -59,6 +81,13 @@ public class CommentController {
     @PostMapping("/questions/{question-id}/comments")
     public ResponseEntity postQuestionComment(@PathVariable("question-id") Long questionId,
                                               @Valid @RequestBody QuestionCommentDto.Post requestBody) {
+
+        // 헤더에 담겨서 넘어온 JWT토큰을 해독하여 email 정보를 가져온다
+        String jwtEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+        if(memberService.findMemberByEmail(jwtEmail).getMemberId() != requestBody.getMemberId()){
+            throw new BusinessLogicException(ExceptionCode.REQUEST_FORBIDDEN);
+
+        }
 
         QuestionComment comment = questionCommentMapper.questionCommentPostDtoToQuestionComment(requestBody);
         QuestionComment response = questionCommentService.postQuestionComment(questionId, comment);
@@ -70,6 +99,13 @@ public class CommentController {
                                                @PathVariable("comment-id") Long commentId,
                                                @RequestBody QuestionCommentDto.Patch requestBody) {
 
+        // 헤더에 담겨서 넘어온 JWT토큰을 해독하여 email 정보를 가져온다
+        String jwtEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+        if(memberService.findMemberByEmail(jwtEmail).getMemberId() != requestBody.getMemberId()){
+            throw new BusinessLogicException(ExceptionCode.REQUEST_FORBIDDEN);
+
+        }
+
         QuestionComment comment = questionCommentMapper.questionCommentPatchDtoToQuestionComment(requestBody);
         QuestionComment response = questionCommentService.updateQuestionComment(commentId, comment);
         return new ResponseEntity<>(new SingleResponseDto<>(questionCommentMapper.questionCommentToQuestionIdResponseDto(response)),HttpStatus.OK);
@@ -78,8 +114,10 @@ public class CommentController {
     @DeleteMapping("/questions/{question-id}/comments/{comment-id}")
     public ResponseEntity deleteQuestionComment(@PathVariable("question-id")Long questionId,
                                                 @PathVariable("comment-id") Long commentId) {
+        // 헤더에 담겨서 넘어온 JWT토큰을 해독하여 email 정보를 가져온다
+        String jwtEmail = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        questionCommentService.deleteComment(commentId);
+        questionCommentService.deleteComment(commentId,jwtEmail);
 
         return new ResponseEntity<>(new SingleResponseDto<>(new QuestionCommentDto.QuestionIdResponse(questionId)),HttpStatus.OK);
     }
