@@ -9,6 +9,8 @@ import com.codestates.server.comment.mapper.AnswerCommentMapper;
 import com.codestates.server.comment.mapper.QuestionCommentMapper;
 import com.codestates.server.config.SecurityTestConfig;
 import com.codestates.server.config.TestUserDetailService;
+import com.codestates.server.member.entity.Member;
+import com.codestates.server.member.service.MemberService;
 import com.codestates.server.question.controller.QuestionController;
 import com.codestates.server.question.dto.*;
 import com.codestates.server.question.entity.Question;
@@ -22,9 +24,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.Page;
@@ -74,6 +74,8 @@ public class QuestionControllerTest {
     private TagService tagService;
     @MockBean
     private QuestionCommentMapper questionCommentMapper;
+    @MockBean
+    private MemberService memberService;
 
 
     @Test
@@ -90,6 +92,10 @@ public class QuestionControllerTest {
         QuestionSuccessResponseDto response = new QuestionSuccessResponseDto();
         response.setQuestionId(1L);
 
+        Member member = new Member();
+        member.setMemberId(post.getMemberId());
+
+        given(memberService.findMemberByEmail(Mockito.anyString())).willReturn(member);
         given(tagService.findTagsElseCreateTags(Mockito.anyList())).willReturn(new ArrayList<>());
         given(questionMapper.questionPostDtoToQuestion(Mockito.any(QuestionPostDto.class), Mockito.anyList())).willReturn(new Question());
         given(questionService.createQuestion(Mockito.any(Question.class))).willReturn(new Question());
@@ -149,6 +155,10 @@ public class QuestionControllerTest {
         QuestionSuccessResponseDto response = new QuestionSuccessResponseDto();
         response.setQuestionId(1L);
 
+        Member member = new Member();
+        member.setMemberId(1L);
+
+        given(memberService.findMemberByEmail(Mockito.anyString())).willReturn(member);
         given(questionMapper.questionPatchDtoToQuestion(Mockito.any(QuestionPatchDto.class))).willReturn(new Question());
         given(questionService.updateQuestion(Mockito.any(Question.class))).willReturn(new Question());
         doNothing().when(tagService).updateQuestionTags(Mockito.any(Question.class), Mockito.anyList());

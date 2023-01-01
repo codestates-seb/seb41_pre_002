@@ -1,9 +1,12 @@
 package com.codestates.server.vote.controller;
 
+import com.codestates.server.member.service.MemberService;
 import com.codestates.server.vote.dto.VoteRequestDto;
 import com.codestates.server.vote.service.VoteService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,12 +16,11 @@ import javax.validation.constraints.Positive;
 @RestController
 @RequestMapping("/votes")
 @Validated
+@RequiredArgsConstructor
 public class VoteController {
-    private VoteService voteService;
+    private final VoteService voteService;
+    private final MemberService memberService;
 
-    public VoteController(VoteService voteService) {
-        this.voteService = voteService;
-    }
 
     /**
      * 추천 기능은 내가 추천을 눌렀는가? 이게 포함되어야 한다.
@@ -34,6 +36,10 @@ public class VoteController {
     @PostMapping("/questions/{question-id}")
     public ResponseEntity postQuestionVote(@Positive @PathVariable("question-id") long questionId,
                                            @Valid @RequestBody VoteRequestDto voteRequestDto) {
+        // 헤더에 담겨서 넘어온 JWT토큰을 해독하여 email 정보를 가져온다
+        String jwtEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        voteRequestDto.setMemberId(memberService.findMemberByEmail(jwtEmail).getMemberId());
 
         voteService.doVote('Q', voteRequestDto.getScore(), voteRequestDto.getMemberId(), questionId);
 
@@ -43,6 +49,10 @@ public class VoteController {
     @PostMapping("/answers/{answer-id}")
     public ResponseEntity postAnswerVote(@Positive @PathVariable("answer-id") long answerId,
                                          @Valid @RequestBody VoteRequestDto voteRequestDto) {
+        // 헤더에 담겨서 넘어온 JWT토큰을 해독하여 email 정보를 가져온다
+        String jwtEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        voteRequestDto.setMemberId(memberService.findMemberByEmail(jwtEmail).getMemberId());
 
         voteService.doVote('A', voteRequestDto.getScore(), voteRequestDto.getMemberId(), answerId);
 

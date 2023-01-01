@@ -13,14 +13,13 @@ import com.codestates.server.question.dto.QuestionPostDto;
 import com.codestates.server.question.entity.Question;
 import com.codestates.server.question.mapper.QuestionMapper;
 import com.codestates.server.question.service.QuestionService;
-import com.codestates.server.security.Login;
 import com.codestates.server.tag.entity.Tag;
 import com.codestates.server.tag.service.TagService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,14 +42,16 @@ public class QuestionController {
     private final MemberService memberService;
 
     @PostMapping
-    public ResponseEntity postQuestion(@Valid @RequestBody QuestionPostDto questionPostDto,
-                                       @Login UserDetails userDetails) {
+    public ResponseEntity postQuestion(@Valid @RequestBody QuestionPostDto questionPostDto) {
+        // 헤더에 담겨서 넘어온 JWT토큰을 해독하여 email 정보를 가져온다
+        String jwtEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+
         /**Insert Into MEMBER
          values (1,NOW(),NOW(),'test@test.com','테스트','1234') 멤버 생성 쿼리*/
 
         /**Insert Into ANSWER
          values (1,NOW(),NOW(),'답변입니다',1,2) 답변 생성 쿼리*/
-        if (memberService.findMemberByEmail(userDetails.getUsername()).getMemberId() != questionPostDto.getMemberId()) {
+        if (memberService.findMemberByEmail(jwtEmail).getMemberId() != questionPostDto.getMemberId()) {
             throw new BusinessLogicException(ExceptionCode.REQUEST_FORBIDDEN);
         }
 
@@ -67,11 +68,13 @@ public class QuestionController {
 
     @PatchMapping("/{question-id}")
     public ResponseEntity patchQuestion(@Positive @PathVariable("question-id") long questionId,
-                                        @Valid @RequestBody QuestionPatchDto questionPatchDto,
-                                        @Login UserDetails userDetails) {
+                                        @Valid @RequestBody QuestionPatchDto questionPatchDto) {
+        // 헤더에 담겨서 넘어온 JWT토큰을 해독하여 email 정보를 가져온다
+        String jwtEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+
         // 답변 혹은 댓글이 있으면 수정/삭제 할 수 없음
         questionPatchDto.setQuestionId(questionId);
-        questionPatchDto.setMemberId(memberService.findMemberByEmail(userDetails.getUsername()).getMemberId());
+        questionPatchDto.setMemberId(memberService.findMemberByEmail(jwtEmail).getMemberId());
 
         Question question = questionService.updateQuestion(questionMapper.questionPatchDtoToQuestion(questionPatchDto));
         tagService.updateQuestionTags(question, questionPatchDto.getCategories());
@@ -140,10 +143,12 @@ public class QuestionController {
     }
 
     @DeleteMapping("/{question-id}")
-    public ResponseEntity deleteQuestion(@Positive @PathVariable("question-id") long questionId,
-                                         @Login UserDetails userDetails) {
+    public ResponseEntity deleteQuestion(@Positive @PathVariable("question-id") long questionId) {
+        // 헤더에 담겨서 넘어온 JWT토큰을 해독하여 email 정보를 가져온다
+        String jwtEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+
         // 답변 혹은 댓글이 있으면 수정/삭제 할 수 없음
-        questionService.deleteQuestion(questionId, userDetails.getUsername());
+        questionService.deleteQuestion(questionId, jwtEmail);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
