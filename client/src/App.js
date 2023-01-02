@@ -25,6 +25,7 @@ const Appdiv = styled.div`
 
 function App() {
   const [isLogin, setIsLogin] = useState(() => JSON.parse(window.localStorage.getItem('isLogin')));
+  const [memberId, setMemberId] = useState(null);
 
   useEffect(() => {
     window.localStorage.setItem('isLogin', JSON.stringify(isLogin));
@@ -39,9 +40,9 @@ function App() {
           <Routes>
             <Route path="/" element={<Questions />} />
             <Route path="/DetailsQustion" element={<DetailsQustion />} />
-            <Route path="/QuestionWrite" element={<QuestionWrite />} />
+            <Route path="/QuestionWrite" element={<QuestionWrite memberId={memberId} />} />
             <Route path="/Profile" element={<Profile />} />
-            <Route path="/LoginPage" element={<LoginPage isLogin={isLogin} setIsLogin={setIsLogin} />} />
+            <Route path="/LoginPage" element={<LoginPage setIsLogin={setIsLogin} setMemberId={setMemberId} />} />
             <Route path="/LogoutPage" element={<LogoutPage setIsLogin={setIsLogin} />} />
             <Route path="/SignInPage" element={<SignInPage />} />
             <Route path="/Tag" element={<Tag />} />

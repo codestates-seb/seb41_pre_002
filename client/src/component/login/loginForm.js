@@ -9,7 +9,7 @@ const LoginSection = styled.div`
   }
 `;
 
-function LoginForm({ isLogin, setIsLogin }) {
+function LoginForm({ setIsLogin, setMemberId }) {
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPw, setLoginPw] = useState('');
 
@@ -31,9 +31,11 @@ function LoginForm({ isLogin, setIsLogin }) {
         password: loginPw,
       })
       .then((response) => {
-        console.log(response.data.accessToken);
+        console.log(response);
         /// token이 필요한 API 요청 시 header Authorization에 token 담아서 보내기
-        axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`;
+        // axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`;
+        window.localStorage.setItem('Authorization', JSON.stringify(response.data.accessToken));
+        setMemberId(response.data.memberId);
         setIsLogin(true);
       })
       .then((res) => {
