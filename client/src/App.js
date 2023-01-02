@@ -39,7 +39,7 @@ function App() {
           <Nav />
           <Routes>
             <Route path="/" element={<Questions />} />
-            <Route path="/DetailsQustion" element={<DetailsQustion />} />
+            <Route path="/DetailsQustion" element={<DetailsQustion memberId={memberId} />} />
             <Route path="/QuestionWrite" element={<QuestionWrite memberId={memberId} />} />
             <Route path="/Profile" element={<Profile />} />
             <Route path="/LoginPage" element={<LoginPage setIsLogin={setIsLogin} setMemberId={setMemberId} />} />
