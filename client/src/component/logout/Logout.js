@@ -6,6 +6,7 @@ import StackOverflow from './stackoverflowsvg';
 import StackApp from './stackapp';
 import ServerFault from './sverfalutsvg';
 import MathoverFlow from './mathoverflowsvg';
+import axios from 'axios';
 
 const Container = styled.div`
   background-color: #f1f2f3;
@@ -33,6 +34,7 @@ const ContentDiv = styled.div`
 
 const Logout = ({ setIsLogin }) => {
   const logoutHandler = async () => {
+    axios.defaults.headers.common['Authorization'] = '';
     setIsLogin(false).then((res) => {
       alert('로그아웃');
       window.location.replace('/');
