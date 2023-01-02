@@ -54,5 +54,5 @@
   "devDependencies": {
     "source-map-loader": "^4.0.1"
   },
-  "proxy": "http://3.38.108.219:8080"
+  "proxy": "http://localhost:8080"
 }

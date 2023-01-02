@@ -54,14 +54,12 @@ function QuestionWrite({ memberId }) {
       )
       .catch((err) => {
         alert('로그인을 해주세요');
-        // window.location.replace('/LoginPage');
       });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     askQuestion();
-    // window.location.replace('/');
   };
 
   return (

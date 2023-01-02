@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import { useState } from 'react';
+import { Redirect } from 'react-router-dom';
 
 const LoginSection = styled.div`
   label {
@@ -32,15 +33,10 @@ function LoginForm({ setIsLogin, setMemberId }) {
       })
       .then((response) => {
         console.log(response);
-        /// token이 필요한 API 요청 시 header Authorization에 token 담아서 보내기
-        // axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`;
         window.localStorage.setItem('Authorization', JSON.stringify(response.data.accessToken));
         setMemberId(response.data.memberId);
         setIsLogin(true);
-      })
-      .then((res) => {
         alert('로그인 성공!');
-        window.location.replace('/');
       })
       .catch((e) => {
         console.log(e.response.data);
