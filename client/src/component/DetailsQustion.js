@@ -257,15 +257,15 @@ function DetailsQustion() {
 
   const contentHandler = (e) => {
     setContent(e.target.value);
-    console.log(content);
+    return "";
   };
 
   const addQuestion = () => {
     axios
-      .put(`/questions/15/comments`, {
-        memberId: 1,
+      .post(`/questions/15/comment  `, {
+        memberId: 4,
         commentId: 1,
-        content: "content",
+        content: content,
       })
       .then((response) => {
         console.log(response.data.data);
@@ -373,14 +373,14 @@ function DetailsQustion() {
             </Tagboxdiv>
             <br />
             {content}
-            <Questioninput onClick={contentHandler} />
+            <Questioninput onClick={handleSubmit} />
             <Postbuttondiv>
-              <button
-                type="submit"
+              <input
+                type="button"
                 class="s-topbar--item s-topbar--item__unset ml4 s-btn s-btn__primary"
               >
                 Post your Answer
-              </button>
+              </input>
             </Postbuttondiv>
           </Qustioncontentdiv>
         </Contentsdiv>
