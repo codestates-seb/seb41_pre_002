@@ -38,3 +38,4 @@ out/
 
 ### application.yml 관련 설정 ###
 ./src/main/resources/application-ksy.yml
+./src/main/resources/application-secret.yml
