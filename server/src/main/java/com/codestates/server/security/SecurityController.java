@@ -6,7 +6,6 @@ import com.codestates.server.member.entity.Member;
 import com.codestates.server.member.mapper.MemberMapper;
 import com.codestates.server.member.service.MemberService;
 import com.codestates.server.security.dto.LoginDto;
-import com.codestates.server.security.dto.LoginResponse;
 import com.codestates.server.security.jwt.JwtAuthenticationFilter;
 import com.codestates.server.security.jwt.TokenInfo;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -40,15 +41,18 @@ public class SecurityController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@RequestBody LoginDto loginDto) {
+    public ResponseEntity login(@RequestBody LoginDto loginDto) {
         String username = loginDto.getUsername();
         String password = loginDto.getPassword();
+
+
         TokenInfo tokenInfo = securityService.login(username, password);
+        Member member = memberService.findMemberByEmail(username);
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add(JwtAuthenticationFilter.AUTHORIZATION_HEADER, "Bearer " + tokenInfo.getAccessToken());
 
-        return new ResponseEntity(tokenInfo, httpHeaders, HttpStatus.OK);
+        return new ResponseEntity(mapper.loginToLoginResponseDto(tokenInfo, member), httpHeaders, HttpStatus.OK);
     }
 
     //권한 설정 테스트용

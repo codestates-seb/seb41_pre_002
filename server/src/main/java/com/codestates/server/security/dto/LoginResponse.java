@@ -10,5 +10,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LoginResponse {
+    private String grantType;
     private String accessToken;
+    private String refreshToken;
+    private Long memberId;
+    private String email;
+    private String memberName;
 }
