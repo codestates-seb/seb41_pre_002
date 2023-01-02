@@ -36,7 +36,7 @@ function QuestionWrite({ memberId }) {
     setTag([e.target.value]);
   };
 
-  const addQuestion = () => {
+  const askQuestion = () => {
     axios
       .post(
         '/questions',
@@ -52,19 +52,16 @@ function QuestionWrite({ memberId }) {
           },
         }
       )
-      .then((res) => {
-        console.log(res);
-      })
       .catch((err) => {
         alert('로그인을 해주세요');
-        window.location.replace('/LoginPage');
+        // window.location.replace('/LoginPage');
       });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    addQuestion();
-    window.location.replace('/');
+    askQuestion();
+    // window.location.replace('/');
   };
 
   return (
