@@ -38,7 +38,7 @@ function QuestionWrite() {
 
   const addQuestion = () => {
     axios
-      .post("/questions/14/comments", {
+      .post("/questions", {
         memberId: 4,
         title: title,
         content: content,
