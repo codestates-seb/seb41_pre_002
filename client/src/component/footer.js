@@ -43,7 +43,7 @@ const Namecomponent = styled.div`
 `;
 const Namediv = styled.div`
   display: flex;
-  margin-left: 20px;
+  margin-left: 10px;
   width: 200px;
   flex-direction: column;
   padding-top: 30px;

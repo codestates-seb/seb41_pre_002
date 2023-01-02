@@ -332,8 +332,8 @@ function DetailsQustion() {
             Asked <Importmationspan> {RenderingcreatedAt()}</Importmationspan>{" "}
             Modified
             <Importmationspan>{RenderingmodifiedAt()}</Importmationspan>
-            Viewed{"5"}
-            <Importmationspan></Importmationspan>
+            Viewed
+            <Importmationspan>7</Importmationspan>
           </Importmationdiv>
         </Headernamediv>
         <Askbuttondiv>
