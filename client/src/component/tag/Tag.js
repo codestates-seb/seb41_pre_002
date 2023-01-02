@@ -114,7 +114,7 @@ const TagDIV = styled.div`
 
 const Tag = ({ tagsAll, tagsName }) => {
   const [selected, setSelected] = useState("Popular");
-  // redux?
+
   const sortClick = (e) => {
     switch (e.target.value) {
       case "Popular":
@@ -148,9 +148,6 @@ const Tag = ({ tagsAll, tagsName }) => {
         <div className="flex--item ps-relative mb12">
           <input
             id="tagfilter"
-            // onChange={handleInputChange}
-            // defaultValue={tags}
-            value={tagsAll}
             className="s-input s-input__search h100 js-tag-filter"
             autoComplete="off"
             name="tags"
