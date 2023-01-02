@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import QuestionList from "./questionlist";
@@ -35,7 +35,7 @@ const AskButton = styled.button`
   &:hover {
     color: #ffffff;
     background-color: var(--blue-700);
-    }
+  }
 `;
 
 const StyleLink = styled(Link)`
@@ -43,7 +43,7 @@ const StyleLink = styled(Link)`
   &:hover {
     color: #ffffff;
     background-color: var(--blue-700);
-    }
+  }
 `;
 
 const ButtonBox = styled.div`
@@ -72,9 +72,93 @@ const ButtonBox = styled.div`
       background-color: rgb(242, 244, 245);
     }
   }
+  .sort {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    float: right;
+    align-items: center;
+    min-width: 100px;
+    margin-bottom: 15px;
+
+    @media screen and (max-width: 640px) {
+      font-size: 15.4px;
+      flex-direction: column !important;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    > .question-sort {
+      margin-bottom: 12px;
+      > button {
+        height: 40px;
+        width: auto;
+        font-size: 13px;
+        border: 1px solid hsl(210, 8%, 55%);
+        padding: 8px 10px;
+        color: hsl(210, 8%, 45%);
+        background-color: var(--_bu-outlined-bg);
+        @media screen and (max-width: 640px) {
+          height: 35.44px;
+          padding-left: 0.4em;
+          padding-right: 0.4em;
+          flex-direction: column-reverse;
+        }
+        cursor: pointer;
+        :first-child {
+          border-radius: 3px;
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+        }
+        :last-child {
+          border-radius: 3px;
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+        }
+        :not(:last-child) {
+          border-right: none;
+        }
+        :hover {
+          background-color: hsl(210, 8%, 97.5%);
+        }
+        &.is-selected {
+          background-color: hsl(210, 8%, 90%);
+          color: hsl(210, 8%, 25%);
+          border: 1px solid hsl(210, 8%, 55%);
+          :not(:last-child) {
+            border-right: none;
+          }
+        }
+      }
+    }
+  }
 `;
 
 const Questions = ({ questionData }) => {
+  const [selected, setSelected] = useState("Interesting");
+
+  const sortClick = (e) => {
+    switch (e.target.value) {
+      case "Interesting":
+        setSelected("Interesting");
+        break;
+      case "Bountied":
+        setSelected("Bountied");
+        break;
+      case "Hot":
+        setSelected("Hot");
+        break;
+      case "Week":
+        setSelected("Week");
+        break;
+      case "Month":
+        setSelected("Month");
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
     <ContentDiv>
       {/*question 상단 */}
@@ -86,11 +170,45 @@ const Questions = ({ questionData }) => {
       </ContentHeader>
       {/* question 관련 버튼 */}
       <ButtonBox>
-        <button className="Btn">Interesting</button>
-        <button className="Btn">Bountied</button>
-        <button className="Btn">Hot</button>
-        <button className="Btn">Week</button>
-        <button className="Btn">Month</button>
+        <div className="sort">
+          <div className="question-sort">
+            <button
+              onClick={sortClick}
+              className={selected === "Interesting" ? "is-selected" : ""}
+              value={"Interesting"}
+            >
+              Interesting
+            </button>
+            <button
+              onClick={sortClick}
+              className={selected === "Bountied" ? "is-selected" : ""}
+              value={"Bountied"}
+            >
+              Bountied
+            </button>
+            <button
+              onClick={sortClick}
+              className={selected === "Hot" ? "is-selected" : ""}
+              value={"Hot"}
+            >
+              Hot
+            </button>
+            <button
+              onClick={sortClick}
+              className={selected === "Week" ? "is-selected" : ""}
+              value={"Week"}
+            >
+              Week
+            </button>
+            <button
+              onClick={sortClick}
+              className={selected === "Month" ? "is-selected" : ""}
+              value={"Month"}
+            >
+              Month
+            </button>
+          </div>
+        </div>
       </ButtonBox>
       {/* question을 요약해서 보여주는 하나의 박스 */}
 
