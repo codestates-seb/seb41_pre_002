@@ -51,5 +51,8 @@
   "author": "",
   "license": "ISC",
   "keywords": [],
-  "proxy": "http://3.38.108.219:8080/"
+  "proxy": "http://3.38.108.219:8080/",
+  "devDependencies": {
+    "source-map-loader": "^4.0.1"
+  }
 }
