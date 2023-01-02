@@ -8,9 +8,8 @@ import axios from "axios";
 
 const ContentDiv = styled.div`
   display: flex;
-  /* background-color: beige; */
   height: auto;
-  width: 100vw; // 전체 넓이 지정함
+  width: 100vw; 
 `;
 
 const TagPage = () => {
@@ -30,9 +29,6 @@ const TagPage = () => {
           setTagsAll(response1.data.data);
           setTagsName(response2.data.data);
           setTagsNew(response3.data.data);
-          // console.log(response1.data.data);
-          // console.log(response2.data.data);
-          // console.log(response3.data.data);
         })
       )
       .catch((error) => {

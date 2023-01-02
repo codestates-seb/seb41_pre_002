@@ -7,7 +7,6 @@ const TagDIV = styled.div`
   padding: 30px;
   width: 70%;
   min-width: 200px;
-  /* background-color: aqua; */
 
   h1 {
     text-align: left;
@@ -113,7 +112,7 @@ const TagDIV = styled.div`
   }
 `;
 
-const Tag = ({ tagsAll, tagsName, tagData }) => {
+const Tag = ({ tagsAll, tagsName }) => {
   const [selected, setSelected] = useState("Popular");
   // redux?
   const sortClick = (e) => {
@@ -151,7 +150,7 @@ const Tag = ({ tagsAll, tagsName, tagData }) => {
             id="tagfilter"
             // onChange={handleInputChange}
             // defaultValue={tags}
-            // value={text}
+            value={tagsAll}
             className="s-input s-input__search h100 js-tag-filter"
             autoComplete="off"
             name="tags"
@@ -197,28 +196,6 @@ const Tag = ({ tagsAll, tagsName, tagData }) => {
           </button>
         </div>
       </div>
-
-      {/* <div className="ButtonBox">
-          <button className="Btn">Popular</button>
-          <button className="Btn">Name</button>
-          <button className="Btn">New</button>
-        </div> */}
-
-      {/* <FilterContainer >
-          <FilterBtn
-            onClick={handleBtnClick}
-            className={sort === 'Popular' ? 'left-btn sorted' : 'left-btn'}
-          >
-            Popular
-          </FilterBtn>
-          <FilterBtn
-            onClick={handleBtnClick}
-            className={sort === 'Name' ? 'right-btn sorted' : 'right-btn'}
-          >
-            Name
-          </FilterBtn>
-        </FilterContainer>
-        */}
 
       <TagCardItem tagsAll={tagsAll} tagsName={tagsName} />
     </TagDIV>

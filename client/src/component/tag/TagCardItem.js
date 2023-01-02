@@ -2,9 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-
-
-
 const TagCardItems = styled.div`
   display: block;
   height: auto;
@@ -12,7 +9,7 @@ const TagCardItems = styled.div`
   .TagDiV {
     display: grid;
     gap: 16px;
- 
+
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 15px;
     margin-top: 15px;
@@ -50,7 +47,7 @@ const TagCardItems = styled.div`
     white-space: normal;
     line-height: 1.4;
     word-wrap: break-word;
-    -webkit-box-orient: vertical; 
+    -webkit-box-orient: vertical;
   }
   .QuestionCount {
     margin: 10px 0px 4px 0px;
@@ -58,7 +55,6 @@ const TagCardItems = styled.div`
     color: #6a737c;
   }
   .tag {
-
     color: black;
     font-size: 13px;
     text-align: left;
@@ -68,15 +64,7 @@ const TagCardItems = styled.div`
   }
 `;
 
-
-
 const TagCardItem = ({ tagsAll }) => {
-
-  // const [clicked, setClicked] = useState();
-  //   const handleCardClick = (category) => {
-  //       setClicked(tagKeyword.find((el) => el.category === category));
-  //   };
-
   return (
     <TagCardItems>
       <div className="TagDiV">
