@@ -32,18 +32,18 @@ const ContentDiv = styled.div`
 `;
 
 const Logout = ({ setIsLogin }) => {
-  const logoutHandler = () => {
-    setIsLogin(false);
-    window.location.href = '/';
+  const logoutHandler = async () => {
+    setIsLogin(false).then((res) => {
+      alert('로그아웃');
+      window.location.replace('/');
+    });
   };
 
   return (
     <>
       <Container>
         <ContentDiv>
-          <div className="LogoutHeader">
-            Clicking "Log out" will log you out of the following<br></br> domains on this device:
-          </div>
+          <div className="LogoutHeader">Clicking "Log out" will log you out of the following domains on this device:</div>
           {/* 로그아웃 창 */}
           <div className="Links">
             <form class="wmx3 mx-auto mb24 p24 bg-white bar-lg bs-xl">
@@ -115,7 +115,7 @@ const Logout = ({ setIsLogin }) => {
                 <button class="flex--item s-btn s-btn__primary" onClick={logoutHandler}>
                   Log out
                 </button>
-                <a class="flex--item s-btn" href="https://stackoverflow.com/users?tab=Reputation&amp;filter=week">
+                <a class="flex--item s-btn" href="/">
                   Cancel
                 </a>
               </div>
