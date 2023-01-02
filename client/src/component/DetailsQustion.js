@@ -260,10 +260,9 @@ function DetailsQustion() {
 
   const addQuestion = () => {
     axios
-      .post(`/questions/15/comment`, {
-        memberId: 4,
-        commentId: 1,
-        content: content,
+      .post(`/questions/${num}/answers`, {
+        memberId: 1,
+        content: "content",
       })
       .then((response) => {
         console.log(response.data.data);
@@ -276,7 +275,7 @@ function DetailsQustion() {
   const handleSubmit = (event) => {
     event.preventDefault();
     addQuestion();
-    // window.location.replace("/DetailsQustion");
+    window.location.replace("/DetailsQustion");
   };
 
   const todaynow = new Date();
@@ -319,9 +318,6 @@ function DetailsQustion() {
       }
     }
   };
-  // const lisItem = arrybox.map((el) => {
-  //   return <Tagsdiv>{arrybox}</Tagsdiv>;
-  // });
 
   return (
     <PageDiv>
@@ -371,8 +367,8 @@ function DetailsQustion() {
             </Tagboxdiv>
             <br />
             {content}
-            <Questioninput onClick={handleSubmit} />
-            <Postbuttondiv>
+            <Questioninput onChange={contentHandler} />
+            <Postbuttondiv onClick={handleSubmit}>
               <button
                 type="submit"
                 class="s-topbar--item s-topbar--item__unset ml4 s-btn s-btn__primary"
