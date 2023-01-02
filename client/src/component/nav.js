@@ -100,7 +100,7 @@ const StyledLink = styled(Link)`
 `;
 
 const Nav = () => {
-  const [active, setActive] = useState('');
+  const [active, setActive] = useState("");
 
   return (
     <NavWrapper>
@@ -132,13 +132,13 @@ const Nav = () => {
             className={"TagPag" === active ? "active" : ""}
             onClick={() => setActive("TagPag")}
           >
-            <StyledLink to="/TagPage">Tag</StyledLink>
+            <StyledLink to="/Tag">Tag</StyledLink>
           </QuestionList>
           <QuestionList
             className={"UserPage" === active ? "active" : ""}
             onClick={() => setActive("UserPage")}
           >
-            <StyledLink to="/UserPage">User</StyledLink>
+            <StyledLink to="/Users">User</StyledLink>
           </QuestionList>
           <QuestionList
             className={"Companies" === active ? "active" : ""}

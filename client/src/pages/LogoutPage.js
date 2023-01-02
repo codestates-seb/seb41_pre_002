@@ -1,13 +1,10 @@
-import React from "react";
+import React from 'react';
+import Logout from '../component/logout/Logout';
 
-import Header from "../component/header";
-import Logout from "../component/logout/Logout";
-
-const LogoutPage = () => {
+const LogoutPage = ({ setIsLogin }) => {
   return (
     <>
-      <Header />
-      <Logout />
+      <Logout setIsLogin={setIsLogin} />
     </>
   );
 };

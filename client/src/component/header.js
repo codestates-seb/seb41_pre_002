@@ -1,6 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { createGlobalStyle } from "styled-components";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
   header {
@@ -10,7 +10,7 @@ const GlobalStyle = createGlobalStyle`
     font-size: 13px; }
 `;
 
-const Header = () => {
+const Header = ({ isLogin }) => {
   return (
     <>
       <GlobalStyle />
@@ -18,13 +18,7 @@ const Header = () => {
         <header className="s-topbar">
           {/* 스택오버플로우 로고 */}
           <Link to="/" className="s-topbar--logo">
-            <svg
-              width="146"
-              height="30"
-              viewBox="0 0 146 30"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+            <svg width="146" height="30" viewBox="0 0 146 30" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M21 27V19H24V30H0V19H3V27H21Z" fill="#BCBBBB" />
               <path
                 d="M5.4021 19.1011L18.9631 21.061L19.127 18.6804L5.87134 16.134L5.4021 19.1011ZM7.2 12.3L19.2 17.9L20.3 15.5L8.3 9.9L7.2 12.3ZM10.6 6.4L20.8 14.9L22.5 12.9L12.3 4.4L10.6 6.4ZM17.1 0.199997L15 1.8L22.9 12.4L25 10.8L17.1 0.199997ZM5 25H19V22H5V25Z"
@@ -40,12 +34,7 @@ const Header = () => {
           {/* products */}
           <nav aria-label="…">
             <div role="tablist" className="s-navigation">
-              <button
-                type="button"
-                className="s-navigation--item"
-                role="tab"
-                aria-selected="false"
-              >
+              <button type="button" className="s-navigation--item" role="tab" aria-selected="false">
                 Products
               </button>
             </div>
@@ -54,46 +43,73 @@ const Header = () => {
           {/* 검색창 */}
           <form id="search" className="s-topbar--searchbar" autoComplete="off">
             <div className="s-topbar--searchbar--input-group">
-              <input
-                type="text"
-                placeholder="Search…"
-                value=""
-                autoComplete="off"
-                className="s-input s-input__search"
-              />
-              <svg
-                aria-hidden="true"
-                className="s-input-icon s-input-icon__search svg-icon iconSearch"
-                width="18"
-                height="18"
-                viewBox="0 0 18 18"
-              >
+              <input type="text" placeholder="Search…" value="" autoComplete="off" className="s-input s-input__search" />
+              <svg aria-hidden="true" className="s-input-icon s-input-icon__search svg-icon iconSearch" width="18" height="18" viewBox="0 0 18 18">
                 <path d="m18 16.5-5.14-5.18h-.35a7 7 0 1 0-1.19 1.19v.35L16.5 18l1.5-1.5ZM12 7A5 5 0 1 1 2 7a5 5 0 0 1 10 0Z"></path>
               </svg>
             </div>
           </form>
 
           {/* 로그인&회원가입 */}
-          <nav className="s-topbar--navigation" aria-label="Log in or sign up">
-            <ol className="s-topbar--content">
-              <li>
-                <Link
-                  to="/LoginPage"
-                  className="s-topbar--item s-topbar--item__unset s-btn s-btn__filled"
-                >
-                  Log in
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/SignInPage"
-                  className="s-topbar--item s-topbar--item__unset ml4 s-btn s-btn__primary"
-                >
-                  Sign up
-                </Link>
-              </li>
-            </ol>
-          </nav>
+          {isLogin ? (
+            <nav className="s-topbar--navigation" aria-label="Log in or sign up">
+              <ol className="s-topbar--content">
+                <li role="none">
+                  <Link
+                    to="/Profile"
+                    class="s-topbar--item s-user-card s-user-card__small m0 px12 js-gps-track"
+                    role="menuitem"
+                    data-gps-track="profile_summary.click()"
+                  >
+                    <div class="s-avatar s-avatar__24 s-user-card--avatar sm:m0 wb-hat-checked" title="hyob12">
+                      <img
+                        src="https://www.gravatar.com/avatar/4a3016bc0eb436a6ecf563ebe594867e?s=48&amp;d=identicon&amp;r=PG&amp;f=1"
+                        alt="hyob12's user avatar"
+                        width="24"
+                        height="24"
+                        class="bar-sm s-avatar--image js-avatar-me"
+                      />
+                    </div>
+                    <span class="v-visible-sr">username</span>
+                    <div class="s-user-card--info sm:d-none">
+                      <ul class="s-user-card--awards">
+                        <li class="s-user-card--rep js-header-rep" title="your reputation: 1" aria-hidden="true">
+                          1<span class="v-visible-sr">, 1 reputation</span>
+                        </li>
+                        <li class="-badges mr0">
+                          <span title="1 bronze badge" aria-hidden="true">
+                            <span class="badge3">●</span>
+                            <span class="badgecount">1</span>
+                          </span>
+                          <span class="v-visible-sr">1 bronze badge</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/LogoutPage" className="s-topbar--item s-topbar--item__unset ml4 s-btn s-btn__primary">
+                    Log out
+                  </Link>
+                </li>
+              </ol>
+            </nav>
+          ) : (
+            <nav className="s-topbar--navigation" aria-label="Log in or sign up">
+              <ol className="s-topbar--content">
+                <li>
+                  <Link to="/LoginPage" className="s-topbar--item s-topbar--item__unset s-btn s-btn__filled">
+                    Log in
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/SignInPage" className="s-topbar--item s-topbar--item__unset ml4 s-btn s-btn__primary">
+                    Sign up
+                  </Link>
+                </li>
+              </ol>
+            </nav>
+          )}
         </header>
       </div>
     </>

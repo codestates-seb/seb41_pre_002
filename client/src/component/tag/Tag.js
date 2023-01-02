@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import TagCardItem from "./TagCardItem";
+import axios from "axios";
 
 const TagDIV = styled.div`
   display: block;
@@ -112,7 +113,29 @@ const TagDIV = styled.div`
   }
 `;
 
-const Tag = ({ tagsAll, tagsName }) => {
+const Tag = () => {
+  const [tagsAll, setTagsAll] = useState([]);
+  const [tagsName, setTagsName] = useState([]);
+
+
+  useEffect(() => {
+    axios
+      .all([
+        axios.get("/tags"),
+        axios.get("/tags?page=1&size=10&keyword=&tab=name"),
+        axios.get("/tags?page=1&size=10&keyword=&tab=new"),
+      ])
+      .then(
+        axios.spread((response1, response2) => {
+          setTagsAll(response1.data.data);
+          setTagsName(response2.data.data);
+        })
+      )
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   const [selected, setSelected] = useState("Popular");
 
   const sortClick = (e) => {
