@@ -44,7 +44,7 @@ function App() {
             <Route path="/QuesetionRead" element={<QuesetionRead questions={questions} />} />
             <Route path="/QuestionWrite" element={<QuestionWrite />} />
             <Route path="/MyPage" element={<MyPage />} />
-            <Route path="/LoginPage" element={<LoginPage setIsLogin={setIsLogin} />} />
+            <Route path="/LoginPage" element={<LoginPage isLogin={isLogin} setIsLogin={setIsLogin} />} />
             <Route path="/LogoutPage" element={<LogoutPage setIsLogin={setIsLogin} />} />
             <Route path="/SignInPage" element={<SignInPage />} />
             <Route path="/TagPage" element={<TagPage />} />
