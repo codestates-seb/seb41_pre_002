@@ -1,4 +1,4 @@
-import React  from "react";
+import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -68,7 +68,7 @@ const QuestionItem = ({ questionData }) => {
               <SummaryStatus>{item.voteCount} vote</SummaryStatus>
               <SummaryContent>
                 <Link
-                  to="/QuesetionRead"
+                  to="/DetailsQustion"
                   onClick={() => {
                     dispatch({ type: "increase", number: toDO });
                     console.log(item.memberId);

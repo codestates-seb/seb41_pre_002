@@ -1,55 +1,68 @@
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import MainPage from "./pages/MainPage";
-import QuesetionRead from "./pages/QuesetionRead";
+import DetailsQustion from "./component/DetailsQustion";
 import QuestionWrite from "./pages/QuestionWrite";
-import MyPage from "./pages/MyPage";
+import Profile from "./component/Profile";
 import LoginPage from "./pages/LoginPage";
 // import LogoutPage from "./pages/LogoutPage";
 import SignInPage from "./pages/SignInPage";
-import TagPage from "./pages/TagPage";
-import UserPage from "./pages/UserPage";
+import Tag from "./component/tag/Tag.js";
+import Users from "./component/user/Users";
 import QuestionTagPage from "./pages/QuestionTagPage";
 import { useState, useEffect } from "react";
+import styled from "styled-components";
+import Header from "./component/header";
+import Questions from "./component/question/Questions";
+import Footer from "./component/footer";
+import Nav from "./component/nav";
 import axios from "axios";
 
+const Appdiv = styled.div`
+  width: 100vw;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+`;
+
 function App() {
-  const [questions, setQuestions] = useState("");
-  const [number, setnumber] = useState(1);
+  let [questionData, setQuestionData] = useState([]);
 
   useEffect(() => {
     axios
-      .get(`/questions/${number}`, {})
+      .get(`/questions`, {})
       .then((response) => {
-        // console.log(response.data.data.questionResponseDto.title); //정상 통신 후 응답된 메시지 출력
-        setQuestions(response.data.data.questionResponseDto); //정상 통신 후 응답된 메시지 출력
+        setQuestionData(response.data);
+        console.log(response.data); // data& pageinfo
       })
       .catch((error) => {
         console.log(error);
-        //오류발생시 실행
       });
   }, []);
 
   return (
     <>
       <BrowserRouter>
-        <div>
+        <Header />
+        <Appdiv>
+          <Nav />
           <Routes>
-            <Route path="/" element={<MainPage questions={questions} />} />
             <Route
-              path="/QuesetionRead"
-              element={<QuesetionRead questions={questions} />}
+              path="/"
+              element={<Questions questionData={questionData} />}
             />
+            <Route path="/DetailsQustion" element={<DetailsQustion />} />
             <Route path="/QuestionWrite" element={<QuestionWrite />} />
-            <Route path="/MyPage" element={<MyPage />} />
+            <Route path="/Profile" element={<Profile />} />
             <Route path="/LoginPage" element={<LoginPage />} />
             {/* <Route path="/LogoutPage" element={<LogoutPage />} /> */}
             <Route path="/SignInPage" element={<SignInPage />} />
-            <Route path="/TagPage" element={<TagPage />} />
-            <Route path="/QuestionTagPage" element={<QuestionTagPage questions={questions} />} />
-            <Route path="/UserPage" element={<UserPage />} />
+            <Route path="/Tag" element={<Tag />} />
+            <Route path="/QuestionTagPage" element={<QuestionTagPage />} />
+            <Route path="/Users" element={<Users />} />
           </Routes>
-        </div>
+        </Appdiv>
       </BrowserRouter>
+      <Footer />
     </>
   );
 }

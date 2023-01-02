@@ -118,14 +118,14 @@ const Contentaside1 = styled.aside`
   border: 1px solid #525952;
   color: black;
   display: flex;
-  margin: 8px 35px 8px 25px;
-  width: 500px;
+  margin: 8px 0px 8px 25px;
+  width: 390px;
   height: 400px;
   flex-direction: column;
   text-align: center;
   svg {
     margin: 40px 20px 20px 30px;
-    margin-left: 230px;
+    margin-left: 170px;
   }
   span {
     font-size: 19px;
@@ -138,22 +138,22 @@ const Contentaside1 = styled.aside`
   }
 `;
 const Contentaside2 = styled(Contentaside1)`
-  width: 400px;
+  width: 310px;
   svg {
-    margin-left: 175px;
+    margin-left: 130px;
   }
   a {
     padding: 15px 20px;
     font-size: 15px;
-    width: 300px;
+    width: 250px;
     margin-top: 30px;
-    margin-left: 50px;
+    margin-left: 30px;
   }
 `;
 const Contentaside3 = styled(Contentaside1)`
-  width: 300px;
+  width: 230px;
   svg {
-    margin-left: 135px;
+    margin-left: 100px;
   }
 `;
 
@@ -168,7 +168,7 @@ const Contentsection2 = styled.section`
   span {
     width: 100px;
     text-align: left;
-    margin: 0px 615px 16px 5px;
+    margin: 0px 430px 16px 5px;
   }
 `;
 const ButtonBox = styled.div`
@@ -196,15 +196,15 @@ const Middleaside = styled.aside`
   border: 1px solid #525952;
   color: black;
   display: flex;
-  margin: -40px 115px 30px 5px;
-  width: 600px;
+  margin: -40px 75px 30px 5px;
+  width: 450px;
   height: 80px;
   text-align: center;
 `;
 
 const Allaside = styled(Middleaside)`
   margin: 0px 0px 30px 20px;
-  width: 1325px;
+  width: 985px;
 `;
 
 function Profile() {
@@ -375,13 +375,13 @@ function Profile() {
             <Contentsection2>
               <div>
                 <span>Answers</span>
-                <ButtonBox left="892px">
+                <ButtonBox left="705px" top="715px">
                   <div>Score</div>
                   <div>Activity</div>
                   <div>Newest</div>
                 </ButtonBox>
                 <span>Questions</span>
-                <ButtonBox left="1560px">
+                <ButtonBox left="1190px" top="715px">
                   <div>Score</div>
                   <div>Activity</div>
                   <div>Newest</div>
@@ -438,7 +438,7 @@ function Profile() {
               </div>
             </Allaside>
             <div>Followed posts</div>
-            <ButtonBox left="1553px" top="1295px">
+            <ButtonBox left="1185px" top="1245px">
               <div>Score</div>
               <div>Activity</div>
               <div>Newest</div>
@@ -473,7 +473,7 @@ function Profile() {
               </div>
             </Allaside>
             <div>Active bounties (0)</div>
-            <ButtonBox left="1605px" top="1645px">
+            <ButtonBox left="1240px" top="1580px">
               <div>Active</div>
               <div>Offered</div>
               <div>Earned</div>
@@ -487,7 +487,7 @@ function Profile() {
               </div>
             </Allaside>
             <div>Articles</div>
-            <ButtonBox left="1557px" top="1820px">
+            <ButtonBox left="1190px" top="1750px">
               <div>Score</div>
               <div>Activity</div>
               <div>Newest</div>

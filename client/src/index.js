@@ -8,7 +8,7 @@ import { legacy_createStore as createStore } from "redux";
 const container = document.getElementById("root");
 const root = createRoot(container);
 
-const num = 3;
+const num = 14;
 
 function reducer(state = num, action) {
   if (action.type === "increase") {
