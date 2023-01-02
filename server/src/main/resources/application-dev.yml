@@ -1,0 +1,17 @@
+# 배포용 yml 입니다.
+
+spring:
+  datasource: # mysql 관련 설정
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://{DB주소}/{DB이름}?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8
+    username: DB유저네임
+    password: DB비밀번호
+  jpa:
+    hibernate:
+      ddl-auto: update  # 서버 시작 시 변경사항만 update
+    show-sql: false      # 쿼리문 보여줌
+    properties:
+      hibernate:
+        format_sql: false  # 쿼리문 가독성 있게 띄워줌
+        default_batch_fetch_size: 100
+가
