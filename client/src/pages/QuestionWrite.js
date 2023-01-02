@@ -1,11 +1,11 @@
-import React from "react";
-import styled from "styled-components";
-import Notice from "../component/notice";
-import QuestionTitle from "../component/questionTitle";
-import QuestionContent from "../component/questionContent";
-import QuestionTag from "../component/questionTag";
-import axios from "axios";
-import { useState } from "react";
+import React from 'react';
+import styled from 'styled-components';
+import Notice from '../component/notice';
+import QuestionTitle from '../component/questionTitle';
+import QuestionContent from '../component/questionContent';
+import QuestionTag from '../component/questionTag';
+import axios from 'axios';
+import { useState } from 'react';
 
 const Container = styled.form`
   padding: 30px 100px;
@@ -19,9 +19,9 @@ const Submit = styled.div`
   }
 `;
 
-function QuestionWrite() {
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+function QuestionWrite({ memberId }) {
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
   const [tag, setTag] = useState([]);
 
   const titleHandler = (e) => {
@@ -38,22 +38,33 @@ function QuestionWrite() {
 
   const addQuestion = () => {
     axios
-      .post("/questions", {
-        memberId: 4,
-        title: title,
-        content: content,
-        categories: tag,
-      })
-
+      .post(
+        '/questions',
+        {
+          memberId: `${memberId}`,
+          title: title,
+          content: content,
+          categories: tag,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${JSON.parse(window.localStorage.getItem('Authorization'))}`,
+          },
+        }
+      )
       .then((res) => {
-        console.log(res.data.data);
+        console.log(res);
+      })
+      .catch((err) => {
+        alert('로그인을 해주세요');
+        window.location.replace('/LoginPage');
       });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     addQuestion();
-    window.location.replace("/QuestionWrite");
+    window.location.replace('/');
   };
 
   return (
