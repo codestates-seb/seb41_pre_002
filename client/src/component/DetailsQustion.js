@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import ReactMarkdown from "react-markdown";
+
 
 const PageDiv = styled.div`
   display: flex;
