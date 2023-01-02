@@ -8,7 +8,6 @@ import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 
-
 const PageDiv = styled.div`
   display: flex;
   flex-direction: column;
@@ -257,12 +256,11 @@ function DetailsQustion() {
 
   const contentHandler = (e) => {
     setContent(e.target.value);
-    return "";
   };
 
   const addQuestion = () => {
     axios
-      .post(`/questions/15/comment  `, {
+      .post(`/questions/15/comment`, {
         memberId: 4,
         commentId: 1,
         content: content,
@@ -375,12 +373,12 @@ function DetailsQustion() {
             {content}
             <Questioninput onClick={handleSubmit} />
             <Postbuttondiv>
-              <input
-                type="button"
+              <button
+                type="submit"
                 class="s-topbar--item s-topbar--item__unset ml4 s-btn s-btn__primary"
               >
                 Post your Answer
-              </input>
+              </button>
             </Postbuttondiv>
           </Qustioncontentdiv>
         </Contentsdiv>
