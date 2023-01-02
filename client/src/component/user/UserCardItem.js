@@ -63,7 +63,7 @@ const UserCardItem = () => {
                 </div>
                 <div className="UserName"> {item.memberName}</div>
                 <div className="UserTags">
-                  {item.tagResponseDtos[0].category}, javascript, git, github
+                  {item.tagResponseDtos[0].category}, javascript, java, git, github
                 </div>
               </div>
             );
