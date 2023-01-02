@@ -54,9 +54,40 @@ const Header = ({ isLogin }) => {
           {isLogin ? (
             <nav className="s-topbar--navigation" aria-label="Log in or sign up">
               <ol className="s-topbar--content">
-                <li>
-                  <Link to="/LoginPage" className="s-topbar--item s-topbar--item__unset s-btn s-btn__filled">
+                {/* <Link to="/LoginPage" className="s-topbar--item s-topbar--item__unset s-btn s-btn__filled">
                     MyPage
+                  </Link> */}
+                <li role="none">
+                  <Link
+                    to="/MyPage"
+                    class="s-topbar--item s-user-card s-user-card__small m0 px12 js-gps-track"
+                    role="menuitem"
+                    data-gps-track="profile_summary.click()"
+                  >
+                    <div class="s-avatar s-avatar__24 s-user-card--avatar sm:m0 wb-hat-checked" title="hyob12">
+                      <img
+                        src="https://www.gravatar.com/avatar/4a3016bc0eb436a6ecf563ebe594867e?s=48&amp;d=identicon&amp;r=PG&amp;f=1"
+                        alt="hyob12's user avatar"
+                        width="24"
+                        height="24"
+                        class="bar-sm s-avatar--image js-avatar-me"
+                      />
+                    </div>
+                    <span class="v-visible-sr">username</span>
+                    <div class="s-user-card--info sm:d-none">
+                      <ul class="s-user-card--awards">
+                        <li class="s-user-card--rep js-header-rep" title="your reputation: 1" aria-hidden="true">
+                          1<span class="v-visible-sr">, 1 reputation</span>
+                        </li>
+                        <li class="-badges mr0">
+                          <span title="1 bronze badge" aria-hidden="true">
+                            <span class="badge3">●</span>
+                            <span class="badgecount">1</span>
+                          </span>
+                          <span class="v-visible-sr">1 bronze badge</span>
+                        </li>
+                      </ul>
+                    </div>
                   </Link>
                 </li>
                 <li>
