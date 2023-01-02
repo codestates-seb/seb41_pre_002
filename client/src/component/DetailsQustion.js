@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
+import ReactMarkdown from "react-markdown";
 
 const PageDiv = styled.div`
   display: flex;
@@ -185,8 +186,12 @@ function DetailsQustion() {
   const BookmarkHandler = () => {
     SetBookmark(!Bookmark);
   };
-
+  const [questionData, setQuestionData] = useState([]);
   const [questionsstring, setQuestionsstring] = useState("");
+  const [questionstitle, setQuestionstitle] = useState("");
+  const [questionscreatAt, setQuestionscreatAt] = useState("");
+  const [questionsmodifiedAt, setQuestionsmodifiedAt] = useState("");
+  const [questionstages, setQuestionstages] = useState([]);
   const [questionsstring1, setQuestionsstring1] = useState("");
   const [questionsstring2, setQuestionsstring2] = useState("");
   const [questionsstring3, setQuestionsstring3] = useState("");
@@ -196,6 +201,17 @@ function DetailsQustion() {
       .get(`/questions/${num}`, {})
       .then((response) => {
         setQuestionsstring(response.data.data.questionResponseDto);
+        setQuestionstitle(response.data.data.questionResponseDto.title);
+        setQuestionscreatAt(
+          response.data.data.questionResponseDto.auditableResponseDto.createdAt
+        );
+        setQuestionsmodifiedAt(
+          response.data.data.questionResponseDto.auditableResponseDto.modifiedAt
+        );
+        setQuestionstages(
+          response.data.data.questionResponseDto.tagResponseDtos
+        );
+
         console.log(
           "" +
             response.data.data.questionResponseDto.commentResponseDtos[14]
@@ -239,31 +255,6 @@ function DetailsQustion() {
       });
   };
 
-  const todaynow = new Date();
-  const today = (x) => {
-    return (
-      todaynow.getFullYear() +
-      (todaynow.getMonth() + 1) +
-      (todaynow.getDate() - x)
-    );
-  };
-
-  const createdAtnow = new Date();
-  const createdAtday =
-    createdAtnow.getFullYear() +
-    (createdAtnow.getMonth() + 1) +
-    createdAtnow.getDate() -
-    3;
-  // const today = new Date(now.setDate(now.getDate()));
-  const RenderingcreatedAt = () => {
-    for (let i = 0; i < 31; i++) {
-      if (today(i) === createdAtday) {
-        if (i === 0) return "today";
-        if (i === 1) return "yesterday";
-        return `${i}days ago`;
-      }
-    }
-  };
   const contentHandler = (e) => {
     setContent(e.target.value);
     console.log(content);
@@ -290,7 +281,31 @@ function DetailsQustion() {
     // window.location.replace("/DetailsQustion");
   };
 
-  const modifiedAtnow = new Date();
+  const todaynow = new Date();
+  const today = (x) => {
+    return (
+      todaynow.getFullYear() +
+      (todaynow.getMonth() + 1) +
+      (todaynow.getDate() - x)
+    );
+  };
+
+  const createdAtnow = new Date(questionscreatAt);
+  const createdAtday =
+    createdAtnow.getFullYear() +
+    (createdAtnow.getMonth() + 1) +
+    createdAtnow.getDate();
+  // const today = new Date(now.setDate(now.getDate()));
+  const RenderingcreatedAt = () => {
+    for (let i = 0; i < 31; i++) {
+      if (today(i) === createdAtday) {
+        if (i === 0) return "today";
+        if (i === 1) return "yesterday";
+        return `${i}days ago`;
+      }
+    }
+  };
+  const modifiedAtnow = new Date(questionsmodifiedAt);
   const modifiedAtday =
     modifiedAtnow.getFullYear() +
     (modifiedAtnow.getMonth() + 1) +
@@ -314,8 +329,7 @@ function DetailsQustion() {
     <PageDiv>
       <PageHeader>
         <Headernamediv>
-          {questionsstring.title}
-
+          {questionstitle}
           <Importmationdiv>
             Asked <Importmationspan> {RenderingcreatedAt()}</Importmationspan>{" "}
             Modified
@@ -352,47 +366,18 @@ function DetailsQustion() {
           </Recomneddiv>
           <Qustioncontentdiv>
             {questionsstring.content}
-            {/* <Codediv>
-              <code class="hljs language-python">
-                <span class="hljs-number">a = 1</span>
-                <span class="hljs-number">b = 1</span>
-                {/* <span class="hljs-number">1</span>
-                <span class="hljs-keyword">for</span> term{" "}
-                <span class="hljs-keyword">in</span>{" "}
-                <span class="hljs-built_in">range</span> (
-                <span class="hljs-number">50</span>):
-                <span class="hljs-keyword">if</span> term &lt;={" "}
-                <span class="hljs-number">1</span>:
-                <span class="hljs-built_in">print</span>(
-                <span class="hljs-string">
-                  f'term: <span class="hljs-subst">{term}</span> / number:{" "}
-                  <span class="hljs-subst">{term}</span>'
-                </span>
-                )<span class="hljs-keyword">elif</span> term =={" "}
-                <span class="hljs-number">2</span>:
-                <span class="hljs-built_in">print</span>(
-                <span class="hljs-string">
-                  f'term: <span class="hljs-subst">{term}</span> / number: 1'
-                </span>
-                )<span class="hljs-keyword">else</span>: c = a + b
-                <span class="hljs-built_in">print</span>(
-                <span class="hljs-string">
-                  f'term: <span class="hljs-subst">{term}</span> / number:{" "}
-                  <span class="hljs-subst">{c}</span>'
-                </span>
-                ) a = b b = c }
-              </code>
-            </Codediv> */}
             <Tagboxdiv>
-              <Tagsdiv>수정된 태그1</Tagsdiv>
-              <Tagsdiv>수정된 태그2</Tagsdiv>
+              {questionstages.map((item) => {
+                return <Tagsdiv>{item.category}</Tagsdiv>;
+              })}
             </Tagboxdiv>
-            <Questioninput onChange={contentHandler} />
+            <br />
+            {content}
+            <Questioninput onClick={contentHandler} />
             <Postbuttondiv>
               <button
                 type="submit"
                 class="s-topbar--item s-topbar--item__unset ml4 s-btn s-btn__primary"
-                onClick={handleSubmit}
               >
                 Post your Answer
               </button>
