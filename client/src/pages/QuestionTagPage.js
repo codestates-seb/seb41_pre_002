@@ -56,13 +56,11 @@ const QuestionTagPage = () => {
 
   return (
     <>
-      <Header />
-      <Maindiv>
-        <Nav />
+  
         {tagsAll && <QuestionsTag tagsAll={tagsAll} questionTag={questionTag} />}
         {/* <QuestionList /> */}
-      </Maindiv>
-      <Footer />
+    
+
     </>
   );
 };
