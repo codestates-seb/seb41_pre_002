@@ -45,6 +45,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.GET, "/questions/**").permitAll() // 질문 조회는 누구나 가능
                 .antMatchers(HttpMethod.GET,"/tags/**").permitAll() // 태크 조회 누구나 가능
                 .antMatchers(HttpMethod.GET, "/members/**").permitAll() // 멤버 정보 조회 누구나 가능
+                .antMatchers(HttpMethod.GET,"/docs/index.html").permitAll()
                 .antMatchers("/auth/user").hasRole("USER")
                 .antMatchers("/auth/admin", "/members").hasRole("ADMIN")    //관리자 권한만 이곳에 설정
                 .anyRequest().hasAnyRole("USER", "ADMIN")   //나머지는 관리자, 유저 모두 접근 가능 & 권한 없으면 접근 불가
