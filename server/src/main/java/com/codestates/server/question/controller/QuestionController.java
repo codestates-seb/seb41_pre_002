@@ -28,7 +28,6 @@ import javax.validation.constraints.Positive;
 import java.util.List;
 
 @RestController
-@RequestMapping("/questions")
 @Validated
 @RequiredArgsConstructor
 public class QuestionController {
@@ -41,7 +40,7 @@ public class QuestionController {
     private final QuestionCommentMapper questionCommentMapper;
     private final MemberService memberService;
 
-    @PostMapping
+    @PostMapping("/questions")
     public ResponseEntity postQuestion(@Valid @RequestBody QuestionPostDto questionPostDto) {
         // 헤더에 담겨서 넘어온 JWT토큰을 해독하여 email 정보를 가져온다
         String jwtEmail = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -66,7 +65,7 @@ public class QuestionController {
         );
     }
 
-    @PatchMapping("/{question-id}")
+    @PatchMapping("/questions/{question-id}")
     public ResponseEntity patchQuestion(@Positive @PathVariable("question-id") long questionId,
                                         @Valid @RequestBody QuestionPatchDto questionPatchDto) {
         // 헤더에 담겨서 넘어온 JWT토큰을 해독하여 email 정보를 가져온다
@@ -84,7 +83,7 @@ public class QuestionController {
                 HttpStatus.OK);
     }
 
-    @GetMapping("/{question-id}")
+    @GetMapping("/questions/{question-id}")
     public ResponseEntity getQuestionDetail(@Positive @PathVariable("question-id") long questionId) {
         /** 질문 상세페이지에 포함되어야 할 내용
          *질문내용
@@ -104,7 +103,7 @@ public class QuestionController {
         );
     }
 
-    @GetMapping
+    @GetMapping({"/questions", "/"})
     public ResponseEntity getQuestions(@Positive @RequestParam(required = false, defaultValue = "1") int page,
                                        @Positive @RequestParam(required = false, defaultValue = "10") int size,
                                        @RequestParam(required = false, defaultValue = "") String keyword,
@@ -129,7 +128,7 @@ public class QuestionController {
         );
     }
 
-    @GetMapping("/tagged/{category}")
+    @GetMapping("/questions/tagged/{category}")
     public ResponseEntity getQuestionsByTag(@PathVariable("category") String category,
                                             @Positive @RequestParam(required = false, defaultValue = "1") int page,
                                             @Positive @RequestParam(required = false, defaultValue = "10") int size) {
@@ -142,7 +141,7 @@ public class QuestionController {
         );
     }
 
-    @DeleteMapping("/{question-id}")
+    @DeleteMapping("/questions/{question-id}")
     public ResponseEntity deleteQuestion(@Positive @PathVariable("question-id") long questionId) {
         // 헤더에 담겨서 넘어온 JWT토큰을 해독하여 email 정보를 가져온다
         String jwtEmail = SecurityContextHolder.getContext().getAuthentication().getName();
