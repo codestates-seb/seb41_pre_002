@@ -9,7 +9,7 @@ const LoginSection = styled.div`
   }
 `;
 
-function LoginForm({ setIsLogin }) {
+function LoginForm({ isLogin, setIsLogin }) {
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPw, setLoginPw] = useState('');
 
@@ -34,22 +34,21 @@ function LoginForm({ setIsLogin }) {
         console.log(response.data.accessToken);
         /// token이 필요한 API 요청 시 header Authorization에 token 담아서 보내기
         axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`;
-        axios.get('/members/1').then((res) => {
-          console.log(res);
-          console.log(axios.defaults.headers.common.Authorization);
-        });
+        setIsLogin(true);
+      })
+      .then((res) => {
+        alert('로그인 성공!');
+        window.location.replace('/');
       })
       .catch((e) => {
         console.log(e.response.data);
+        alert('아이디와 비밀번호를 확인해주세요');
       });
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     requestLogin();
-    setIsLogin(true);
-    window.location.replace('/');
-    // alert('로그인 성공!');
   };
 
   return (

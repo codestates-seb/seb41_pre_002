@@ -16,7 +16,7 @@ const SofIcon = styled.div`
   margin-top: 60px;
 `;
 
-function LoginPage({ setIsLogin }) {
+function LoginPage({ isLogin, setIsLogin }) {
   return (
     <>
       <Maindiv>
@@ -40,7 +40,7 @@ function LoginPage({ setIsLogin }) {
           </div>
         </SofIcon>
         <SocialLogin />
-        <LoginForm setIsLogin={setIsLogin} />
+        <LoginForm isLogin={isLogin} setIsLogin={setIsLogin} />
         <div className="mx-auto ta-center fs-body1 p16 pb0 mb24 w100 wmx3">
           Don’t have an account?{" "}
           <a href="/users/signup?ssrc=head&amp;returnurl=https%3a%2f%2fstackoverflow.com%2f">
