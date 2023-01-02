@@ -6,8 +6,7 @@ import { useDispatch } from "react-redux";
 const QuestionItemdiv = styled.div`
   display: flex;
   flex-direction: column;
-  /* border-bottom: 1px solid #e3e6e8; */
-  .qo {
+  .tags {
     display: flex;
     border-bottom: 1px solid #e3e6e8;
     padding: 30px;
@@ -45,7 +44,6 @@ const TagDiV = styled.div`
     display: flex;
     font-size: 13px;
     width: auto;
-    //버튼 사이즈를 버튼 글자의 크기에 따라 조절이 되게끔 구혐
     color: var(--powder-700);
     cursor: pointer;
     background-color: var(--powder-100);
@@ -57,23 +55,16 @@ const TagDiV = styled.div`
 `;
 
 const QuestionTagItem = ({ questionData }) => {
-  
-  // const showMsg = (event) => {
-  //   const msg = event.target.getAttribute('data-msg');
-  //   console.log(msg);
-  // };
-
-  // const onClickHandler = ({questionTag})
   const dispatch = useDispatch();
+
   return (
     <QuestionItemdiv>
       {questionData.data &&
         questionData.data.map((item) => {
           const toDO = item.questionId;
           return (
-            <div className="qo" key={item.id}>
+            <div className="tags" key={item.id}>
               <SummaryStatus>{item.voteCount} vote</SummaryStatus>
-
               <SummaryContent>
                 <Link
                   to="/QuesetionRead"
