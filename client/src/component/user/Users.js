@@ -1,17 +1,16 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import UserCardList from "./UserCardList";
-import UserPagenation from "./UserPagenation";
+import UserCardItem from "./UserCardItem";
 
 const UserDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  display: block;
   padding: 30px;
   min-width: 200px;
-  background-color: aqua;
+  width: 70%;
+  /* background-color: aqua; */
 
   h1 {
+    text-align: left;
     font-size: 27px;
     margin: 0px 0px 27px;
     color: black;
@@ -23,31 +22,6 @@ const UserDiv = styled.div`
     align-items: flex-start;
     width: 100%;
     height: 50px;
-  }
-  .ButtonBox {
-    display: flex;
-    border-color: var(--_bu-outlined-bc-selected);
-    border-radius: 10px;
-    min-width: 100px;
-  }
-  .Btn {
-    /* display: flex; */
-    height: 40px;
-    width: 80px;
-    background-color: var(--_bu-outlined-bg);
-    color: #6a737c;
-    font-size: 13px;
-    font-weight: 400;
-    border: 1px solid rgb(214, 217, 220);
-    border-radius: 2px;
-    &:active {
-      border-color: rgb(227, 230, 232);
-      background-color: rgb(227, 230, 232);
-      color: rgb(59, 64, 60);
-    }
-    &:hover {
-      background-color: rgb(242, 244, 245);
-    }
   }
   .SubTab {
     display: flex;
@@ -66,27 +40,104 @@ const UserDiv = styled.div`
       border-bottom: 2px solid orange;
     }
   }
+  .sort {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    float: right;
+    align-items: center;
+    min-width: 100px;
+    margin-bottom: 20px;
+    @media screen and (max-width: 640px) {
+      font-size: 15.4px;
+      flex-direction: column !important;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    > .question-sort {
+      > button {
+        height: 40px;
+        width: 80px;
+        font-size: 13px;
+        border: 1px solid hsl(210, 8%, 55%);
+        background-color: var(--_bu-outlined-bg);
+        padding: 8px 10px;
+        color: hsl(210, 8%, 45%);
+        @media screen and (max-width: 640px) {
+          flex-direction: column-reverse;
+        }
+        cursor: pointer;
+        :first-child {
+          border-radius: 3px;
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+        }
+        :last-child {
+          border-radius: 3px;
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+        }
+        :not(:last-child) {
+          border-right: none;
+        }
+        :hover {
+          background-color: hsl(210, 8%, 97.5%);
+        }
+        &.is-selected {
+          background-color: hsl(210, 8%, 90%);
+          color: hsl(210, 8%, 25%);
+          border: 1px solid hsl(210, 8%, 55%);
+          :not(:last-child) {
+            border-right: none;
+          }
+        }
+      }
+    }
+  }
 `;
 
-
-
 const Users = () => {
+  const [selected, setSelected] = useState("New users");
+  // redux?
+  const sortClick = (e) => {
+    switch (e.target.value) {
+      case "Reputation":
+        setSelected("Reputation");
+        break;
+      case "New users":
+        setSelected("New users");
+        break;
+      case "Voters":
+        setSelected("Voters");
+        break;
+      case "Editors":
+        setSelected("Editors");
+        break;
+      case "Moderators":
+        setSelected("Moderators");
+        break;
+      default:
+        break;
+    }
+  };
 
   // 빈값으로 초기세팅
-  const[inputValue, setInputValue] = useState({
+  const [inputValue, setInputValue] = useState({
     // title: '',
-    users: '',
-  })
+    users: "",
+  });
 
   //inputvalue 값 추출 -> input 의 value 속성에 추출한 값 할당
   const { users } = inputValue;
 
   const onChangeValue = (e) => {
     setInputValue({
-      ...inputValue,[e.target.name]: e.target.value,
+      ...inputValue,
+      [e.target.name]: e.target.value,
     });
-    console.log(inputValue)
-  }
+    console.log(inputValue);
+  };
 
   return (
     <UserDiv>
@@ -103,7 +154,7 @@ const Users = () => {
             maxLength="35"
             placeholder="Filter by user name"
             autoFocus=""
-            onChange={onChangeValue}
+            // onChange={onChangeValue}
           ></input>
           <svg
             aria-hidden="true"
@@ -115,12 +166,44 @@ const Users = () => {
             <path d="m18 16.5-5.14-5.18h-.35a7 7 0 1 0-1.19 1.19v.35L16.5 18l1.5-1.5ZM12 7A5 5 0 1 1 2 7a5 5 0 0 1 10 0Z"></path>
           </svg>
         </div>
-        <div className="ButtonBox">
-          <button className="Btn">Reputation</button>
-          <button className="Btn">New users</button>
-          <button className="Btn">Voters</button>
-          <button className="Btn">Editors</button>
-          <button className="Btn">Moderators</button>
+      </div>
+      <div className="sort">
+        <div className="question-sort">
+          <button
+            onClick={sortClick}
+            className={selected === "Reputation" ? "is-selected" : ""}
+            value={"Reputation"}
+          >
+            Reputation
+          </button>
+          <button
+            onClick={sortClick}
+            className={selected === "New users" ? "is-selected" : ""}
+            value={"New users"}
+          >
+            New users
+          </button>
+          <button
+            onClick={sortClick}
+            className={selected === "Voters" ? "is-selected" : ""}
+            value={"Voters"}
+          >
+            Voters
+          </button>
+          <button
+            onClick={sortClick}
+            className={selected === "Editors" ? "is-selected" : ""}
+            value={"Editors"}
+          >
+            Editors
+          </button>
+          <button
+            onClick={sortClick}
+            className={selected === "Moderators" ? "is-selected" : ""}
+            value={"Moderators"}
+          >
+            Moderators
+          </button>
         </div>
       </div>
       <div className="SubTab">
@@ -130,8 +213,7 @@ const Users = () => {
         <div className="Tab">year</div>
         <div className="Tab">all</div>
       </div>
-      <UserCardList />
-      <UserPagenation/>
+      <UserCardItem />
     </UserDiv>
   );
 };

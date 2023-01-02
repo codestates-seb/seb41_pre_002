@@ -30,7 +30,7 @@ const QuestionList = ({ questionData }) => {
           return <div className="qo"> {item.title}</div>;
         })} */}
         {questionData && <QuestionItem questionData={questionData} />}
-        {console.log(questionData)}
+        {/* {console.log(questionData)} */}
       </QuestionLists>
     </QusetionListDiv>
   );

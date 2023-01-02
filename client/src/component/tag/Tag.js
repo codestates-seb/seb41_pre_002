@@ -1,37 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import TagCard from "./TagCardList";
-import TagPagenation from "./TagPagenation";
+import TagCardItem from "./TagCardItem";
+import axios from "axios";
 
 const TagDIV = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  display: block;
   padding: 30px;
-  width: 100%;
+  width: 70%;
   min-width: 200px;
-  background-color: aqua;
-  /* height: auto; */
-  /* box-sizing: border-box; */
+  /* background-color: aqua; */
+
   h1 {
+    text-align: left;
     font-size: 27px;
     margin: 0px 0px 27px;
     color: black;
     font-weight: 400;
   }
   p {
-    color: black;
+    color: #232629;
+    text-align: left;
     font-size: 15px;
     max-width: 625px;
     margin: 0px 0px 27px;
   }
   .TagSearchDiv {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    width: 100%;
-    height: 50px;
+    width: 200px;
   }
+
   .ButtonBox {
     display: flex;
     border-color: var(--_bu-outlined-bc-selected);
@@ -39,7 +35,6 @@ const TagDIV = styled.div`
     min-width: 100px;
   }
   .Btn {
-    /* display: flex; */
     height: 40px;
     width: 60px;
     background-color: var(--_bu-outlined-bg);
@@ -57,31 +52,112 @@ const TagDIV = styled.div`
       background-color: rgb(242, 244, 245);
     }
   }
+  .sort {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    float: right;
+    align-items: center;
+    min-width: 100px;
+    margin-bottom: 15px;
+
+    @media screen and (max-width: 640px) {
+      font-size: 15.4px;
+      flex-direction: column !important;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    > .question-sort {
+      margin-bottom: 12px;
+      > button {
+        height: 40px;
+        width: 60px;
+        font-size: 13px;
+        border: 1px solid hsl(210, 8%, 55%);
+        padding: 8px 10px;
+        color: hsl(210, 8%, 45%);
+        background-color: var(--_bu-outlined-bg);
+        @media screen and (max-width: 640px) {
+          height: 35.44px;
+          padding-left: 0.4em;
+          padding-right: 0.4em;
+          flex-direction: column-reverse;
+        }
+        cursor: pointer;
+        :first-child {
+          border-radius: 3px;
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+        }
+        :last-child {
+          border-radius: 3px;
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+        }
+        :not(:last-child) {
+          border-right: none;
+        }
+        :hover {
+          background-color: hsl(210, 8%, 97.5%);
+        }
+        &.is-selected {
+          background-color: hsl(210, 8%, 90%);
+          color: hsl(210, 8%, 25%);
+          border: 1px solid hsl(210, 8%, 55%);
+          :not(:last-child) {
+            border-right: none;
+          }
+        }
+      }
+    }
+  }
 `;
 
 const Tag = () => {
+  const [tagsAll, setTagsAll] = useState([]);
+  const [tagsName, setTagsName] = useState([]);
+  const [tagsNew, setTagsNew] = useState([]);
 
-  // 빈값으로 초기세팅
-  const[inputValue, setInputValue] = useState({
-    // title: '',
-    tags: '',
-  })
+  useEffect(() => {
+    axios
+      .all([
+        axios.get("/tags"),
+        axios.get("/tags?page=1&size=10&keyword=&tab=name"),
+        axios.get("/tags?page=1&size=10&keyword=&tab=new"),
+      ])
+      .then(
+        axios.spread((response1, response2, response3) => {
+          setTagsAll(response1.data.data);
+          setTagsName(response2.data.data);
+          setTagsNew(response3.data.data);
+          console.log(response1.data.data);
+          console.log(response2.data.data);
+          console.log(response3.data.data);
+        })
+      )
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
-  //inputvalue 값 추출 -> input 의 value 속성에 추출한 값 할당
-  const { tags } = inputValue;
-  // const {title, tags} = inputValue;
-
-  const onChangeValue = (e) => {
-    setInputValue({
-      ...inputValue,[e.target.name]: e.target.value,
-    });
-    console.log(inputValue)
-  }
-  // const [text, setText] = useState("");
-
-  // const onChange = (e) => {
-  //   setText(e.target.value);
-  // };
+  const [selected, setSelected] = useState("Popular");
+  // redux?
+  const sortClick = (e) => {
+    switch (e.target.value) {
+      case "Popular":
+        setSelected("Popular");
+        break;
+      case "Name":
+        setSelected("Name");
+        break;
+      case "New":
+        setSelected("New");
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
     <TagDIV>
@@ -95,12 +171,13 @@ const Tag = () => {
         </p>
       }
       {/*tag input && buttion div 묶음 */}
+
       <div className="TagSearchDiv">
         <div className="flex--item ps-relative mb12">
           <input
             id="tagfilter"
-            onChange={onChangeValue}
-            defaultValue={tags}
+            // onChange={handleInputChange}
+            // defaultValue={tags}
             // value={text}
             className="s-input s-input__search h100 js-tag-filter"
             autoComplete="off"
@@ -120,14 +197,57 @@ const Tag = () => {
             <path d="m18 16.5-5.14-5.18h-.35a7 7 0 1 0-1.19 1.19v.35L16.5 18l1.5-1.5ZM12 7A5 5 0 1 1 2 7a5 5 0 0 1 10 0Z"></path>
           </svg>
         </div>
-        <div className="ButtonBox">
+      </div>
+
+      <div className="sort">
+        <div className="question-sort">
+          <button
+            onClick={sortClick}
+            className={selected === "Popular" ? "is-selected" : ""}
+            value={"Popular"}
+          >
+            Popular
+          </button>
+          <button
+            onClick={sortClick}
+            className={selected === "Name" ? "is-selected" : ""}
+            value={"Name"}
+          >
+            Name
+          </button>
+          <button
+            onClick={sortClick}
+            className={selected === "New" ? "is-selected" : ""}
+            value={"New"}
+          >
+            New
+          </button>
+        </div>
+      </div>
+
+      {/* <div className="ButtonBox">
           <button className="Btn">Popular</button>
           <button className="Btn">Name</button>
           <button className="Btn">New</button>
-        </div>
-      </div>
-      <TagCard />
-      <TagPagenation />
+        </div> */}
+
+      {/* <FilterContainer >
+          <FilterBtn
+            onClick={handleBtnClick}
+            className={sort === 'Popular' ? 'left-btn sorted' : 'left-btn'}
+          >
+            Popular
+          </FilterBtn>
+          <FilterBtn
+            onClick={handleBtnClick}
+            className={sort === 'Name' ? 'right-btn sorted' : 'right-btn'}
+          >
+            Name
+          </FilterBtn>
+        </FilterContainer>
+        */}
+
+      <TagCardItem tagsAll={tagsAll} tagsName={tagsName} />
     </TagDIV>
   );
 };

@@ -1,96 +1,106 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-// import Tag from "./Tag";
+
+
 
 const TagCardItems = styled.div`
-  display: flex;
-  flex-direction: column;
-  color: black;
-  font-size: 13px;
-  text-align: left;
-  padding: 12px;
-  border: 1px solid rgb(214, 217, 220);
-  border-radius: 2px;
+  display: block;
+  height: auto;
 
   .TagDiV {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    gap: 16px;
+ 
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+    width: 100%;
+    min-width: 150px;
   }
 
   .tag-button {
-    display: flex;
+    display: inline-block;
     font-size: 13px;
-    width: 60px;
-    //버튼 사이즈를 버튼 글자의 크기에 따라 조절이 되게끔 구혐
+    width: auto;
     color: var(--powder-700);
     cursor: pointer;
     background-color: var(--powder-100);
     border-radius: 3px;
     padding: 4.8px 6px;
-    border: 1px transparent;
+    border: none;
     margin: 2px 6px 2px 0px;
+
+    &:hover {
+      background-color: #d0e3f1;
+      color: #2c5877;
+    }
   }
 
   .tag-content {
-    display: flex !important;
+    display: inline-block;
+    color: #3b4045;
+    width: 100%;
+    font-size: 13px;
+    text-align: left;
+    margin-top: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    line-height: 1.4;
+    word-wrap: break-word;
+    -webkit-box-orient: vertical; 
+  }
+  .QuestionCount {
+    margin: 10px 0px 4px 0px;
+    font-size: 13px;
+    color: #6a737c;
+  }
+  .tag {
+
     color: black;
     font-size: 13px;
-    margin: 10px 0px 10px 0px;
+    text-align: left;
+    padding: 12px;
+    border: 1px solid rgb(214, 217, 220);
+    border-radius: 2px;
   }
 `;
 
-// tag card가 하나씩 들어가는 컴포넌트
 
-const TagCardItem = () => {
+
+const TagCardItem = ({ tagsAll }) => {
+
+  // const [clicked, setClicked] = useState();
+  //   const handleCardClick = (category) => {
+  //       setClicked(tagKeyword.find((el) => el.category === category));
+  //   };
 
   return (
-    <>
-      <TagCardItems>
-        <div className="TagDiv">
-          {/* {tags.map((dummydata) => 
-          key={item.tagId}
-          )}; */}
-          {/* <button className="tag-button">javascript</button>
-          <div className="tag-content">
-            For questions about programming in ECMAScript (JavaScript/JS) and
-            its different dialects/implementations (except for ActionScript).
-            Keep in
-          </div> */}
-        </div>
-      </TagCardItems>
-
-      {/* <TagCardItems>
-        <div className="TagDiv">
-          <button className="tag-button">python</button>
-          <div className="tag-content">
-            Python is a multi-paradigm, dynamically typed, multi-purpose
-            programming language. It is designed to be quick to learn,
-            understand, and use, and enforces
-          </div>
-        </div>
-      </TagCardItems>
-      <TagCardItems>
-        <div className="TagDiv">
-          <button className="tag-button">java</button>
-          <div className="tag-content">
-            Python is a multi-paradigm, dynamically typed, multi-purpose
-            programming language. It is designed to be quick to learn,
-            understand, and use, and enforces
-          </div>
-        </div>
-      </TagCardItems>
-      <TagCardItems>
-        <div className="TagDiv">
-          <button className="tag-button">c#</button>
-          <div className="tag-content">
-            Python is a multi-paradigm, dynamically typed, multi-purpose
-            programming language. It is designed to be quick to learn,
-            understand, and use, and enforces
-          </div>
-        </div>
-      </TagCardItems> */}
-    </>
+    <TagCardItems>
+      <div className="TagDiV">
+        {tagsAll &&
+          tagsAll.map((item) => {
+            return (
+              <div className="tag" key={item.tagId}>
+                <button className="tag-button">
+                  <Link to="/QuestionTagPage">{item.category}</Link>
+                </button>
+                <div className="tag-content">
+                  NOTICE: All {item.category} questions must be related to
+                  programming; those that aren't will be closed. Use this tag
+                  only if your question relates to programming using Linux APIs
+                  or...
+                  <div className="QuestionCount">
+                    {item.questionsCount} questions
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+      </div>
+    </TagCardItems>
   );
 };
 

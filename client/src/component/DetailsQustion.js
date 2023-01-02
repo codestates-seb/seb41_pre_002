@@ -1,9 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-// import dummyquestions from "../assets/dummyData";
+import useForceUpdate from "use-force-update";
 import { useSelector } from "react-redux";
 import "../assets/fonts.css";
+import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 
 const PageDiv = styled.div`
@@ -131,7 +133,11 @@ const Relateddiv = styled.div`
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   font-size: 13px;
   text-align: left;
-  color: #00f4cc;
+  color: black;
+  cursor: grab;
+  &:hover {
+    color: blue;
+  }
 `;
 
 const Relatedboxdiv = styled.div`
@@ -161,7 +167,11 @@ const Postbuttondiv = styled.div`
   margin: 10px 0px 0px 480px;
 `;
 
-function DetailsQustion({ title }) {
+function DetailsQustion() {
+  const dispatch = useDispatch();
+  const forceUpdate = useForceUpdate();
+  const [content, setContent] = useState("");
+  const num = useSelector((state) => state);
   const [Number, SetNumber] = useState(0);
   const [Bookmark, SetBookmark] = useState(true);
 
@@ -176,15 +186,23 @@ function DetailsQustion({ title }) {
     SetBookmark(!Bookmark);
   };
 
-  const num = useSelector((state) => state);
-  const [questions, setQuestions] = useState(0);
+  const [questionsstring, setQuestionsstring] = useState("");
+  const [questionsstring1, setQuestionsstring1] = useState("");
+  const [questionsstring2, setQuestionsstring2] = useState("");
+  const [questionsstring3, setQuestionsstring3] = useState("");
+  const [arrybox, setarrybox] = useState("");
 
   useEffect(() => {
     axios
       .get(`/questions/${num}`, {})
       .then((response) => {
-        console.log(response.data.data.questionResponseDto.title); //정상 통신 후 응답된 메시지 출력
-        setQuestions(response.data.data.questionResponseDto); //정상 통신 후 응답된 메시지 출력
+        // console.log(response.data.data.questionResponseDto.tagResponseDtos);
+        setQuestionsstring(response.data.data.questionResponseDto);
+        console.log(
+          "" +
+            response.data.data.questionResponseDto.commentResponseDtos[14]
+              .content
+        );
       })
       .catch((error) => {
         console.log(error);
@@ -192,29 +210,129 @@ function DetailsQustion({ title }) {
       });
   }, []);
 
-  // const quantity = questions.filter(
-  //   (el) => el.questionResponseDto.memberId === num
-  // );
+  const axiosdata = (x) => {
+    axios
+      .get(`/questions/${num - x}`, {})
+      .then((response) => {
+        setQuestionsstring1(response.data.data.questionResponseDto.title); //정상 통신 후 응답된 메시지 출력
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  const axiosdata1 = (x) => {
+    axios
+      .get(`/questions/${num - x}`, {})
+      .then((response) => {
+        setQuestionsstring2(response.data.data.questionResponseDto.title); //정상 통신 후 응답된 메시지 출력
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  const axiosdata2 = (x) => {
+    axios
+      .get(`/questions/${num - x}`, {})
+      .then((response) => {
+        setQuestionsstring3(response.data.data.questionResponseDto.title); //정상 통신 후 응답된 메시지 출력
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const todaynow = new Date();
+  const today = (x) => {
+    return (
+      todaynow.getFullYear() +
+      (todaynow.getMonth() + 1) +
+      (todaynow.getDate() - x)
+    );
+  };
+
+  const createdAtnow = new Date();
+  const createdAtday =
+    createdAtnow.getFullYear() +
+    (createdAtnow.getMonth() + 1) +
+    createdAtnow.getDate() -
+    3;
+  // const today = new Date(now.setDate(now.getDate()));
+  const RenderingcreatedAt = () => {
+    for (let i = 0; i < 31; i++) {
+      if (today(i) === createdAtday) {
+        if (i === 0) return "today";
+        if (i === 1) return "yesterday";
+        return `${i}days ago`;
+      }
+    }
+  };
+  const contentHandler = (e) => {
+    setContent(e.target.value);
+    console.log(content);
+  };
+
+  const addQuestion = () => {
+    axios
+      .put(`/questions/15/comments`, {
+        memberId: 1,
+        commentId: 1,
+        content: "content",
+      })
+      .then((response) => {
+        console.log(response.data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    addQuestion();
+    // window.location.replace("/DetailsQustion");
+  };
+
+  const modifiedAtnow = new Date();
+  const modifiedAtday =
+    modifiedAtnow.getFullYear() +
+    (modifiedAtnow.getMonth() + 1) +
+    modifiedAtnow.getDate() -
+    2;
+  // const today = new Date(now.setDate(now.getDate()));
+  const RenderingmodifiedAt = () => {
+    for (let i = 0; i < 31; i++) {
+      if (today(i) === modifiedAtday) {
+        if (i === 0) return "today";
+        if (i === 1) return "yesterday";
+        return `${i}days ago`;
+      }
+    }
+  };
+  // const lisItem = arrybox.map((el) => {
+  //   return <Tagsdiv>{arrybox}</Tagsdiv>;
+  // });
 
   return (
     <PageDiv>
       <PageHeader>
         <Headernamediv>
-          {questions.title}
-          {num}
+          {questionsstring.title}
+
           <Importmationdiv>
-            Asked <Importmationspan>today</Importmationspan> Modified{" "}
-            <Importmationspan>today</Importmationspan>
-            Viewed <Importmationspan>{questions.title}</Importmationspan>
+            Asked <Importmationspan> {RenderingcreatedAt()}</Importmationspan>{" "}
+            Modified
+            <Importmationspan>{RenderingmodifiedAt()}</Importmationspan>
+            Viewed{"5"}
+            <Importmationspan></Importmationspan>
           </Importmationdiv>
         </Headernamediv>
         <Askbuttondiv>
-          <a
-            href="…"
+          <Link
+            to="/QuestionWrite"
             class="s-topbar--item s-topbar--item__unset ml4 s-btn s-btn__primary"
           >
             Ask Question
-          </a>
+          </Link>
         </Askbuttondiv>
       </PageHeader>
       <ImportmationMain>
@@ -235,67 +353,79 @@ function DetailsQustion({ title }) {
             <i class="fa-solid fa-clock-rotate-left"></i>
           </Recomneddiv>
           <Qustioncontentdiv>
-            {questions.content}
+            {questionsstring.content}
             <Codediv>
-              import pyshark import time capture =
-              pyshark.LiveCapture(interface='eth0') capture.sniff(timeout=5) for
-              packet in capture.sniff_continuously(): localtime =
-              time.asctime(time.localtime(time.time())) protocol =
-              packet.transport_layer src_addr = packet.ip.src src_port =
-              packet[packet.transport_layer].srcport dst_addr = packet.ip.dst
-              dst_port = packet[packet.transport_layer].dstport info =
-              packet.info print (info, localtime,"\t",protocol,"\t",
-              src_addr,"\t", src_port,"\t", dst_addr) # print (packet.show())
+              <code class="hljs language-python">
+                <span class="hljs-number">a = 1</span>
+                <span class="hljs-number">b = 1</span>
+                {/* <span class="hljs-number">1</span>
+                <span class="hljs-keyword">for</span> term{" "}
+                <span class="hljs-keyword">in</span>{" "}
+                <span class="hljs-built_in">range</span> (
+                <span class="hljs-number">50</span>):
+                <span class="hljs-keyword">if</span> term &lt;={" "}
+                <span class="hljs-number">1</span>:
+                <span class="hljs-built_in">print</span>(
+                <span class="hljs-string">
+                  f'term: <span class="hljs-subst">{term}</span> / number:{" "}
+                  <span class="hljs-subst">{term}</span>'
+                </span>
+                )<span class="hljs-keyword">elif</span> term =={" "}
+                <span class="hljs-number">2</span>:
+                <span class="hljs-built_in">print</span>(
+                <span class="hljs-string">
+                  f'term: <span class="hljs-subst">{term}</span> / number: 1'
+                </span>
+                )<span class="hljs-keyword">else</span>: c = a + b
+                <span class="hljs-built_in">print</span>(
+                <span class="hljs-string">
+                  f'term: <span class="hljs-subst">{term}</span> / number:{" "}
+                  <span class="hljs-subst">{c}</span>'
+                </span>
+                ) a = b b = c */}
+              </code>
             </Codediv>
             <Tagboxdiv>
-              <Tagsdiv>python</Tagsdiv>
-              <Tagsdiv>tcp</Tagsdiv>
-              <Tagsdiv>protocols</Tagsdiv>
-              <Tagsdiv>arp</Tagsdiv>
-              <Tagsdiv>icmp</Tagsdiv>
+              <Tagsdiv>react</Tagsdiv>
+              <Tagsdiv>js</Tagsdiv>
+              <Tagsdiv>ptyhon</Tagsdiv>
             </Tagboxdiv>
-            <Questioninput />
+            <div>Answers</div>
+
+            <div> Your Answer</div>
+            <Questioninput onChange={contentHandler} />
             <Postbuttondiv>
-              <a
-                href="…"
+              <button
+                type="submit"
                 class="s-topbar--item s-topbar--item__unset ml4 s-btn s-btn__primary"
+                onClick={handleSubmit}
               >
                 Post your Answer
-              </a>
+              </button>
             </Postbuttondiv>
           </Qustioncontentdiv>
         </Contentsdiv>
         <BolgAndReateddiv>
           Related
-          <Relateddiv>
+          <Relateddiv
+            onClick={() => {
+              forceUpdate();
+              dispatch({ type: "decrease" });
+            }}
+          >
             <Relatedboxdiv color="#f1f2f3">0</Relatedboxdiv>
-            <a
-              href="https://stackoverflow.com/questions/5805269/why-does-this-connection-keep-closing-syn-syn-ack-ack-rst-ack?rq=1"
-              class="question-hyperlink"
-            >
-              Why does this connection keep closing -
-              SYN-&gt;SYN,ACK-&gt;ACK-&gt;RST,ACK
-            </a>
+            {questionsstring1}
+            {axiosdata(1)}
           </Relateddiv>
           <Relateddiv>
             <Relatedboxdiv color="#52ba7D">0</Relatedboxdiv>
-            <a
-              href="https://stackoverflow.com/questions/5805269/why-does-this-connection-keep-closing-syn-syn-ack-ack-rst-ack?rq=1"
-              class="question-hyperlink"
-            >
-              Why does this connection keep closing -
-              SYN-&gt;SYN,ACK-&gt;ACK-&gt;RST,ACK
-            </a>
+            {axiosdata1(2)}
+            {questionsstring2}
           </Relateddiv>
           <Relateddiv>
             <Relatedboxdiv color="#f1f2f3">5</Relatedboxdiv>
-            <a
-              href="https://stackoverflow.com/questions/5805269/why-does-this-connection-keep-closing-syn-syn-ack-ack-rst-ack?rq=1"
-              class="question-hyperlink"
-            >
-              Why does this connection keep closing -
-              SYN-&gt;SYN,ACK-&gt;ACK-&gt;RST,ACK
-            </a>
+            {axiosdata2(3)}
+            {questionsstring3}
           </Relateddiv>
         </BolgAndReateddiv>
       </ImportmationMain>

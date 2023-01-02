@@ -1,25 +1,25 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import axios from "axios";
 
 const UserCardItems = styled.div`
-  display: flex;
-  flex-direction: row;
-  color: black;
-  font-size: 13px;
-  text-align: left;
-  padding: 12px;
-  /* border: 1px solid rgb(214, 217, 220); */
+  display: block;
+  height: auto;
 
-  .ImgDiv {
-    /* display: flex */
-    margin: 15px;
-    
+  .TagDiV {
+    display: grid;
+    gap: 16px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+    width: 100%;
+    min-width: 150px;
   }
-  .UserInfo{
-    display: flex;
-    flex-direction: column;
+  .ImgDiv {
+    margin: 15px;
+  }
+  .UserInfo {
     margin: 12px 0px 0px 20px;
-
   }
   .UserName {
     color: #0074cc;
@@ -33,21 +33,43 @@ const UserCardItems = styled.div`
 `;
 
 const UserCardItem = () => {
+  let [questionData, setQuestionData] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`/questions`, {})
+      .then((response) => {
+        setQuestionData(response.data.data);
+        // console.log(response.data.data); // data& pageinfo
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   return (
     <UserCardItems>
-      <div className="ImgDiv">
-        <img
-          src="https://www.gravatar.com/avatar/ee6e12042dc31b1ef27471482f9ff91f?s=96&amp;d=identicon&amp;r=PG&amp;f=1"
-          alt="akrun's user avatar"
-          width="48"
-          height="48"
-          className="bar-sm"
-        ></img>
+      <div className="TagDiV">
+        {questionData &&
+          questionData.map((item) => {
+            return (
+              <div className="UserInfo" key={item.tagId}>
+                <div className="ImgDiv">
+                  <img
+                    src="https://item.kakaocdn.net/do/07bb1aba0886fcbb13e65c7a0b712e627f9f127ae3ca5dc7f0f6349aebcdb3c4"
+                    width="60"
+                    height="60"
+                    alt="user avatar"
+                  ></img>
+                </div>
+                <div className="UserName"> {item.memberName}</div>
+                <div className="UserTags">
+                  {item.tagResponseDtos[0].category}, javascript, git, github
+                </div>
+              </div>
+            );
+          })}
       </div>
-        <div className="UserInfo">
-          <div className="UserName">akrun {/* 링크 넣기 */}</div>
-          <div className="UserTags">r, dplyr, dataframe</div>
-        </div>
     </UserCardItems>
   );
 };
