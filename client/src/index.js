@@ -1,17 +1,37 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import App from "./App";
+import { createRoot } from "react-dom/client";
+import { Provider } from "react-redux";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+import { legacy_createStore as createStore } from "redux";
+
+const container = document.getElementById("root");
+const root = createRoot(container);
+
+const num = 14;
+
+function reducer(state = num, action) {
+  if (action.type === "increase") {
+    state = action.number;
+    return state;
+  } else if (action.type === "decrease") {
+    state--;
+    return state;
+  } else if (action.type === "ADD_TODO") {
+    return [];
+  }
+
+  return state;
+}
+
+let contain = createStore(reducer);
+
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={contain}>
+      <App />
+    </Provider>
   </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+App();
