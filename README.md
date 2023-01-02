@@ -39,8 +39,6 @@ Stack Overflow Clone Coding
 - <img src="https://img.shields.io/badge/Amazon RDS-527FFF?style=for-the-badge&logo=amazonrds&logoColor=white">
 - <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
 
-## **📘 ER-Diagram**
-
 ## **📙 Git Convention**
 - Feat: 새로운 기능 추가
 - Fix: 버그 수정
