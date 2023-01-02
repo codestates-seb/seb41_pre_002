@@ -1,7 +1,9 @@
-import React from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-import QuestionList from "./questionlist";
+import React from 'react';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import QuestionList from './questionlist';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const ContentDiv = styled.div`
   width: 1000px;
@@ -62,7 +64,21 @@ const ButtonBox = styled.div`
   }
 `;
 
-const Questions = ({ questionData }) => {
+const Questions = () => {
+  const [questionData, setQuestionData] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get('/questions', {})
+      .then((response) => {
+        setQuestionData(response.data);
+        console.log(response.data); // data& pageinfo
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   return (
     <ContentDiv>
       {/*question 상단 */}

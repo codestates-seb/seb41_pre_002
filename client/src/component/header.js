@@ -54,12 +54,9 @@ const Header = ({ isLogin }) => {
           {isLogin ? (
             <nav className="s-topbar--navigation" aria-label="Log in or sign up">
               <ol className="s-topbar--content">
-                {/* <Link to="/LoginPage" className="s-topbar--item s-topbar--item__unset s-btn s-btn__filled">
-                    MyPage
-                  </Link> */}
                 <li role="none">
                   <Link
-                    to="/MyPage"
+                    to="/Profile"
                     class="s-topbar--item s-user-card s-user-card__small m0 px12 js-gps-track"
                     role="menuitem"
                     data-gps-track="profile_summary.click()"
