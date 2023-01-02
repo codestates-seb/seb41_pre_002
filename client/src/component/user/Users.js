@@ -58,7 +58,7 @@ const UserDiv = styled.div`
     > .question-sort {
       > button {
         height: 40px;
-        width: 80px;
+        width: auto;
         font-size: 13px;
         border: 1px solid hsl(210, 8%, 55%);
         background-color: var(--_bu-outlined-bg);
@@ -99,7 +99,7 @@ const UserDiv = styled.div`
 
 const Users = () => {
   const [selected, setSelected] = useState("New users");
-  // redux?
+
   const sortClick = (e) => {
     switch (e.target.value) {
       case "Reputation":
@@ -122,23 +122,6 @@ const Users = () => {
     }
   };
 
-  // 빈값으로 초기세팅
-  const [inputValue, setInputValue] = useState({
-    // title: '',
-    users: "",
-  });
-
-  //inputvalue 값 추출 -> input 의 value 속성에 추출한 값 할당
-  const { users } = inputValue;
-
-  const onChangeValue = (e) => {
-    setInputValue({
-      ...inputValue,
-      [e.target.name]: e.target.value,
-    });
-    console.log(inputValue);
-  };
-
   return (
     <UserDiv>
       <h1>Users</h1>
@@ -146,7 +129,6 @@ const Users = () => {
         <div className="flex--item ps-relative mb12">
           <input
             id="userfilter"
-            defaultValue={users}
             className="s-input s-input__search h100 js-tag-filter"
             autoComplete="off"
             name="users"
@@ -154,7 +136,6 @@ const Users = () => {
             maxLength="35"
             placeholder="Filter by user name"
             autoFocus=""
-            // onChange={onChangeValue}
           ></input>
           <svg
             aria-hidden="true"

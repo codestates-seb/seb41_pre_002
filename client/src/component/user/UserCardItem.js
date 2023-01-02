@@ -40,7 +40,6 @@ const UserCardItem = () => {
       .get(`/questions`, {})
       .then((response) => {
         setQuestionData(response.data.data);
-        // console.log(response.data.data); // data& pageinfo
       })
       .catch((error) => {
         console.log(error);
